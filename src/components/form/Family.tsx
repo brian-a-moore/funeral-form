@@ -1,0 +1,362 @@
+import { Delete } from '@mui/icons-material';
+import { Button, Grid } from '@mui/material';
+import {
+  Control,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
+import {
+  DEFAULT_CHILD,
+  DEFAULT_FRIEND,
+  DEFAULT_SIBLING,
+  FORM_FAMILY,
+} from '../../config/constants';
+import { stateMap } from '../../config/maps';
+import {
+  Child as ChildType,
+  FormFamily,
+  Friend as FriendType,
+  Sibling as SiblingType,
+} from '../../config/types';
+import { generateId } from '../../helpers/generate';
+import { Card, Form } from '../container';
+import { CheckboxInput, SelectInput, TextInput } from '../input';
+import { Navigation } from '../navigation';
+import { EmptyList, Header } from '../typography';
+
+type Props = {
+  activeStep: number;
+  prev: () => void;
+  next: () => void;
+};
+
+export default function Family({ activeStep, prev, next }: Props) {
+  const { control, handleSubmit } = useForm<FormFamily>({
+    defaultValues: FORM_FAMILY,
+  });
+
+  const {
+    fields: children,
+    append: appendChild,
+    remove: removeChild,
+  } = useFieldArray({
+    control,
+    name: 'children',
+    rules: {
+      maxLength: 10,
+    },
+  });
+
+  const {
+    fields: siblings,
+    append: appendSibling,
+    remove: removeSibling,
+  } = useFieldArray({
+    control,
+    name: 'siblings',
+    rules: {
+      maxLength: 10,
+    },
+  });
+
+  const {
+    fields: friends,
+    append: appendFriend,
+    remove: removeFriend,
+  } = useFieldArray({
+    control,
+    name: 'friends',
+    rules: {
+      maxLength: 10,
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormFamily> = data => {
+    console.log(data);
+    next();
+  };
+
+  const _addChild = () => appendChild({ id: generateId(), ...DEFAULT_CHILD });
+  const _removeChild = (index: number) => removeChild(index);
+
+  const _addSibling = () =>
+    appendSibling({ id: generateId(), ...DEFAULT_SIBLING });
+  const _removeSibling = (index: number) => removeSibling(index);
+
+  const _addFriend = () =>
+    appendFriend({ id: generateId(), ...DEFAULT_FRIEND });
+  const _removeFriend = (index: number) => removeFriend(index);
+
+  return (
+    <Form>
+      <Card>
+        <Grid container spacing="1rem">
+          <Header title="Spouse" />
+          <TextInput
+            name="spouse.firstName"
+            label="First Name"
+            control={control}
+          />
+          <TextInput
+            name="spouse.lastName"
+            label="Last Name"
+            control={control}
+          />
+          <TextInput
+            type="number"
+            name="spouse.numOfYears"
+            label="Years Together"
+            control={control}
+          />
+        </Grid>
+      </Card>
+      <Grid item xs={12} md={4}>
+        <Grid container spacing="1rem">
+          <Card>
+            <Header
+              title="Children"
+              disabled={children.length === 10}
+              addFn={_addChild}
+            />
+          </Card>
+          {children.length ? (
+            children.map((child, index) => (
+              <Child
+                indexNumber={index}
+                child={child}
+                removeChild={_removeChild}
+                control={control}
+              />
+            ))
+          ) : (
+            <EmptyList text="No children added" />
+          )}
+        </Grid>
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <Grid container spacing="1rem">
+          <Card>
+            <Header
+              title="Siblings"
+              disabled={siblings.length === 10}
+              addFn={_addSibling}
+            />
+          </Card>
+
+          {siblings.length ? (
+            siblings.map((sibling, index) => (
+              <Sibling
+                indexNumber={index}
+                sibling={sibling}
+                removeSibling={_removeSibling}
+                control={control}
+              />
+            ))
+          ) : (
+            <EmptyList text="No siblings added" />
+          )}
+        </Grid>
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <Grid container spacing="1rem">
+          <Card>
+            <Header
+              title="Close Friends"
+              disabled={friends.length === 10}
+              addFn={_addFriend}
+            />
+          </Card>
+          {friends.length ? (
+            friends.map((friend, index) => (
+              <Friend
+                indexNumber={index}
+                friend={friend}
+                removeFriend={_removeFriend}
+                control={control}
+              />
+            ))
+          ) : (
+            <EmptyList text="No friends added" />
+          )}
+        </Grid>
+      </Grid>
+      <Navigation
+        activeStep={activeStep}
+        prev={prev}
+        next={handleSubmit(onSubmit)}
+      />
+    </Form>
+  );
+}
+
+const Child = ({
+  indexNumber,
+  child,
+  removeChild,
+  control,
+}: {
+  indexNumber: number;
+  child: ChildType;
+  removeChild: (index: number) => void;
+  control: Control<FormFamily, unknown>;
+}) => {
+  return (
+    <Card key={child.id}>
+      <Grid container spacing="1rem">
+        <TextInput
+          name={`children.${indexNumber}.firstName`}
+          label="First Name"
+          control={control}
+          md={12}
+        />
+        <TextInput
+          name={`children.${indexNumber}.lastName`}
+          label="Last Name"
+          control={control}
+          md={12}
+        />
+        <TextInput
+          name={`children.${indexNumber}.spouseName`}
+          label="Spouse Name"
+          control={control}
+          md={12}
+        />
+        <TextInput
+          name={`children.${indexNumber}.city`}
+          label="City"
+          control={control}
+          md={12}
+        />
+        <SelectInput
+          name={`children.${indexNumber}.state`}
+          label="State"
+          options={stateMap}
+          control={control}
+          md={12}
+        />
+        <CheckboxInput
+          name={`children.${indexNumber}.isDeceased`}
+          label="Deceased"
+          control={control}
+          md={12}
+        />
+        <Grid item xs={12}>
+          <Button
+            fullWidth
+            color="error"
+            startIcon={<Delete />}
+            onClick={() => removeChild(indexNumber)}>
+            Remove Child
+          </Button>
+        </Grid>
+      </Grid>
+    </Card>
+  );
+};
+
+const Sibling = ({
+  indexNumber,
+  sibling,
+  removeSibling,
+  control,
+}: {
+  indexNumber: number;
+  sibling: SiblingType;
+  removeSibling: (index: number) => void;
+  control: Control<FormFamily, unknown>;
+}) => {
+  return (
+    <Card key={sibling.id}>
+      <Grid container spacing="1rem">
+        <TextInput
+          name={`siblings.${indexNumber}.firstName`}
+          label="First Name"
+          control={control}
+          md={12}
+        />
+        <TextInput
+          name={`siblings.${indexNumber}.lastName`}
+          label="Last Name"
+          control={control}
+          md={12}
+        />
+        <TextInput
+          name={`siblings.${indexNumber}.spouseName`}
+          label="Spouse Name"
+          control={control}
+          md={12}
+        />
+        <TextInput
+          name={`siblings.${indexNumber}.city`}
+          label="City"
+          control={control}
+          md={12}
+        />
+        <SelectInput
+          name={`siblings.${indexNumber}.state`}
+          label="State"
+          options={stateMap}
+          control={control}
+          md={12}
+        />
+        <CheckboxInput
+          name={`siblings.${indexNumber}.isDeceased`}
+          label="Deceased"
+          control={control}
+          md={12}
+        />
+        <Grid item xs={12}>
+          <Button
+            fullWidth
+            color="error"
+            startIcon={<Delete />}
+            onClick={() => removeSibling(indexNumber)}>
+            Remove Sibling
+          </Button>
+        </Grid>
+      </Grid>
+    </Card>
+  );
+};
+
+const Friend = ({
+  indexNumber,
+  friend,
+  removeFriend,
+  control,
+}: {
+  indexNumber: number;
+  friend: FriendType;
+  removeFriend: (index: number) => void;
+  control: Control<FormFamily, unknown>;
+}) => {
+  return (
+    <Card key={friend.id}>
+      <Grid container spacing="1rem">
+        <TextInput
+          name={`friends.${indexNumber}.firstName`}
+          label="First Name"
+          control={control}
+          md={12}
+        />
+
+        <TextInput
+          name={`friends.${indexNumber}.lastName`}
+          label="Last Name"
+          control={control}
+          md={12}
+        />
+        <Grid item xs={12}>
+          <Button
+            fullWidth
+            color="error"
+            startIcon={<Delete />}
+            onClick={() => removeFriend(indexNumber)}>
+            Remove Friend
+          </Button>
+        </Grid>
+      </Grid>
+    </Card>
+  );
+};
