@@ -11,7 +11,12 @@ import {
 import { DEFAULT_EMPLOYER, FORM_EMPLOYMENT } from '../../config/constants';
 import { stateMap } from '../../config/maps';
 import { employmentResolver } from '../../config/resolvers';
-import { Employer as EmployerType, FormEmployment } from '../../config/types';
+import {
+  Employer as EmployerType,
+  FormEmployment,
+  Forms,
+  MasterForm,
+} from '../../config/types';
 import { generateId } from '../../helpers/generate';
 import { Card, Form } from '../container';
 import { CheckboxInput, SelectInput, TextInput } from '../input';
@@ -21,7 +26,7 @@ import { EmptyList, Header } from '../typography';
 type Props = {
   activeStep: number;
   prev: () => void;
-  next: () => void;
+  next: (key: keyof MasterForm, data: Forms) => void;
 };
 
 export default function Employment({ activeStep, prev, next }: Props) {
@@ -47,8 +52,7 @@ export default function Employment({ activeStep, prev, next }: Props) {
   });
 
   const onSubmit: SubmitHandler<FormEmployment> = data => {
-    console.log(data);
-    next();
+    next('employment', data);
   };
 
   const _addEmployer = () => append({ id: generateId(), ...DEFAULT_EMPLOYER });

@@ -9,18 +9,18 @@ export type Child = {
   id: string;
   firstName: string;
   lastName: string;
-  spouseName?: string;
-  city?: string;
-  state?: State;
+  spouseName: string;
+  city: string;
+  state: State;
   isDeceased: boolean;
 };
 
 export type Employer = {
   id: string;
   name: string;
-  city?: string;
-  state?: State;
-  numOfYears?: number;
+  city: string;
+  state: State;
+  numOfYears: number;
   isRetired: boolean;
 };
 
@@ -33,23 +33,23 @@ export type Friend = {
 export type FormBio = {
   image: FormData | null;
   firstName: string;
-  middleName?: string;
+  middleName: string;
   lastName: string;
-  nickname?: string;
+  nickname: string;
   placeOfIncident: IncidentLocation;
-  other?: string;
+  other: string;
   dateOfBirth: string;
-  cityOfBirth?: string;
-  stateOfBirth?: State;
+  cityOfBirth: string;
+  stateOfBirth: State;
   dateOfDeath: string;
-  cityOfDeath?: string;
-  stateOfDeath?: State;
-  fatherFirstName?: string;
-  fatherLastName?: string;
-  fatherIsDeceased?: boolean;
-  motherFirstName?: string;
-  motherLastName?: string;
-  motherIsDeceased?: boolean;
+  cityOfDeath: string;
+  stateOfDeath: State;
+  fatherFirstName: string;
+  fatherLastName: string;
+  fatherIsDeceased: boolean;
+  motherFirstName: string;
+  motherLastName: string;
+  motherIsDeceased: boolean;
 };
 
 export type FormEducation = {
@@ -65,12 +65,12 @@ export type FormEducation = {
 
 export type FormEmployment = {
   employers: Employer[];
-  hobbies?: string;
-  additionalInfo?: string;
+  hobbies: string;
+  additionalInfo: string;
 };
 
 export type FormFamily = {
-  spouse?: {
+  spouse: {
     firstName: string;
     lastName: string;
     numOfYears: number;
@@ -94,7 +94,7 @@ export type FormService = {
   serviceLocationCity: string;
   serviceLocationState: State;
   serviceLocationMinisterName: string;
-  serviceLocationDayOfService: string;
+  serviceLocationDateOfService: string;
   serviceLocationTimeOfService: string;
   viewingLocationName: string;
   viewingLocationCity: string;
@@ -109,26 +109,43 @@ export type FormService = {
 export type Institution = {
   id: string;
   name: string;
-  city?: string;
-  state?: State;
-  major?: string;
-  degree?: EducationLevel;
-  graduationYear?: number;
+  city: string;
+  state: State;
+  major: string;
+  degree: EducationLevel;
+  graduationYear: number;
 };
+
+export type MasterForm = {
+  bio: FormBio;
+  education: FormEducation;
+  employment: FormEmployment;
+  family: FormFamily;
+  info: FormInfo;
+  service: FormService;
+};
+
+export type Forms =
+  | FormBio
+  | FormEducation
+  | FormEmployment
+  | FormFamily
+  | FormInfo
+  | FormService;
 
 export type Organization = {
   id: string;
   name: string;
-  position?: string;
-  numOfYears?: number;
+  position: string;
+  numOfYears: number;
 };
 
 export type Sibling = {
   id: string;
   firstName: string;
   lastName: string;
-  spouseName?: string;
-  city?: string;
-  state?: State;
+  spouseName: string;
+  city: string;
+  state: State;
   isDeceased: boolean;
 };

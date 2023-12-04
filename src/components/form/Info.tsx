@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { FORM_INFO } from '../../config/constants';
 import { stateMap } from '../../config/maps';
 import { infoResolver } from '../../config/resolvers';
-import { FormInfo } from '../../config/types';
+import { FormInfo, Forms, MasterForm } from '../../config/types';
 import { Card, Form } from '../container';
 import { SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
@@ -13,7 +13,7 @@ import { Header } from '../typography';
 type Props = {
   activeStep: number;
   prev: () => void;
-  next: () => void;
+  next: (key: keyof MasterForm, data: Forms) => void;
 };
 
 export default function Info({ activeStep, prev, next }: Props) {
@@ -27,8 +27,7 @@ export default function Info({ activeStep, prev, next }: Props) {
   });
 
   const onSubmit: SubmitHandler<FormInfo> = data => {
-    console.log(data);
-    next();
+    next('info', data);
   };
 
   return (

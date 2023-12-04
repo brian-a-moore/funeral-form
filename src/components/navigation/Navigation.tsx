@@ -6,10 +6,8 @@ type Props = {
   activeStep: number;
   disabled: boolean;
   prev: () => void;
-  next: (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    e?: React.BaseSyntheticEvent<object, any, any> | undefined,
-  ) => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  next: any; // TODO: Figure this out later
 };
 export default function Navigation({
   activeStep,

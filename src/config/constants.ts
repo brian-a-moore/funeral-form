@@ -15,9 +15,12 @@ import {
   FormService,
   Friend,
   Institution,
+  MasterForm,
   Organization,
   Sibling,
 } from './types';
+
+const DEFAULT_DATE = new Date().toISOString().split('T')[0];
 
 export const DEFAULT_CHILD: Omit<Child, 'id'> = {
   firstName: '',
@@ -65,7 +68,7 @@ export const DEFAULT_SIBLING: Omit<Sibling, 'id'> = {
   isDeceased: false,
 };
 
-export const FORM_BIO: Partial<FormBio> = {
+export const FORM_BIO: FormBio = {
   image: null,
   firstName: '',
   middleName: '',
@@ -73,10 +76,10 @@ export const FORM_BIO: Partial<FormBio> = {
   nickname: '',
   placeOfIncident: IncidentLocation.NONE,
   other: '',
-  dateOfBirth: new Date().toISOString().split('T')[0],
+  dateOfBirth: DEFAULT_DATE,
   cityOfBirth: '',
   stateOfBirth: State.NONE,
-  dateOfDeath: new Date().toISOString().split('T')[0],
+  dateOfDeath: DEFAULT_DATE,
   cityOfDeath: '',
   stateOfDeath: State.NONE,
   fatherFirstName: '',
@@ -87,7 +90,7 @@ export const FORM_BIO: Partial<FormBio> = {
   motherIsDeceased: false,
 };
 
-export const FORM_EDUCATION: Partial<FormEducation> = {
+export const FORM_EDUCATION: FormEducation = {
   institutions: [],
   organizations: [],
   militaryService: {
@@ -98,13 +101,13 @@ export const FORM_EDUCATION: Partial<FormEducation> = {
   },
 };
 
-export const FORM_EMPLOYMENT: Partial<FormEmployment> = {
+export const FORM_EMPLOYMENT: FormEmployment = {
   employers: [],
   hobbies: '',
   additionalInfo: '',
 };
 
-export const FORM_FAMILY: Partial<FormFamily> = {
+export const FORM_FAMILY: FormFamily = {
   spouse: {
     firstName: '',
     lastName: '',
@@ -115,7 +118,7 @@ export const FORM_FAMILY: Partial<FormFamily> = {
   friends: [],
 };
 
-export const FORM_INFO: Partial<FormInfo> = {
+export const FORM_INFO: FormInfo = {
   firstName: '',
   lastName: '',
   email: '',
@@ -124,18 +127,18 @@ export const FORM_INFO: Partial<FormInfo> = {
   state: State.NONE,
 };
 
-export const FORM_SERVICE: Partial<FormService> = {
+export const FORM_SERVICE: FormService = {
   serviceLocationName: '',
   serviceLocationCity: '',
   serviceLocationState: State.NONE,
   serviceLocationMinisterName: '',
-  serviceLocationDayOfService: '',
-  serviceLocationTimeOfService: '',
+  serviceLocationDateOfService: DEFAULT_DATE,
+  serviceLocationTimeOfService: '08:00',
   viewingLocationName: '',
   viewingLocationCity: '',
   viewingLocationState: State.NONE,
-  viewingLocationStartTime: '',
-  viewingLocationEndTime: '',
+  viewingLocationStartTime: '08:00',
+  viewingLocationEndTime: '08:00',
   repassLocationName: '',
   repassLocationCity: '',
   repassLocationState: State.NONE,
@@ -149,3 +152,12 @@ export const FORM_STEPS = [
   'Employment',
   'Service',
 ];
+
+export const MASTER_FORM: MasterForm = {
+  bio: FORM_BIO,
+  education: FORM_EDUCATION,
+  employment: FORM_EMPLOYMENT,
+  family: FORM_FAMILY,
+  info: FORM_INFO,
+  service: FORM_SERVICE,
+};

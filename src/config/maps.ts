@@ -87,3 +87,20 @@ export const stateMap = new Map([
   [State.WISCONSIN, 'Wisconsin'],
   [State.WYOMING, 'Wyoming'],
 ]);
+
+export const timeMap = new Map();
+
+for (let hour = 0; hour < 24; hour++) {
+  for (const minute of [0, 30]) {
+    const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+    const ampm = hour < 12 ? 'AM' : 'PM';
+
+    const key = `${String(hour).padStart(2, '0')}:${String(minute).padStart(
+      2,
+      '0',
+    )}`;
+    const value = `${formattedHour}:${String(minute).padStart(2, '0')} ${ampm}`;
+
+    timeMap.set(key, value);
+  }
+}

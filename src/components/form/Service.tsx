@@ -2,9 +2,9 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { Grid } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FORM_SERVICE } from '../../config/constants';
-import { stateMap } from '../../config/maps';
+import { stateMap, timeMap } from '../../config/maps';
 import { serviceResolver } from '../../config/resolvers';
-import { FormService } from '../../config/types';
+import { FormService, Forms, MasterForm } from '../../config/types';
 import { Card, Form } from '../container';
 import { SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
@@ -13,7 +13,7 @@ import { Header } from '../typography';
 type Props = {
   activeStep: number;
   prev: () => void;
-  next: () => void;
+  next: (key: keyof MasterForm, data: Forms) => void;
 };
 
 export default function Service({ activeStep, prev, next }: Props) {
@@ -27,8 +27,7 @@ export default function Service({ activeStep, prev, next }: Props) {
   });
 
   const onSubmit: SubmitHandler<FormService> = data => {
-    console.log(data);
-    next();
+    next('service', data);
   };
 
   return (
@@ -62,15 +61,17 @@ export default function Service({ activeStep, prev, next }: Props) {
             invalidText={errors.serviceLocationMinisterName?.message}
           />
           <TextInput
-            name="serviceLocationDayOfService"
-            label="Day of Service"
+            type="date"
+            name="serviceLocationDateOfService"
+            label="Date of Service"
             control={control}
-            invalidText={errors.serviceLocationDayOfService?.message}
+            invalidText={errors.serviceLocationDateOfService?.message}
           />
-          <TextInput
+          <SelectInput
             name="serviceLocationTimeOfService"
             label="Time of Service"
             control={control}
+            options={timeMap}
             invalidText={errors.serviceLocationTimeOfService?.message}
           />
         </Grid>
@@ -97,16 +98,18 @@ export default function Service({ activeStep, prev, next }: Props) {
             options={stateMap}
             invalidText={errors.viewingLocationState?.message}
           />
-          <TextInput
+          <SelectInput
             name="viewingLocationStartTime"
             label="Start Time"
             control={control}
+            options={timeMap}
             invalidText={errors.viewingLocationStartTime?.message}
           />
-          <TextInput
+          <SelectInput
             name="viewingLocationEndTime"
             label="End Time"
             control={control}
+            options={timeMap}
             invalidText={errors.viewingLocationEndTime?.message}
           />
         </Grid>

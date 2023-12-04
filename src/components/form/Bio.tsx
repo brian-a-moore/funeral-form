@@ -5,7 +5,7 @@ import { FORM_BIO } from '../../config/constants';
 import { IncidentLocation } from '../../config/enums';
 import { incidentLocationMap, stateMap } from '../../config/maps';
 import { bioResolver } from '../../config/resolvers';
-import { FormBio } from '../../config/types';
+import { FormBio, Forms, MasterForm } from '../../config/types';
 import { Card, Form } from '../container';
 import { CheckboxInput, ImageUpload, SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
@@ -14,7 +14,7 @@ import { Header } from '../typography';
 type Props = {
   activeStep: number;
   prev: () => void;
-  next: () => void;
+  next: (key: keyof MasterForm, data: Forms) => void;
 };
 
 export default function Bio({ activeStep, prev, next }: Props) {
@@ -34,8 +34,7 @@ export default function Bio({ activeStep, prev, next }: Props) {
   };
 
   const onSubmit: SubmitHandler<FormBio> = data => {
-    console.log(data);
-    next();
+    next('bio', data);
   };
 
   const isOtherDisabled = watch('placeOfIncident') !== IncidentLocation.OTHER;

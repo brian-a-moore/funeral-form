@@ -21,7 +21,9 @@ import {
 import { educationResolver } from '../../config/resolvers';
 import {
   FormEducation,
+  Forms,
   Institution as InstitutionType,
+  MasterForm,
   Organization as OrganizationType,
 } from '../../config/types';
 import { generateId } from '../../helpers/generate';
@@ -33,7 +35,7 @@ import { EmptyList, Header } from '../typography';
 type Props = {
   activeStep: number;
   prev: () => void;
-  next: () => void;
+  next: (key: keyof MasterForm, data: Forms) => void;
 };
 
 export default function Education({ activeStep, prev, next }: Props) {
@@ -71,8 +73,7 @@ export default function Education({ activeStep, prev, next }: Props) {
   });
 
   const onSubmit: SubmitHandler<FormEducation> = data => {
-    console.log(data);
-    next();
+    next('education', data);
   };
 
   const _addInstitution = () =>

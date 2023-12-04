@@ -7,57 +7,58 @@ import {
   STATE,
   STATE_OPTIONAL,
   STRING,
+  STRING_OPTIONAL,
   YEAR,
 } from './constants';
 
 export const childItem = Joi.object({
   id: ID,
-  firstName: STRING,
-  lastName: STRING,
-  spouseName: STRING.allow(''),
-  city: STRING.allow(''),
+  firstName: STRING('First Name'),
+  lastName: STRING('Last Name'),
+  spouseName: STRING_OPTIONAL('Spouse Name'),
+  city: STRING_OPTIONAL('City'),
   state: STATE_OPTIONAL,
   isDeceased: BOOL,
 }).options({ stripUnknown: true });
 
 export const employerItem = Joi.object({
   id: ID,
-  name: STRING,
-  city: STRING.allow(''),
+  name: STRING('Name'),
+  city: STRING_OPTIONAL('City'),
   state: STATE_OPTIONAL,
-  numOfYears: NUM_OF_YRS,
+  numOfYears: NUM_OF_YRS('Years Worked'),
   isRetired: BOOL,
 }).options({ stripUnknown: true });
 
 export const friendItem = Joi.object({
   id: ID,
-  firstName: STRING,
-  lastName: STRING,
+  firstName: STRING('First Name'),
+  lastName: STRING('Last Name'),
 }).options({ stripUnknown: true });
 
 export const institutionItem = Joi.object({
   id: ID,
-  name: STRING,
-  city: STRING.allow(''),
+  name: STRING('Name'),
+  city: STRING_OPTIONAL('City'),
   state: STATE,
-  major: STRING.allow(''),
-  degree: EDUCATION_LEVEL,
-  graduationYear: YEAR,
+  major: STRING_OPTIONAL('Major'),
+  degree: EDUCATION_LEVEL('Degree'),
+  graduationYear: YEAR('Graduation Year'),
 }).options({ stripUnknown: true });
 
 export const organizationItem = Joi.object({
   id: ID,
-  name: STRING,
-  position: STRING.allow(''),
-  numOfYears: NUM_OF_YRS,
+  name: STRING('Name'),
+  position: STRING_OPTIONAL('Position'),
+  numOfYears: NUM_OF_YRS('Years Worked'),
 }).options({ stripUnknown: true });
 
 export const siblingItem = Joi.object({
   id: ID,
-  firstName: STRING,
-  lastName: STRING,
-  spouseName: STRING.allow(''),
-  city: STRING.allow(''),
+  firstName: STRING('First Name'),
+  lastName: STRING('Last Name'),
+  spouseName: STRING_OPTIONAL('Spouse Name'),
+  city: STRING('City'),
   state: STATE_OPTIONAL,
   isDeceased: BOOL,
 }).options({ stripUnknown: true });

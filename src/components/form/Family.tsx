@@ -19,7 +19,9 @@ import { familyResolver } from '../../config/resolvers';
 import {
   Child as ChildType,
   FormFamily,
+  Forms,
   Friend as FriendType,
+  MasterForm,
   Sibling as SiblingType,
 } from '../../config/types';
 import { generateId } from '../../helpers/generate';
@@ -31,7 +33,7 @@ import { EmptyList, Header } from '../typography';
 type Props = {
   activeStep: number;
   prev: () => void;
-  next: () => void;
+  next: (key: keyof MasterForm, data: Forms) => void;
 };
 
 export default function Family({ activeStep, prev, next }: Props) {
@@ -81,8 +83,7 @@ export default function Family({ activeStep, prev, next }: Props) {
   });
 
   const onSubmit: SubmitHandler<FormFamily> = data => {
-    console.log(data);
-    next();
+    next('family', data);
   };
 
   const _addChild = () => appendChild({ id: generateId(), ...DEFAULT_CHILD });

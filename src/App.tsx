@@ -10,15 +10,21 @@ import {
   Service,
 } from './components/form';
 import { Stepper } from './components/navigation';
-import { FORM_STEPS } from './config/constants';
+import { FORM_STEPS, MASTER_FORM } from './config/constants';
+import { Forms, MasterForm } from './config/types';
 
 function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
+  const [masterForm, setMasterForm] = useState<MasterForm>(MASTER_FORM);
 
-  const _nextStep = () =>
+  console.log({ masterForm });
+
+  const _nextStep = (key: keyof MasterForm, data: Forms) => {
+    setMasterForm(prevState => ({ ...prevState, [key]: data }));
     setActiveStep(currentStep =>
       currentStep < FORM_STEPS.length - 1 ? currentStep + 1 : currentStep,
     );
+  };
   const _prevStep = () =>
     setActiveStep(currentStep => (currentStep === 0 ? 0 : currentStep - 1));
 
