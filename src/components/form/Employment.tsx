@@ -3,6 +3,7 @@ import { Delete } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import {
   Control,
+  FieldErrors,
   SubmitHandler,
   useFieldArray,
   useForm,
@@ -24,7 +25,11 @@ type Props = {
 };
 
 export default function Employment({ activeStep, prev, next }: Props) {
-  const { control, handleSubmit } = useForm<FormEmployment>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormEmployment>({
     defaultValues: FORM_EMPLOYMENT,
     resolver: joiResolver(employmentResolver),
   });
@@ -63,10 +68,12 @@ export default function Employment({ activeStep, prev, next }: Props) {
           {employers.length ? (
             employers.map((employer, index) => (
               <Employer
+                key={index}
                 indexNumber={index}
                 employer={employer}
                 removeEmployer={_removeEmployer}
                 control={control}
+                errors={errors}
               />
             ))
           ) : (
@@ -81,6 +88,7 @@ export default function Employment({ activeStep, prev, next }: Props) {
             name="hobbies"
             label="Hobbies"
             control={control}
+            invalidText={errors.hobbies?.message}
             multiline
             maxRows={10}
             md={6}
@@ -89,6 +97,7 @@ export default function Employment({ activeStep, prev, next }: Props) {
             name="additionalInfo"
             label="Additional Information"
             control={control}
+            invalidText={errors.additionalInfo?.message}
             multiline
             maxRows={10}
             md={6}
@@ -97,6 +106,7 @@ export default function Employment({ activeStep, prev, next }: Props) {
       </Card>
       <Navigation
         activeStep={activeStep}
+        disabled={isSubmitting}
         prev={prev}
         next={handleSubmit(onSubmit)}
       />
@@ -109,11 +119,13 @@ const Employer = ({
   indexNumber,
   employer,
   removeEmployer,
+  errors,
 }: {
   control: Control<FormEmployment, unknown>;
   indexNumber: number;
   employer: EmployerType;
   removeEmployer: (index: number) => void;
+  errors: FieldErrors<FormEmployment>;
 }) => {
   return (
     <Card key={employer.id}>
@@ -122,12 +134,18 @@ const Employer = ({
           name={`employers.${indexNumber}.name`}
           label="Company Name"
           control={control}
+          invalidText={
+            errors.employers && errors.employers[indexNumber]?.name?.message
+          }
           xs={6}
         />
         <TextInput
           name={`employers.${indexNumber}.city`}
           label="City"
           control={control}
+          invalidText={
+            errors.employers && errors.employers[indexNumber]?.city?.message
+          }
           xs={6}
         />
         <SelectInput
@@ -135,6 +153,9 @@ const Employer = ({
           label="State"
           options={stateMap}
           control={control}
+          invalidText={
+            errors.employers && errors.employers[indexNumber]?.state?.message
+          }
           xs={4}
           md={4}
         />
@@ -143,6 +164,10 @@ const Employer = ({
           name={`employers.${indexNumber}.numOfYears`}
           label="Years worked"
           control={control}
+          invalidText={
+            errors.employers &&
+            errors.employers[indexNumber]?.numOfYears?.message
+          }
           xs={4}
           md={4}
         />

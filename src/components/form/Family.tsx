@@ -3,6 +3,7 @@ import { Delete } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import {
   Control,
+  FieldErrors,
   SubmitHandler,
   useFieldArray,
   useForm,
@@ -34,7 +35,11 @@ type Props = {
 };
 
 export default function Family({ activeStep, prev, next }: Props) {
-  const { control, handleSubmit } = useForm<FormFamily>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormFamily>({
     defaultValues: FORM_FAMILY,
     resolver: joiResolver(familyResolver),
   });
@@ -100,17 +105,20 @@ export default function Family({ activeStep, prev, next }: Props) {
             name="spouse.firstName"
             label="First Name"
             control={control}
+            invalidText={errors.spouse?.firstName?.message}
           />
           <TextInput
             name="spouse.lastName"
             label="Last Name"
             control={control}
+            invalidText={errors.spouse?.lastName?.message}
           />
           <TextInput
             type="number"
             name="spouse.numOfYears"
             label="Years Together"
             control={control}
+            invalidText={errors.spouse?.numOfYears?.message}
           />
         </Grid>
       </Card>
@@ -126,10 +134,12 @@ export default function Family({ activeStep, prev, next }: Props) {
           {children.length ? (
             children.map((child, index) => (
               <Child
+                key={index}
                 indexNumber={index}
                 child={child}
                 removeChild={_removeChild}
                 control={control}
+                errors={errors}
               />
             ))
           ) : (
@@ -150,10 +160,12 @@ export default function Family({ activeStep, prev, next }: Props) {
           {siblings.length ? (
             siblings.map((sibling, index) => (
               <Sibling
+                key={index}
                 indexNumber={index}
                 sibling={sibling}
                 removeSibling={_removeSibling}
                 control={control}
+                errors={errors}
               />
             ))
           ) : (
@@ -173,10 +185,12 @@ export default function Family({ activeStep, prev, next }: Props) {
           {friends.length ? (
             friends.map((friend, index) => (
               <Friend
+                key={index}
                 indexNumber={index}
                 friend={friend}
                 removeFriend={_removeFriend}
                 control={control}
+                errors={errors}
               />
             ))
           ) : (
@@ -186,6 +200,7 @@ export default function Family({ activeStep, prev, next }: Props) {
       </Grid>
       <Navigation
         activeStep={activeStep}
+        disabled={isSubmitting}
         prev={prev}
         next={handleSubmit(onSubmit)}
       />
@@ -198,11 +213,13 @@ const Child = ({
   child,
   removeChild,
   control,
+  errors,
 }: {
   indexNumber: number;
   child: ChildType;
   removeChild: (index: number) => void;
   control: Control<FormFamily, unknown>;
+  errors: FieldErrors<FormFamily>;
 }) => {
   return (
     <Card key={child.id}>
@@ -211,24 +228,36 @@ const Child = ({
           name={`children.${indexNumber}.firstName`}
           label="First Name"
           control={control}
+          invalidText={
+            errors.children && errors.children[indexNumber]?.firstName?.message
+          }
           md={12}
         />
         <TextInput
           name={`children.${indexNumber}.lastName`}
           label="Last Name"
           control={control}
+          invalidText={
+            errors.children && errors.children[indexNumber]?.lastName?.message
+          }
           md={12}
         />
         <TextInput
           name={`children.${indexNumber}.spouseName`}
           label="Spouse Name"
           control={control}
+          invalidText={
+            errors.children && errors.children[indexNumber]?.spouseName?.message
+          }
           md={12}
         />
         <TextInput
           name={`children.${indexNumber}.city`}
           label="City"
           control={control}
+          invalidText={
+            errors.children && errors.children[indexNumber]?.city?.message
+          }
           md={12}
         />
         <SelectInput
@@ -236,6 +265,9 @@ const Child = ({
           label="State"
           options={stateMap}
           control={control}
+          invalidText={
+            errors.children && errors.children[indexNumber]?.state?.message
+          }
           md={12}
         />
         <CheckboxInput
@@ -263,11 +295,13 @@ const Sibling = ({
   sibling,
   removeSibling,
   control,
+  errors,
 }: {
   indexNumber: number;
   sibling: SiblingType;
   removeSibling: (index: number) => void;
   control: Control<FormFamily, unknown>;
+  errors: FieldErrors<FormFamily>;
 }) => {
   return (
     <Card key={sibling.id}>
@@ -276,24 +310,36 @@ const Sibling = ({
           name={`siblings.${indexNumber}.firstName`}
           label="First Name"
           control={control}
+          invalidText={
+            errors.siblings && errors.siblings[indexNumber]?.firstName?.message
+          }
           md={12}
         />
         <TextInput
           name={`siblings.${indexNumber}.lastName`}
           label="Last Name"
           control={control}
+          invalidText={
+            errors.siblings && errors.siblings[indexNumber]?.lastName?.message
+          }
           md={12}
         />
         <TextInput
           name={`siblings.${indexNumber}.spouseName`}
           label="Spouse Name"
           control={control}
+          invalidText={
+            errors.siblings && errors.siblings[indexNumber]?.spouseName?.message
+          }
           md={12}
         />
         <TextInput
           name={`siblings.${indexNumber}.city`}
           label="City"
           control={control}
+          invalidText={
+            errors.siblings && errors.siblings[indexNumber]?.city?.message
+          }
           md={12}
         />
         <SelectInput
@@ -301,6 +347,9 @@ const Sibling = ({
           label="State"
           options={stateMap}
           control={control}
+          invalidText={
+            errors.siblings && errors.siblings[indexNumber]?.state?.message
+          }
           md={12}
         />
         <CheckboxInput
@@ -328,11 +377,13 @@ const Friend = ({
   friend,
   removeFriend,
   control,
+  errors,
 }: {
   indexNumber: number;
   friend: FriendType;
   removeFriend: (index: number) => void;
   control: Control<FormFamily, unknown>;
+  errors: FieldErrors<FormFamily>;
 }) => {
   return (
     <Card key={friend.id}>
@@ -341,6 +392,9 @@ const Friend = ({
           name={`friends.${indexNumber}.firstName`}
           label="First Name"
           control={control}
+          invalidText={
+            errors.friends && errors.friends[indexNumber]?.firstName?.message
+          }
           md={12}
         />
 
@@ -348,6 +402,9 @@ const Friend = ({
           name={`friends.${indexNumber}.lastName`}
           label="Last Name"
           control={control}
+          invalidText={
+            errors.friends && errors.friends[indexNumber]?.lastName?.message
+          }
           md={12}
         />
         <Grid item xs={12}>

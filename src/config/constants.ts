@@ -47,7 +47,7 @@ export const DEFAULT_INSTITUTION: Omit<Institution, 'id'> = {
   state: State.NONE,
   major: '',
   degree: EducationLevel.NONE,
-  graduationYear: 0,
+  graduationYear: 1999,
 };
 
 export const DEFAULT_ORGANIZATION: Omit<Organization, 'id'> = {
@@ -105,7 +105,11 @@ export const FORM_EMPLOYMENT: Partial<FormEmployment> = {
 };
 
 export const FORM_FAMILY: Partial<FormFamily> = {
-  spouse: undefined,
+  spouse: {
+    firstName: '',
+    lastName: '',
+    numOfYears: 0,
+  },
   children: [],
   siblings: [],
   friends: [],

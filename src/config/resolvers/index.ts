@@ -29,7 +29,7 @@ export const bioResolver = Joi.object({
   other: Joi.when('placeOfIncident', {
     is: IncidentLocation.OTHER,
     then: STRING,
-    otherwise: STRING.valid(''),
+    otherwise: STRING.allow(''),
   }),
   dateOfBirth: DATE,
   cityOfBirth: STRING.allow(''),
@@ -95,7 +95,7 @@ export const serviceResolver = Joi.object({
   serviceLocationCity: STRING,
   serviceLocationState: STATE,
   serviceLocationMinisterName: STRING,
-  serviceLocationDayOfService: STATE,
+  serviceLocationDayOfService: STRING,
   serviceLocationTimeOfService: STRING,
   viewingLocationName: STRING,
   viewingLocationCity: STRING,

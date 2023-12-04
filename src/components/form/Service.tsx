@@ -17,7 +17,11 @@ type Props = {
 };
 
 export default function Service({ activeStep, prev, next }: Props) {
-  const { control, handleSubmit } = useForm<FormService>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormService>({
     defaultValues: FORM_SERVICE,
     resolver: joiResolver(serviceResolver),
   });
@@ -36,32 +40,38 @@ export default function Service({ activeStep, prev, next }: Props) {
             name="serviceLocationName"
             label="Church/Funeral Home"
             control={control}
+            invalidText={errors.serviceLocationName?.message}
           />
           <TextInput
             name="serviceLocationCity"
             label="City"
             control={control}
+            invalidText={errors.serviceLocationCity?.message}
           />
           <SelectInput
             name="serviceLocationState"
             label="State"
             options={stateMap}
             control={control}
+            invalidText={errors.serviceLocationState?.message}
           />
           <TextInput
             name="serviceLocationMinisterName"
             label="Minister's Name"
             control={control}
+            invalidText={errors.serviceLocationMinisterName?.message}
           />
           <TextInput
             name="serviceLocationDayOfService"
             label="Day of Service"
             control={control}
+            invalidText={errors.serviceLocationDayOfService?.message}
           />
           <TextInput
             name="serviceLocationTimeOfService"
             label="Time of Service"
             control={control}
+            invalidText={errors.serviceLocationTimeOfService?.message}
           />
         </Grid>
       </Card>
@@ -72,27 +82,32 @@ export default function Service({ activeStep, prev, next }: Props) {
             name="viewingLocationName"
             label="Church/Funeral Home"
             control={control}
+            invalidText={errors.viewingLocationName?.message}
           />
           <TextInput
             name="viewingLocationCity"
             label="City"
             control={control}
+            invalidText={errors.viewingLocationCity?.message}
           />
           <SelectInput
             name="viewingLocationState"
             label="State"
             control={control}
             options={stateMap}
+            invalidText={errors.viewingLocationState?.message}
           />
           <TextInput
             name="viewingLocationStartTime"
             label="Start Time"
             control={control}
+            invalidText={errors.viewingLocationStartTime?.message}
           />
           <TextInput
             name="viewingLocationEndTime"
             label="End Time"
             control={control}
+            invalidText={errors.viewingLocationEndTime?.message}
           />
         </Grid>
       </Card>
@@ -103,18 +118,26 @@ export default function Service({ activeStep, prev, next }: Props) {
             name="repassLocationName"
             label="Church/Funeral Home"
             control={control}
+            invalidText={errors.repassLocationName?.message}
           />
-          <TextInput name="repassLocationCity" label="City" control={control} />
+          <TextInput
+            name="repassLocationCity"
+            label="City"
+            control={control}
+            invalidText={errors.repassLocationCity?.message}
+          />
           <SelectInput
             name="repassLocationState"
             label="State"
             control={control}
             options={stateMap}
+            invalidText={errors.repassLocationState?.message}
           />
         </Grid>
       </Card>
       <Navigation
         activeStep={activeStep}
+        disabled={isSubmitting}
         prev={prev}
         next={handleSubmit(onSubmit)}
       />

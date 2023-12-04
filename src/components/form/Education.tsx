@@ -3,6 +3,7 @@ import { Delete } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import {
   Control,
+  FieldErrors,
   SubmitHandler,
   useFieldArray,
   useForm,
@@ -36,7 +37,11 @@ type Props = {
 };
 
 export default function Education({ activeStep, prev, next }: Props) {
-  const { control, handleSubmit } = useForm<FormEducation>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormEducation>({
     defaultValues: FORM_EDUCATION,
     resolver: joiResolver(educationResolver),
   });
@@ -92,10 +97,12 @@ export default function Education({ activeStep, prev, next }: Props) {
           {institutions.length ? (
             institutions.map((institution, index) => (
               <Institution
+                key={index}
                 indexNumber={index}
                 institution={institution}
                 removeInstitution={_removeInstitution}
                 control={control}
+                errors={errors}
               />
             ))
           ) : (
@@ -115,10 +122,12 @@ export default function Education({ activeStep, prev, next }: Props) {
           {organizations.length ? (
             organizations.map((organization, index) => (
               <Organization
+                key={index}
                 indexNumber={index}
                 organization={organization}
                 removeOrganization={_removeOrganization}
                 control={control}
+                errors={errors}
               />
             ))
           ) : (
@@ -135,11 +144,13 @@ export default function Education({ activeStep, prev, next }: Props) {
             options={militaryBranchMap}
             md={3}
             control={control}
+            invalidText={errors.militaryService?.branch?.message}
           />
           <TextInput
             name="militaryService.position"
             label="Position"
             control={control}
+            invalidText={errors.militaryService?.position?.message}
           />
           <TextInput
             name="militaryService.numOfYears"
@@ -147,6 +158,7 @@ export default function Education({ activeStep, prev, next }: Props) {
             label="Years of Service"
             md={3}
             control={control}
+            invalidText={errors.militaryService?.numOfYears?.message}
           />
           <CheckboxInput
             name="militaryService.isRetired"
@@ -158,6 +170,7 @@ export default function Education({ activeStep, prev, next }: Props) {
       </Card>
       <Navigation
         activeStep={activeStep}
+        disabled={isSubmitting}
         prev={prev}
         next={handleSubmit(onSubmit)}
       />
@@ -170,11 +183,13 @@ const Institution = ({
   institution,
   removeInstitution,
   control,
+  errors,
 }: {
   indexNumber: number;
   institution: InstitutionType;
   removeInstitution: (index: number) => void;
   control: Control<FormEducation, unknown>;
+  errors: FieldErrors<FormEducation>;
 }) => {
   return (
     <Card key={institution.id}>
@@ -183,12 +198,21 @@ const Institution = ({
           name={`institutions.${indexNumber}.name`}
           label="Institution Name"
           control={control}
+          invalidText={
+            errors.institutions &&
+            errors.institutions[indexNumber]?.name?.message
+          }
           md={12}
         />
+
         <TextInput
           name={`institutions.${indexNumber}.city`}
           label="City"
           control={control}
+          invalidText={
+            errors.institutions &&
+            errors.institutions[indexNumber]?.city?.message
+          }
           md={12}
         />
         <SelectInput
@@ -196,6 +220,10 @@ const Institution = ({
           label="State"
           options={stateMap}
           control={control}
+          invalidText={
+            errors.institutions &&
+            errors.institutions[indexNumber]?.state?.message
+          }
           xs={6}
           md={6}
         />
@@ -203,6 +231,10 @@ const Institution = ({
           name={`institutions.${indexNumber}.major`}
           label="Major"
           control={control}
+          invalidText={
+            errors.institutions &&
+            errors.institutions[indexNumber]?.major?.message
+          }
           xs={6}
           md={6}
         />
@@ -211,6 +243,10 @@ const Institution = ({
           label="Degree"
           options={educationLevelMap}
           control={control}
+          invalidText={
+            errors.institutions &&
+            errors.institutions[indexNumber]?.degree?.message
+          }
           xs={6}
           md={6}
         />
@@ -219,6 +255,10 @@ const Institution = ({
           name={`institutions.${indexNumber}.graduationYear`}
           label="Graduation Year"
           control={control}
+          invalidText={
+            errors.institutions &&
+            errors.institutions[indexNumber]?.graduationYear?.message
+          }
           xs={6}
           md={6}
         />
@@ -241,11 +281,13 @@ const Organization = ({
   organization,
   removeOrganization,
   control,
+  errors,
 }: {
   indexNumber: number;
   organization: OrganizationType;
   removeOrganization: (index: number) => void;
   control: Control<FormEducation, unknown>;
+  errors: FieldErrors<FormEducation>;
 }) => {
   return (
     <Card key={organization.id}>
@@ -253,12 +295,20 @@ const Organization = ({
         name={`organizations.${indexNumber}.name`}
         label="Organization Name"
         control={control}
+        invalidText={
+          errors.organizations &&
+          errors.organizations[indexNumber]?.name?.message
+        }
         md={12}
       />
       <TextInput
         name={`organizations.${indexNumber}.position`}
         label="Position"
         control={control}
+        invalidText={
+          errors.organizations &&
+          errors.organizations[indexNumber]?.position?.message
+        }
         md={12}
       />
       <TextInput
@@ -266,6 +316,10 @@ const Organization = ({
         name={`organizations.${indexNumber}.numOfYears`}
         label="Years Active"
         control={control}
+        invalidText={
+          errors.organizations &&
+          errors.organizations[indexNumber]?.numOfYears?.message
+        }
         md={12}
       />
       <Grid item xs={12}>
