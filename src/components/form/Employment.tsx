@@ -8,7 +8,7 @@ import {
   useFieldArray,
   useForm,
 } from 'react-hook-form';
-import { DEFAULT_EMPLOYER, FORM_EMPLOYMENT } from '../../config/constants';
+import { DEFAULT_EMPLOYER } from '../../config/constants';
 import { stateMap } from '../../config/maps';
 import { employmentResolver } from '../../config/resolvers';
 import {
@@ -25,17 +25,23 @@ import { EmptyList, Header } from '../typography';
 
 type Props = {
   activeStep: number;
+  defaultValues: FormEmployment;
   prev: () => void;
   next: (key: keyof MasterForm, data: Forms) => void;
 };
 
-export default function Employment({ activeStep, prev, next }: Props) {
+export default function Employment({
+  activeStep,
+  defaultValues,
+  prev,
+  next,
+}: Props) {
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormEmployment>({
-    defaultValues: FORM_EMPLOYMENT,
+    defaultValues,
     resolver: joiResolver(employmentResolver),
   });
 

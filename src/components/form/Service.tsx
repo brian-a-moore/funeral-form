@@ -1,7 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Grid } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FORM_SERVICE } from '../../config/constants';
 import { stateMap, timeMap } from '../../config/maps';
 import { serviceResolver } from '../../config/resolvers';
 import { FormService, Forms, MasterForm } from '../../config/types';
@@ -12,17 +11,23 @@ import { Header } from '../typography';
 
 type Props = {
   activeStep: number;
+  defaultValues: FormService;
   prev: () => void;
   next: (key: keyof MasterForm, data: Forms) => void;
 };
 
-export default function Service({ activeStep, prev, next }: Props) {
+export default function Service({
+  activeStep,
+  defaultValues,
+  prev,
+  next,
+}: Props) {
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormService>({
-    defaultValues: FORM_SERVICE,
+    defaultValues,
     resolver: joiResolver(serviceResolver),
   });
 

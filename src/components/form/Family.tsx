@@ -12,7 +12,6 @@ import {
   DEFAULT_CHILD,
   DEFAULT_FRIEND,
   DEFAULT_SIBLING,
-  FORM_FAMILY,
 } from '../../config/constants';
 import { stateMap } from '../../config/maps';
 import { familyResolver } from '../../config/resolvers';
@@ -32,17 +31,23 @@ import { EmptyList, Header } from '../typography';
 
 type Props = {
   activeStep: number;
+  defaultValues: FormFamily;
   prev: () => void;
   next: (key: keyof MasterForm, data: Forms) => void;
 };
 
-export default function Family({ activeStep, prev, next }: Props) {
+export default function Family({
+  activeStep,
+  defaultValues,
+  prev,
+  next,
+}: Props) {
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormFamily>({
-    defaultValues: FORM_FAMILY,
+    defaultValues,
     resolver: joiResolver(familyResolver),
   });
 

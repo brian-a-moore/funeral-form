@@ -1,7 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Alert, Grid } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FORM_INFO } from '../../config/constants';
 import { stateMap } from '../../config/maps';
 import { infoResolver } from '../../config/resolvers';
 import { FormInfo, Forms, MasterForm } from '../../config/types';
@@ -12,17 +11,18 @@ import { Header } from '../typography';
 
 type Props = {
   activeStep: number;
+  defaultValues: FormInfo;
   prev: () => void;
   next: (key: keyof MasterForm, data: Forms) => void;
 };
 
-export default function Info({ activeStep, prev, next }: Props) {
+export default function Info({ activeStep, defaultValues, prev, next }: Props) {
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormInfo>({
-    defaultValues: FORM_INFO,
+    defaultValues,
     resolver: joiResolver(infoResolver),
   });
 

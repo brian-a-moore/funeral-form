@@ -1,7 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Alert, Grid } from '@mui/material';
 import { Path, SubmitHandler, useForm } from 'react-hook-form';
-import { FORM_BIO } from '../../config/constants';
 import { IncidentLocation } from '../../config/enums';
 import { incidentLocationMap, stateMap } from '../../config/maps';
 import { bioResolver } from '../../config/resolvers';
@@ -13,11 +12,12 @@ import { Header } from '../typography';
 
 type Props = {
   activeStep: number;
+  defaultValues: FormBio;
   prev: () => void;
   next: (key: keyof MasterForm, data: Forms) => void;
 };
 
-export default function Bio({ activeStep, prev, next }: Props) {
+export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
   const {
     control,
     handleSubmit,
@@ -25,7 +25,7 @@ export default function Bio({ activeStep, prev, next }: Props) {
     setValue,
     watch,
   } = useForm<FormBio>({
-    defaultValues: FORM_BIO,
+    defaultValues,
     resolver: joiResolver(bioResolver),
   });
 
@@ -102,7 +102,6 @@ export default function Bio({ activeStep, prev, next }: Props) {
             disabled={isOtherDisabled}
             name="other"
             label="Other"
-            required
             control={control}
             invalidText={errors.other?.message}
             md={6}

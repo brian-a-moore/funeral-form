@@ -53,7 +53,7 @@ export const educationResolver = Joi.object({
   organizations: Joi.array().items(organizationItem).min(0).max(10).required(),
   militaryService: Joi.object({
     branch: Joi.when('position', {
-      is: STRING('Branch'),
+      is: STRING('Position'),
       then: MILITARY_BRANCH,
       otherwise: Joi.string().valid(MilitaryBranch.NONE).required(),
     }),

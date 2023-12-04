@@ -11,7 +11,6 @@ import {
 import {
   DEFAULT_INSTITUTION,
   DEFAULT_ORGANIZATION,
-  FORM_EDUCATION,
 } from '../../config/constants';
 import {
   educationLevelMap,
@@ -34,17 +33,23 @@ import { EmptyList, Header } from '../typography';
 
 type Props = {
   activeStep: number;
+  defaultValues: FormEducation;
   prev: () => void;
   next: (key: keyof MasterForm, data: Forms) => void;
 };
 
-export default function Education({ activeStep, prev, next }: Props) {
+export default function Education({
+  activeStep,
+  defaultValues,
+  prev,
+  next,
+}: Props) {
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormEducation>({
-    defaultValues: FORM_EDUCATION,
+    defaultValues,
     resolver: joiResolver(educationResolver),
   });
 
