@@ -66,8 +66,8 @@ export default function Info({ activeStep, defaultValues, prev, next }: Props) {
             name="funeralHomeName"
             label="Funeral Home Name"
             control={control}
-            invalidText={errors.funeralHomeName?.message}
             required
+            invalidText={errors.funeralHomeName?.message}
           />
           <TextInput
             name="city"

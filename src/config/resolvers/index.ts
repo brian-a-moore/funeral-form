@@ -90,6 +90,7 @@ export const infoResolver = Joi.object({
     .email({ tlds: { allow: false } })
     .required(),
   funeralHomeName: STRING('Funeral Home Name'),
+  city: STRING('City'),
   state: STATE,
 }).options({ stripUnknown: true });
 

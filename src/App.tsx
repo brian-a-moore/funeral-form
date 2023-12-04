@@ -17,6 +17,8 @@ function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [masterForm, setMasterForm] = useState<MasterForm>(MASTER_FORM);
 
+  console.debug({ masterForm });
+
   const _nextStep = (key: keyof MasterForm, data: Forms) => {
     setMasterForm(prevState => ({ ...prevState, [key]: data }));
     setActiveStep(currentStep =>
