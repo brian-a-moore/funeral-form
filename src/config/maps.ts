@@ -6,6 +6,7 @@ import {
 } from './enums';
 
 export const educationLevelMap = new Map([
+  [EducationLevel.NONE, 'None'],
   [EducationLevel.HIGH_SCHOOL, 'High School'],
   [EducationLevel.TRADE_SCHOOL, 'Trade School'],
   [EducationLevel.BACHELORS, 'Bachelors'],
@@ -14,6 +15,7 @@ export const educationLevelMap = new Map([
 ]);
 
 export const incidentLocationMap = new Map([
+  [IncidentLocation.NONE, 'None'],
   [IncidentLocation.HOME, 'Home'],
   [IncidentLocation.HOSPITAL, 'Hospital'],
   [IncidentLocation.NURSING_HOME, 'Nursing Home'],
@@ -21,6 +23,7 @@ export const incidentLocationMap = new Map([
 ]);
 
 export const militaryBranchMap = new Map([
+  [MilitaryBranch.NONE, 'None'],
   [MilitaryBranch.AIR_FORCE, 'Air Force'],
   [MilitaryBranch.ARMY, 'Army'],
   [MilitaryBranch.COAST_GUARD, 'Coast Guard'],
@@ -30,6 +33,7 @@ export const militaryBranchMap = new Map([
 ]);
 
 export const stateMap = new Map([
+  [State.NONE, 'None'],
   [State.ALABAMA, 'Alabama'],
   [State.ALASKA, 'Alaska'],
   [State.ARIZONA, 'Arizona'],

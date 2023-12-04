@@ -1,4 +1,5 @@
 export enum EducationLevel {
+  NONE = 'NONE',
   HIGH_SCHOOL = 'HS',
   TRADE_SCHOOL = 'TS',
   BACHELORS = 'BS',
@@ -7,6 +8,7 @@ export enum EducationLevel {
 }
 
 export enum IncidentLocation {
+  NONE = 'NONE',
   HOME = 'HOME',
   HOSPITAL = 'HOSPITAL',
   NURSING_HOME = 'NURSING_HOME',
@@ -14,6 +16,7 @@ export enum IncidentLocation {
 }
 
 export enum MilitaryBranch {
+  NONE = 'NONE',
   ARMY = 'ARMY',
   NAVY = 'NAVY',
   AIR_FORCE = 'AIR_FORCE',
@@ -23,6 +26,7 @@ export enum MilitaryBranch {
 }
 
 export enum State {
+  NONE = 'NONE',
   ALABAMA = 'AL',
   ALASKA = 'AK',
   ARIZONA = 'AZ',

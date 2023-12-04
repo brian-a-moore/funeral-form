@@ -1,3 +1,4 @@
+import { joiResolver } from '@hookform/resolvers/joi';
 import { Delete } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import {
@@ -13,6 +14,7 @@ import {
   FORM_FAMILY,
 } from '../../config/constants';
 import { stateMap } from '../../config/maps';
+import { familyResolver } from '../../config/resolvers';
 import {
   Child as ChildType,
   FormFamily,
@@ -34,6 +36,7 @@ type Props = {
 export default function Family({ activeStep, prev, next }: Props) {
   const { control, handleSubmit } = useForm<FormFamily>({
     defaultValues: FORM_FAMILY,
+    resolver: joiResolver(familyResolver),
   });
 
   const {

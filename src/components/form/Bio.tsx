@@ -1,7 +1,10 @@
+import { joiResolver } from '@hookform/resolvers/joi';
 import { Alert, Grid } from '@mui/material';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Path, SubmitHandler, useForm } from 'react-hook-form';
 import { FORM_BIO } from '../../config/constants';
+import { IncidentLocation } from '../../config/enums';
 import { incidentLocationMap, stateMap } from '../../config/maps';
+import { bioResolver } from '../../config/resolvers';
 import { FormBio } from '../../config/types';
 import { Card, Form } from '../container';
 import { CheckboxInput, ImageUpload, SelectInput, TextInput } from '../input';
@@ -15,14 +18,27 @@ type Props = {
 };
 
 export default function Bio({ activeStep, prev, next }: Props) {
-  const { control, handleSubmit } = useForm<FormBio>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    watch,
+  } = useForm<FormBio>({
     defaultValues: FORM_BIO,
+    resolver: joiResolver(bioResolver),
   });
+
+  const _updateImage = (name: Path<FormBio>, file: FormData | null) => {
+    setValue(name, file);
+  };
 
   const onSubmit: SubmitHandler<FormBio> = data => {
     console.log(data);
     next();
   };
+
+  const isOtherDisabled = watch('placeOfIncident') !== IncidentLocation.OTHER;
 
   return (
     <Form>
@@ -34,7 +50,7 @@ export default function Bio({ activeStep, prev, next }: Props) {
           </Alert>
         </Grid>
         <Grid item xs={12} md={4}>
-          <ImageUpload />
+          <ImageUpload<FormBio> name="image" updateImage={_updateImage} />
         </Grid>
         <Grid item xs={12} md={8}>
           <Grid container spacing="1rem">
@@ -42,6 +58,7 @@ export default function Bio({ activeStep, prev, next }: Props) {
               name="firstName"
               label="First Name"
               required
+              invalidText={errors.firstName?.message}
               control={control}
               md={12}
             />
@@ -49,6 +66,7 @@ export default function Bio({ activeStep, prev, next }: Props) {
               name="middleName"
               label="Middle Name"
               required
+              invalidText={errors.middleName?.message}
               control={control}
               md={12}
             />
@@ -56,12 +74,14 @@ export default function Bio({ activeStep, prev, next }: Props) {
               name="lastName"
               label="Last Name"
               required
+              invalidText={errors.lastName?.message}
               control={control}
               md={12}
             />
             <TextInput
               name="nickname"
               label="Nickname"
+              invalidText={errors.nickname?.message}
               control={control}
               md={12}
             />
@@ -75,14 +95,17 @@ export default function Bio({ activeStep, prev, next }: Props) {
             name="placeOfIncident"
             label="Place of Incident"
             options={incidentLocationMap}
+            invalidText={errors.placeOfIncident?.message}
             control={control}
             md={6}
           />
           <TextInput
+            disabled={isOtherDisabled}
             name="other"
             label="Other"
             required
             control={control}
+            invalidText={errors.other?.message}
             md={6}
           />
         </Grid>
@@ -93,18 +116,21 @@ export default function Bio({ activeStep, prev, next }: Props) {
             type="date"
             required
             control={control}
+            invalidText={errors.dateOfBirth?.message}
           />
           <TextInput
             name="cityOfBirth"
             label="City of Birth"
             required
             control={control}
+            invalidText={errors.cityOfBirth?.message}
           />
           <SelectInput
             name="stateOfBirth"
             label="State of Birth"
             options={stateMap}
             control={control}
+            invalidText={errors.stateOfBirth?.message}
           />
         </Grid>
         <Grid container spacing="1rem">
@@ -114,18 +140,21 @@ export default function Bio({ activeStep, prev, next }: Props) {
             type="date"
             required
             control={control}
+            invalidText={errors.dateOfDeath?.message}
           />
           <TextInput
             name="cityOfDeath"
             label="City of Death"
             required
             control={control}
+            invalidText={errors.cityOfDeath?.message}
           />
           <SelectInput
             name="stateOfDeath"
             label="State of Death"
             options={stateMap}
             control={control}
+            invalidText={errors.stateOfDeath?.message}
           />
         </Grid>
       </Card>
@@ -137,12 +166,14 @@ export default function Bio({ activeStep, prev, next }: Props) {
             label="Father's First Name"
             required
             control={control}
+            invalidText={errors.fatherFirstName?.message}
           />
           <TextInput
             name="fatherLastName"
             label="Father's Last Name"
             required
             control={control}
+            invalidText={errors.fatherLastName?.message}
             xs={8}
           />
           <CheckboxInput
@@ -158,12 +189,14 @@ export default function Bio({ activeStep, prev, next }: Props) {
             label="Mother's First Name"
             required
             control={control}
+            invalidText={errors.motherFirstName?.message}
           />
           <TextInput
             name="motherLastName"
             label="Mother's Last Name"
             required
             control={control}
+            invalidText={errors.motherLastName?.message}
             xs={8}
           />
           <CheckboxInput
@@ -175,6 +208,7 @@ export default function Bio({ activeStep, prev, next }: Props) {
         </Grid>
       </Card>
       <Navigation
+        disabled={isSubmitting}
         activeStep={activeStep}
         prev={prev}
         next={handleSubmit(onSubmit)}

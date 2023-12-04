@@ -1,3 +1,4 @@
+import { joiResolver } from '@hookform/resolvers/joi';
 import { Delete } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import {
@@ -16,6 +17,7 @@ import {
   militaryBranchMap,
   stateMap,
 } from '../../config/maps';
+import { educationResolver } from '../../config/resolvers';
 import {
   FormEducation,
   Institution as InstitutionType,
@@ -36,6 +38,7 @@ type Props = {
 export default function Education({ activeStep, prev, next }: Props) {
   const { control, handleSubmit } = useForm<FormEducation>({
     defaultValues: FORM_EDUCATION,
+    resolver: joiResolver(educationResolver),
   });
 
   const {

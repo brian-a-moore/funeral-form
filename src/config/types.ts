@@ -31,16 +31,17 @@ export type Friend = {
 };
 
 export type FormBio = {
+  image: FormData | null;
   firstName: string;
   middleName?: string;
   lastName: string;
   nickname?: string;
   placeOfIncident: IncidentLocation;
   other?: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   cityOfBirth?: string;
   stateOfBirth?: State;
-  dateOfDeath: Date;
+  dateOfDeath: string;
   cityOfDeath?: string;
   stateOfDeath?: State;
   fatherFirstName?: string;
@@ -54,7 +55,7 @@ export type FormBio = {
 export type FormEducation = {
   institutions: Institution[];
   organizations: Organization[];
-  militaryService?: {
+  militaryService: {
     branch: MilitaryBranch;
     position: string;
     numOfYears: number;

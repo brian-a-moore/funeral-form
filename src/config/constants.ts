@@ -1,4 +1,9 @@
-import { EducationLevel, State } from './enums';
+import {
+  EducationLevel,
+  IncidentLocation,
+  MilitaryBranch,
+  State,
+} from './enums';
 import {
   Child,
   Employer,
@@ -19,14 +24,14 @@ export const DEFAULT_CHILD: Omit<Child, 'id'> = {
   lastName: '',
   spouseName: '',
   city: '',
-  state: State.NORTH_CAROLINA,
+  state: State.NONE,
   isDeceased: false,
 };
 
 export const DEFAULT_EMPLOYER: Omit<Employer, 'id'> = {
   name: '',
   city: '',
-  state: State.NORTH_CAROLINA,
+  state: State.NONE,
   numOfYears: 0,
   isRetired: false,
 };
@@ -39,9 +44,9 @@ export const DEFAULT_FRIEND: Omit<Friend, 'id'> = {
 export const DEFAULT_INSTITUTION: Omit<Institution, 'id'> = {
   name: '',
   city: '',
-  state: State.NORTH_CAROLINA,
+  state: State.NONE,
   major: '',
-  degree: EducationLevel.HIGH_SCHOOL,
+  degree: EducationLevel.NONE,
   graduationYear: 0,
 };
 
@@ -56,22 +61,24 @@ export const DEFAULT_SIBLING: Omit<Sibling, 'id'> = {
   lastName: '',
   spouseName: '',
   city: '',
-  state: State.NORTH_CAROLINA,
+  state: State.NONE,
   isDeceased: false,
 };
 
 export const FORM_BIO: Partial<FormBio> = {
+  image: null,
   firstName: '',
   middleName: '',
   lastName: '',
   nickname: '',
+  placeOfIncident: IncidentLocation.NONE,
   other: '',
-  dateOfBirth: new Date(),
+  dateOfBirth: new Date().toISOString().split('T')[0],
   cityOfBirth: '',
-  stateOfBirth: State.NORTH_CAROLINA,
-  dateOfDeath: new Date(),
+  stateOfBirth: State.NONE,
+  dateOfDeath: new Date().toISOString().split('T')[0],
   cityOfDeath: '',
-  stateOfDeath: State.NORTH_CAROLINA,
+  stateOfDeath: State.NONE,
   fatherFirstName: '',
   fatherLastName: '',
   fatherIsDeceased: false,
@@ -83,7 +90,12 @@ export const FORM_BIO: Partial<FormBio> = {
 export const FORM_EDUCATION: Partial<FormEducation> = {
   institutions: [],
   organizations: [],
-  militaryService: undefined,
+  militaryService: {
+    branch: MilitaryBranch.NONE,
+    position: '',
+    numOfYears: 0,
+    isRetired: false,
+  },
 };
 
 export const FORM_EMPLOYMENT: Partial<FormEmployment> = {
@@ -105,23 +117,24 @@ export const FORM_INFO: Partial<FormInfo> = {
   email: '',
   funeralHomeName: '',
   city: '',
+  state: State.NONE,
 };
 
 export const FORM_SERVICE: Partial<FormService> = {
   serviceLocationName: '',
   serviceLocationCity: '',
-  serviceLocationState: State.NORTH_CAROLINA,
+  serviceLocationState: State.NONE,
   serviceLocationMinisterName: '',
   serviceLocationDayOfService: '',
   serviceLocationTimeOfService: '',
   viewingLocationName: '',
   viewingLocationCity: '',
-  viewingLocationState: State.NORTH_CAROLINA,
+  viewingLocationState: State.NONE,
   viewingLocationStartTime: '',
   viewingLocationEndTime: '',
   repassLocationName: '',
   repassLocationCity: '',
-  repassLocationState: State.NORTH_CAROLINA,
+  repassLocationState: State.NONE,
 };
 
 export const FORM_STEPS = [

@@ -1,7 +1,9 @@
+import { joiResolver } from '@hookform/resolvers/joi';
 import { Grid } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FORM_SERVICE } from '../../config/constants';
 import { stateMap } from '../../config/maps';
+import { serviceResolver } from '../../config/resolvers';
 import { FormService } from '../../config/types';
 import { Card, Form } from '../container';
 import { SelectInput, TextInput } from '../input';
@@ -17,6 +19,7 @@ type Props = {
 export default function Service({ activeStep, prev, next }: Props) {
   const { control, handleSubmit } = useForm<FormService>({
     defaultValues: FORM_SERVICE,
+    resolver: joiResolver(serviceResolver),
   });
 
   const onSubmit: SubmitHandler<FormService> = data => {

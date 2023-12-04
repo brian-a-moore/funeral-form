@@ -1,23 +1,47 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Button, Grid, styled } from '@mui/material';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { Path } from 'react-hook-form';
 
-export default function ImageUpload() {
-  const [, setSelectedImage] = useState<File | null>(null);
+type Props<F> = {
+  name: Path<F>;
+  updateImage: (name: Path<F>, file: FormData | null) => void;
+};
+
+export default function ImageUpload<F>({ name, updateImage }: Props<F>) {
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewURL, setPreviewURL] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const formData = new FormData();
+    if (selectedImage) {
+      formData.append(name, selectedImage);
+      updateImage(name, selectedImage ? formData : null);
+    }
+  }, [name, selectedImage, updateImage]);
 
   const _handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
 
     if (file) {
-      setSelectedImage(file);
+      if (file.size > 1024 * 1024) {
+        alert('Image can only be 1MB or smaller');
+        return;
+      } else if (
+        !['image/jpeg', 'image/png', 'image/gif'].includes(file.type)
+      ) {
+        alert('Image can only be a jpeg, png or gif');
+        return;
+      } else {
+        setSelectedImage(file);
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewURL(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreviewURL(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 

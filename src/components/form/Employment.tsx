@@ -9,7 +9,7 @@ import {
 } from 'react-hook-form';
 import { DEFAULT_EMPLOYER, FORM_EMPLOYMENT } from '../../config/constants';
 import { stateMap } from '../../config/maps';
-import { EmploymentResolver } from '../../config/resolvers';
+import { employmentResolver } from '../../config/resolvers';
 import { Employer as EmployerType, FormEmployment } from '../../config/types';
 import { generateId } from '../../helpers/generate';
 import { Card, Form } from '../container';
@@ -24,16 +24,10 @@ type Props = {
 };
 
 export default function Employment({ activeStep, prev, next }: Props) {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormEmployment>({
+  const { control, handleSubmit } = useForm<FormEmployment>({
     defaultValues: FORM_EMPLOYMENT,
-    resolver: joiResolver(EmploymentResolver),
+    resolver: joiResolver(employmentResolver),
   });
-
-  console.log({ errors });
 
   const {
     fields: employers,
