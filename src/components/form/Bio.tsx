@@ -23,13 +23,14 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    getValues,
     watch,
   } = useForm<FormBio>({
     defaultValues,
     resolver: joiResolver(bioResolver),
   });
 
-  const _updateImage = (name: Path<FormBio>, file: FormData | null) => {
+  const _updateImage = (name: Path<FormBio>, file: File | null) => {
     setValue(name, file);
   };
 
@@ -38,6 +39,7 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
   };
 
   const isOtherDisabled = watch('placeOfIncident') !== IncidentLocation.OTHER;
+  const currentImage = getValues('image');
 
   return (
     <Form>
@@ -49,7 +51,11 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
           </Alert>
         </Grid>
         <Grid item xs={12} md={4}>
-          <ImageUpload<FormBio> name="image" updateImage={_updateImage} />
+          <ImageUpload<FormBio>
+            name="image"
+            defaultValue={currentImage ?? null}
+            updateImage={_updateImage}
+          />
         </Grid>
         <Grid item xs={12} md={8}>
           <Grid container spacing="1rem">

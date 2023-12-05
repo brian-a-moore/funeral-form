@@ -5,19 +5,28 @@ import { Path } from 'react-hook-form';
 
 type Props<F> = {
   name: Path<F>;
-  updateImage: (name: Path<F>, file: FormData | null) => void;
+  defaultValue: File | null;
+  updateImage: (name: Path<F>, file: File | null) => void;
 };
 
-export default function ImageUpload<F>({ name, updateImage }: Props<F>) {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+export default function ImageUpload<F>({
+  name,
+  defaultValue,
+  updateImage,
+}: Props<F>) {
+  const [selectedImage, setSelectedImage] = useState<File | null>(
+    defaultValue ?? null,
+  );
   const [previewURL, setPreviewURL] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const formData = new FormData();
+    if (defaultValue) setSelectedImage(defaultValue);
+  }, [defaultValue]);
+
+  useEffect(() => {
     if (selectedImage) {
-      formData.append(name, selectedImage);
-      updateImage(name, selectedImage ? formData : null);
+      updateImage(name, selectedImage);
     }
   }, [name, selectedImage, updateImage]);
 
