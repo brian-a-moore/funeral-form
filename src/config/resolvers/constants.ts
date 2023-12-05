@@ -19,7 +19,7 @@ export const EDUCATION_LEVEL = (label: string) =>
       ...Object.values(EducationLevel).filter(v => v !== EducationLevel.NONE),
     )
     .messages({
-      'string.valid': `${label} is required`,
+      'any.only': `${label} is required`,
       'any.required': `${label} is required`,
     })
     .required();
@@ -33,8 +33,9 @@ export const INCIDENT_LOCATION = Joi.string()
     ...Object.values(IncidentLocation).filter(v => v !== IncidentLocation.NONE),
   )
   .messages({
-    'string.valid': `Incident Location is required`,
-    'any.required': `Incident Location is required`,
+    'any.only': `Place of Incident is required`,
+    'string.valid': `Place of Incident is required`,
+    'any.required': `Place of Incident is required`,
   })
   .required();
 
@@ -43,6 +44,8 @@ export const MILITARY_BRANCH = Joi.string()
     ...Object.values(MilitaryBranch).filter(v => v !== MilitaryBranch.NONE),
   )
   .messages({
+    'any.only': `Branch is required`,
+    'string.empty': `Branch is required`,
     'string.valid': `Branch is required`,
     'any.required': `Branch is required`,
   })
@@ -53,9 +56,10 @@ export const NUM_OF_YRS = (label: string) =>
     .min(0)
     .max(99)
     .messages({
-      'string.base': `${label} must be a number`,
-      'string.min': `${label} must be no less than zero`,
-      'string.max': `${label} must be no more than 99`,
+      'number.base': `${label} must be a number`,
+      'number.empty': `${label} is required`,
+      'number.min': `${label} must be no less than zero`,
+      'number.max': `${label} must be no more than 99`,
       'any.required': `${label} is required`,
     })
     .required();
@@ -67,8 +71,9 @@ export const PARAGRAPH_OPTIONAL = (label: string) =>
     .allow('')
     .messages({
       'string.base': `${label} must be a string`,
+      'string.empty': `${label} is required`,
       'string.min': `${label} must be at least one character`,
-      'string.max': `${label} must be no more than 64 characters`,
+      'string.max': `${label} must be no more than 2048 characters`,
       'any.required': `${label} is required`,
     })
     .required();
@@ -76,7 +81,7 @@ export const PARAGRAPH_OPTIONAL = (label: string) =>
 export const STATE = Joi.string()
   .valid(...Object.values(State).filter(v => v !== State.NONE))
   .messages({
-    'string.valid': `State is required`,
+    'any.only': `State is required`,
     'any.required': `State is required`,
   })
   .required();
@@ -84,7 +89,7 @@ export const STATE = Joi.string()
 export const STATE_OPTIONAL = Joi.string()
   .valid(...Object.values(State))
   .messages({
-    'string.valid': `State is required`,
+    'any.only': `State is required`,
   })
   .required();
 
@@ -94,6 +99,7 @@ export const STRING = (label: string) =>
     .max(64)
     .messages({
       'string.base': `${label} must be a string`,
+      'string.empty': `${label} is required`,
       'string.min': `${label} must be at least one character`,
       'string.max': `${label} must be no more than 64 characters`,
       'any.required': `${label} is required`,
@@ -107,9 +113,9 @@ export const STRING_OPTIONAL = (label: string) =>
     .allow('')
     .messages({
       'string.base': `${label} must be a string`,
+      'string.empty': `${label} is required`,
       'string.min': `${label} must be at least one character`,
       'string.max': `${label} must be no more than 64 characters`,
-      'any.required': `${label} is required`,
     })
     .required();
 
@@ -124,9 +130,10 @@ export const YEAR = (label: string) =>
     .min(1900)
     .max(9999)
     .messages({
-      'string.base': `${label} must be a valid year between 1900 - 9999`,
-      'string.min': `${label} must be no less than 1900`,
-      'string.max': `${label} must be no more than 9999`,
+      'number.base': `${label} must be a valid year between 1900 - 9999`,
+      'number.empty': `${label} is required`,
+      'number.min': `${label} must be no less than 1900`,
+      'number.max': `${label} must be no more than 9999`,
       'any.required': `${label} is required`,
     })
     .required();

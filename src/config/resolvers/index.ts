@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { IncidentLocation, MilitaryBranch } from '../enums';
+import { MilitaryBranch } from '../enums';
 import {
   DATE,
   FILE,
@@ -29,11 +29,7 @@ export const bioResolver = Joi.object({
   lastName: STRING('Last Name'),
   nickname: STRING_OPTIONAL('Nickname'),
   placeOfIncident: INCIDENT_LOCATION,
-  other: Joi.when('placeOfIncident', {
-    is: IncidentLocation.OTHER,
-    then: STRING('Other'),
-    otherwise: STRING_OPTIONAL('Other'),
-  }),
+  other: STRING_OPTIONAL('Other Location'),
   dateOfBirth: DATE,
   cityOfBirth: STRING_OPTIONAL('City of Birth'),
   stateOfBirth: STATE_OPTIONAL,
@@ -58,7 +54,7 @@ export const educationResolver = Joi.object({
       otherwise: Joi.string().valid(MilitaryBranch.NONE).required(),
     }),
     position: STRING_OPTIONAL('Position'),
-    numOfYears: NUM_OF_YRS('Years Served'),
+    numOfYears: NUM_OF_YRS('Years of Service'),
   })
     .required()
     .options({ stripUnknown: true }),
@@ -88,6 +84,11 @@ export const infoResolver = Joi.object({
   lastName: STRING('Last Name'),
   email: Joi.string()
     .email({ tlds: { allow: false } })
+    .messages({
+      'string.email': 'E-mail must be a valid e-mail',
+      'string.empty': 'E-mail is required',
+      'any.required': 'E-mail is required',
+    })
     .required(),
   funeralHomeName: STRING('Funeral Home Name'),
   city: STRING('City'),
@@ -95,18 +96,18 @@ export const infoResolver = Joi.object({
 }).options({ stripUnknown: true });
 
 export const serviceResolver = Joi.object({
-  serviceLocationName: STRING('Location'),
+  serviceLocationName: STRING('Church/Funeral Home'),
   serviceLocationCity: STRING('City'),
   serviceLocationState: STATE,
-  serviceLocationMinisterName: STRING('Minister Name'),
+  serviceLocationMinisterName: STRING("Minister's Name"),
   serviceLocationDateOfService: DATE('Date of Service'),
   serviceLocationTimeOfService: TIME,
-  viewingLocationName: STRING('Location'),
+  viewingLocationName: STRING('Church/Funeral Home'),
   viewingLocationCity: STRING('City'),
   viewingLocationState: STATE,
   viewingLocationStartTime: TIME,
   viewingLocationEndTime: TIME,
-  repassLocationName: STRING('Location'),
+  repassLocationName: STRING('Church/Funeral Home'),
   repassLocationCity: STRING('City'),
   repassLocationState: STATE,
 });

@@ -46,34 +46,29 @@ export default function Info({ activeStep, defaultValues, prev, next }: Props) {
             label="First Name"
             control={control}
             invalidText={errors.firstName?.message}
-            required
           />
           <TextInput
             name="lastName"
             label="Last Name"
             control={control}
             invalidText={errors.lastName?.message}
-            required
           />
           <TextInput
             name="email"
             label="E-Mail"
             control={control}
-            required
             invalidText={errors.email?.message}
           />
           <TextInput
             name="funeralHomeName"
             label="Funeral Home Name"
             control={control}
-            required
             invalidText={errors.funeralHomeName?.message}
           />
           <TextInput
             name="city"
             label="City"
             control={control}
-            required
             invalidText={errors.city?.message}
           />
           <SelectInput

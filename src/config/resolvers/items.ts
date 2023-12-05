@@ -4,7 +4,6 @@ import {
   EDUCATION_LEVEL,
   ID,
   NUM_OF_YRS,
-  STATE,
   STATE_OPTIONAL,
   STRING,
   STRING_OPTIONAL,
@@ -23,7 +22,7 @@ export const childItem = Joi.object({
 
 export const employerItem = Joi.object({
   id: ID,
-  name: STRING('Name'),
+  name: STRING('Company Name'),
   city: STRING_OPTIONAL('City'),
   state: STATE_OPTIONAL,
   numOfYears: NUM_OF_YRS('Years Worked'),
@@ -40,7 +39,7 @@ export const institutionItem = Joi.object({
   id: ID,
   name: STRING('Name'),
   city: STRING_OPTIONAL('City'),
-  state: STATE,
+  state: STATE_OPTIONAL,
   major: STRING_OPTIONAL('Major'),
   degree: EDUCATION_LEVEL('Degree'),
   graduationYear: YEAR('Graduation Year'),
@@ -50,7 +49,7 @@ export const organizationItem = Joi.object({
   id: ID,
   name: STRING('Name'),
   position: STRING_OPTIONAL('Position'),
-  numOfYears: NUM_OF_YRS('Years Worked'),
+  numOfYears: NUM_OF_YRS('Years Active'),
 }).options({ stripUnknown: true });
 
 export const siblingItem = Joi.object({

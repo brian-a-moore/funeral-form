@@ -56,7 +56,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             <TextInput
               name="firstName"
               label="First Name"
-              required
               invalidText={errors.firstName?.message}
               control={control}
               md={12}
@@ -64,7 +63,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             <TextInput
               name="middleName"
               label="Middle Name"
-              required
               invalidText={errors.middleName?.message}
               control={control}
               md={12}
@@ -72,7 +70,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             <TextInput
               name="lastName"
               label="Last Name"
-              required
               invalidText={errors.lastName?.message}
               control={control}
               md={12}
@@ -99,10 +96,10 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             md={6}
           />
           <TextInput
-            disabled={isOtherDisabled}
             name="other"
             label="Other"
             control={control}
+            disabled={isOtherDisabled}
             invalidText={errors.other?.message}
             md={6}
           />
@@ -112,14 +109,12 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             name="dateOfBirth"
             label="Date of Birth"
             type="date"
-            required
             control={control}
             invalidText={errors.dateOfBirth?.message}
           />
           <TextInput
             name="cityOfBirth"
             label="City of Birth"
-            required
             control={control}
             invalidText={errors.cityOfBirth?.message}
           />
@@ -136,14 +131,12 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             name="dateOfDeath"
             label="Date of Death"
             type="date"
-            required
             control={control}
             invalidText={errors.dateOfDeath?.message}
           />
           <TextInput
             name="cityOfDeath"
             label="City of Death"
-            required
             control={control}
             invalidText={errors.cityOfDeath?.message}
           />
@@ -162,14 +155,12 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
           <TextInput
             name="fatherFirstName"
             label="Father's First Name"
-            required
             control={control}
             invalidText={errors.fatherFirstName?.message}
           />
           <TextInput
             name="fatherLastName"
             label="Father's Last Name"
-            required
             control={control}
             invalidText={errors.fatherLastName?.message}
             xs={8}
@@ -185,14 +176,12 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
           <TextInput
             name="motherFirstName"
             label="Mother's First Name"
-            required
             control={control}
             invalidText={errors.motherFirstName?.message}
           />
           <TextInput
             name="motherLastName"
             label="Mother's Last Name"
-            required
             control={control}
             invalidText={errors.motherLastName?.message}
             xs={8}
