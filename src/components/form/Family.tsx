@@ -278,7 +278,7 @@ const Child = ({
         />
         <CheckboxInput
           name={`children.${indexNumber}.isDeceased`}
-          label="Deceased"
+          label="Deceased Child"
           control={control}
           md={12}
         />
@@ -360,7 +360,7 @@ const Sibling = ({
         />
         <CheckboxInput
           name={`siblings.${indexNumber}.isDeceased`}
-          label="Deceased"
+          label="Deceased Sibling"
           control={control}
           md={12}
         />

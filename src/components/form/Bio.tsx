@@ -5,6 +5,7 @@ import { IncidentLocation } from '../../config/enums';
 import { incidentLocationMap, stateMap } from '../../config/maps';
 import { bioResolver } from '../../config/resolvers';
 import { FormBio, Forms, MasterForm } from '../../config/types';
+import { convertDate } from '../../helpers/date';
 import { Card, Form } from '../container';
 import { CheckboxInput, ImageUpload, SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
@@ -17,6 +18,14 @@ type Props = {
   next: (key: keyof MasterForm, data: Forms) => void;
 };
 
+const transformDefaultValues = (defaultValues: FormBio): FormBio => {
+  return {
+    ...defaultValues,
+    dateOfBirth: convertDate(defaultValues.dateOfBirth),
+    dateOfDeath: convertDate(defaultValues.dateOfDeath),
+  };
+};
+
 export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
   const {
     control,
@@ -26,7 +35,7 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
     getValues,
     watch,
   } = useForm<FormBio>({
-    defaultValues,
+    defaultValues: transformDefaultValues(defaultValues),
     resolver: joiResolver(bioResolver),
   });
 
