@@ -30,7 +30,9 @@ export default function CheckboxInput<F extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        render={({ field }) => <Checkbox label={label} {...field} />}
+        render={({ field }) => (
+          <Checkbox label={label} {...field} checked={field.value} />
+        )}
       />
     </Grid>
   );

@@ -44,8 +44,6 @@ export default function TextInput<F extends FieldValues>({
               placeholder={label}
               fullWidth
               type={type}
-              // multiline={multiline}
-              // rows={maxRows}
               {...field}
             />
             {invalidText && <FormHelperText>{invalidText}</FormHelperText>}
