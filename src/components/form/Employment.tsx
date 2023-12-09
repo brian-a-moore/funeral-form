@@ -1,10 +1,12 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Delete } from '@mui/icons-material';
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/joy';
+import { Grid } from '@mui/material';
 import {
   Control,
   FieldErrors,
   SubmitHandler,
+  UseFormSetValue,
   useFieldArray,
   useForm,
 } from 'react-hook-form';
@@ -19,7 +21,7 @@ import {
 } from '../../config/types';
 import { generateId } from '../../helpers/generate';
 import { Card, Form } from '../container';
-import { CheckboxInput, SelectInput, TextInput } from '../input';
+import { CheckboxInput, SelectInput, TextArea, TextInput } from '../input';
 import { Navigation } from '../navigation';
 import { EmptyList, Header } from '../typography';
 
@@ -39,6 +41,7 @@ export default function Employment({
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormEmployment>({
     defaultValues,
@@ -83,6 +86,7 @@ export default function Employment({
                 employer={employer}
                 removeEmployer={_removeEmployer}
                 control={control}
+                setValue={setValue}
                 errors={errors}
               />
             ))
@@ -94,22 +98,18 @@ export default function Employment({
       <Card>
         <Grid container spacing="1rem">
           <Header title="Final Thoughts" />
-          <TextInput
+          <TextArea
             name="hobbies"
             label="Hobbies"
             control={control}
             invalidText={errors.hobbies?.message}
-            multiline
-            maxRows={10}
             md={6}
           />
-          <TextInput
+          <TextArea
             name="additionalInfo"
             label="Additional Information"
             control={control}
             invalidText={errors.additionalInfo?.message}
-            multiline
-            maxRows={10}
             md={6}
           />
         </Grid>
@@ -126,12 +126,14 @@ export default function Employment({
 
 const Employer = ({
   control,
+  setValue,
   indexNumber,
   employer,
   removeEmployer,
   errors,
 }: {
   control: Control<FormEmployment, unknown>;
+  setValue: UseFormSetValue<FormEmployment>;
   indexNumber: number;
   employer: EmployerType;
   removeEmployer: (index: number) => void;
@@ -147,7 +149,7 @@ const Employer = ({
           invalidText={
             errors.employers && errors.employers[indexNumber]?.name?.message
           }
-          xs={6}
+          md={6}
         />
         <TextInput
           name={`employers.${indexNumber}.city`}
@@ -156,17 +158,17 @@ const Employer = ({
           invalidText={
             errors.employers && errors.employers[indexNumber]?.city?.message
           }
-          xs={6}
+          md={6}
         />
         <SelectInput
           name={`employers.${indexNumber}.state`}
           label="State"
           options={stateMap}
           control={control}
+          setValue={setValue}
           invalidText={
             errors.employers && errors.employers[indexNumber]?.state?.message
           }
-          xs={4}
           md={4}
         />
         <TextInput
@@ -178,21 +180,19 @@ const Employer = ({
             errors.employers &&
             errors.employers[indexNumber]?.numOfYears?.message
           }
-          xs={4}
           md={4}
         />
         <CheckboxInput
           name={`employers.${indexNumber}.isRetired`}
           label="Retired"
           control={control}
-          xs={4}
           md={4}
         />
         <Grid item xs={12}>
           <Button
             fullWidth
-            color="error"
-            startIcon={<Delete />}
+            color="danger"
+            startDecorator={<Delete />}
             onClick={() => removeEmployer(indexNumber)}>
             Remove Employer
           </Button>

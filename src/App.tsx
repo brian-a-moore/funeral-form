@@ -1,3 +1,4 @@
+import { CssVarsProvider } from '@mui/joy';
 import { Grid } from '@mui/material';
 import { useState } from 'react';
 import { Container } from './components/container';
@@ -12,6 +13,7 @@ import {
 import { Stepper } from './components/navigation';
 import { FORM_STEPS, MASTER_FORM } from './config/constants';
 import { Forms, MasterForm } from './config/types';
+import './index.css';
 
 function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -91,10 +93,12 @@ function App() {
 
   return (
     <Container>
-      <Stepper activeStep={activeStep} />
-      <Grid item xs={12}>
-        {_showForm()}
-      </Grid>
+      <CssVarsProvider defaultMode="dark">
+        <Stepper activeStep={activeStep} />
+        <Grid item xs={12}>
+          {_showForm()}
+        </Grid>
+      </CssVarsProvider>
     </Container>
   );
 }

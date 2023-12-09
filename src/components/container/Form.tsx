@@ -1,6 +1,6 @@
+import { styled } from '@mui/joy';
 import { Grid } from '@mui/material';
 import { ReactNode } from 'react';
-import styled from 'styled-components';
 
 type Props = {
   children: ReactNode;
@@ -16,7 +16,6 @@ export default function Form({ children }: Props) {
   );
 }
 
-const _Form = styled.form`
-  /* background-color: lightgray; */
-  margin-top: 1rem;
-`;
+const _Form = styled('form')({
+  marginTop: '1rem',
+});

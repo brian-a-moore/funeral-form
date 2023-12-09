@@ -1,18 +1,23 @@
+import { FormControl, FormLabel } from '@mui/joy';
+import FormHelperText from '@mui/joy/FormHelperText';
+import Option from '@mui/joy/Option';
+import Select from '@mui/joy/Select';
+import { Grid } from '@mui/material';
 import {
-  FormControl,
-  FormHelperText,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
-import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+  Control,
+  Controller,
+  FieldValues,
+  Path,
+  PathValue,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 type Props<F extends FieldValues> = {
   name: Path<F>;
   label: string;
   options: Map<string, string>;
   control: Control<F, unknown>;
+  setValue: UseFormSetValue<F>;
   required?: boolean;
   invalidText?: string;
   xs?: number;
@@ -24,6 +29,7 @@ export default function SelectInput<F extends FieldValues>({
   label,
   options,
   control,
+  setValue,
   required = false,
   invalidText,
   xs = 12,
@@ -31,18 +37,23 @@ export default function SelectInput<F extends FieldValues>({
 }: Props<F>) {
   return (
     <Grid item xs={xs} md={md}>
-      <FormControl fullWidth size="small" error={!!invalidText}>
-        <InputLabel id={name}>{label}</InputLabel>
+      <FormLabel style={{ marginBottom: '0.2rem' }}>{label}</FormLabel>
+      <FormControl error={!!invalidText}>
         <Controller
           name={name}
           control={control}
           rules={{ required }}
           render={({ field }) => (
-            <Select labelId={name} {...field}>
+            <Select
+              placeholder={label}
+              {...field}
+              onChange={(_, v) => {
+                setValue(name, v as PathValue<F, Path<F>>);
+              }}>
               {Array.from(options.entries()).map(([id, label]) => (
-                <MenuItem key={id} value={id}>
+                <Option key={id} value={id}>
                   {label}
-                </MenuItem>
+                </Option>
               ))}
             </Select>
           )}

@@ -1,5 +1,5 @@
-import { FormControl, FormHelperText, FormLabel } from '@mui/joy';
-import Input from '@mui/joy/Input';
+import { FormControl, FormHelperText } from '@mui/joy';
+import Textarea from '@mui/joy/Textarea';
 import { Grid } from '@mui/material';
 import { HTMLInputTypeAttribute } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
@@ -16,20 +16,18 @@ type Props<F extends FieldValues> = {
   md?: number;
 };
 
-export default function TextInput<F extends FieldValues>({
+export default function TextArea<F extends FieldValues>({
   disabled = false,
   required = false,
   invalidText,
   name,
   label,
-  type = 'text',
   control,
   xs = 12,
   md = 4,
 }: Props<F>) {
   return (
     <Grid item xs={xs} md={md}>
-      <FormLabel style={{ marginBottom: '0.2rem' }}>{label}</FormLabel>
       <Controller
         disabled={disabled}
         name={name}
@@ -37,15 +35,13 @@ export default function TextInput<F extends FieldValues>({
         rules={{ required }}
         render={({ field }) => (
           <FormControl error={!!invalidText}>
-            <Input
+            <Textarea
               disabled={disabled}
               error={!!invalidText}
               variant="outlined"
               placeholder={label}
-              fullWidth
-              type={type}
-              // multiline={multiline}
-              // rows={maxRows}
+              minRows={10}
+              maxRows={10}
               {...field}
             />
             {invalidText && <FormHelperText>{invalidText}</FormHelperText>}

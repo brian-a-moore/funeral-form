@@ -1,10 +1,12 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Delete } from '@mui/icons-material';
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/joy';
+import { Grid } from '@mui/material';
 import {
   Control,
   FieldErrors,
   SubmitHandler,
+  UseFormSetValue,
   useFieldArray,
   useForm,
 } from 'react-hook-form';
@@ -45,6 +47,7 @@ export default function Family({
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormFamily>({
     defaultValues,
@@ -128,7 +131,7 @@ export default function Family({
           />
         </Grid>
       </Card>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12}>
         <Grid container spacing="1rem">
           <Card>
             <Header
@@ -145,6 +148,7 @@ export default function Family({
                 child={child}
                 removeChild={_removeChild}
                 control={control}
+                setValue={setValue}
                 errors={errors}
               />
             ))
@@ -153,7 +157,7 @@ export default function Family({
           )}
         </Grid>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12}>
         <Grid container spacing="1rem">
           <Card>
             <Header
@@ -171,6 +175,7 @@ export default function Family({
                 sibling={sibling}
                 removeSibling={_removeSibling}
                 control={control}
+                setValue={setValue}
                 errors={errors}
               />
             ))
@@ -179,7 +184,7 @@ export default function Family({
           )}
         </Grid>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12}>
         <Grid container spacing="1rem">
           <Card>
             <Header
@@ -219,12 +224,14 @@ const Child = ({
   child,
   removeChild,
   control,
+  setValue,
   errors,
 }: {
   indexNumber: number;
   child: ChildType;
   removeChild: (index: number) => void;
   control: Control<FormFamily, unknown>;
+  setValue: UseFormSetValue<FormFamily>;
   errors: FieldErrors<FormFamily>;
 }) => {
   return (
@@ -237,7 +244,7 @@ const Child = ({
           invalidText={
             errors.children && errors.children[indexNumber]?.firstName?.message
           }
-          md={12}
+          md={6}
         />
         <TextInput
           name={`children.${indexNumber}.lastName`}
@@ -246,7 +253,7 @@ const Child = ({
           invalidText={
             errors.children && errors.children[indexNumber]?.lastName?.message
           }
-          md={12}
+          md={6}
         />
         <TextInput
           name={`children.${indexNumber}.spouseName`}
@@ -255,7 +262,7 @@ const Child = ({
           invalidText={
             errors.children && errors.children[indexNumber]?.spouseName?.message
           }
-          md={12}
+          md={6}
         />
         <TextInput
           name={`children.${indexNumber}.city`}
@@ -264,29 +271,30 @@ const Child = ({
           invalidText={
             errors.children && errors.children[indexNumber]?.city?.message
           }
-          md={12}
+          md={6}
         />
         <SelectInput
           name={`children.${indexNumber}.state`}
           label="State"
           options={stateMap}
           control={control}
+          setValue={setValue}
           invalidText={
             errors.children && errors.children[indexNumber]?.state?.message
           }
-          md={12}
+          md={6}
         />
         <CheckboxInput
           name={`children.${indexNumber}.isDeceased`}
           label="Deceased Child"
           control={control}
-          md={12}
+          md={6}
         />
         <Grid item xs={12}>
           <Button
             fullWidth
-            color="error"
-            startIcon={<Delete />}
+            color="danger"
+            startDecorator={<Delete />}
             onClick={() => removeChild(indexNumber)}>
             Remove Child
           </Button>
@@ -301,12 +309,14 @@ const Sibling = ({
   sibling,
   removeSibling,
   control,
+  setValue,
   errors,
 }: {
   indexNumber: number;
   sibling: SiblingType;
   removeSibling: (index: number) => void;
   control: Control<FormFamily, unknown>;
+  setValue: UseFormSetValue<FormFamily>;
   errors: FieldErrors<FormFamily>;
 }) => {
   return (
@@ -319,7 +329,7 @@ const Sibling = ({
           invalidText={
             errors.siblings && errors.siblings[indexNumber]?.firstName?.message
           }
-          md={12}
+          md={6}
         />
         <TextInput
           name={`siblings.${indexNumber}.lastName`}
@@ -328,7 +338,7 @@ const Sibling = ({
           invalidText={
             errors.siblings && errors.siblings[indexNumber]?.lastName?.message
           }
-          md={12}
+          md={6}
         />
         <TextInput
           name={`siblings.${indexNumber}.spouseName`}
@@ -337,7 +347,7 @@ const Sibling = ({
           invalidText={
             errors.siblings && errors.siblings[indexNumber]?.spouseName?.message
           }
-          md={12}
+          md={6}
         />
         <TextInput
           name={`siblings.${indexNumber}.city`}
@@ -346,29 +356,30 @@ const Sibling = ({
           invalidText={
             errors.siblings && errors.siblings[indexNumber]?.city?.message
           }
-          md={12}
+          md={6}
         />
         <SelectInput
           name={`siblings.${indexNumber}.state`}
           label="State"
           options={stateMap}
           control={control}
+          setValue={setValue}
           invalidText={
             errors.siblings && errors.siblings[indexNumber]?.state?.message
           }
-          md={12}
+          md={6}
         />
         <CheckboxInput
           name={`siblings.${indexNumber}.isDeceased`}
           label="Deceased Sibling"
           control={control}
-          md={12}
+          md={6}
         />
         <Grid item xs={12}>
           <Button
             fullWidth
-            color="error"
-            startIcon={<Delete />}
+            color="danger"
+            startDecorator={<Delete />}
             onClick={() => removeSibling(indexNumber)}>
             Remove Sibling
           </Button>
@@ -401,7 +412,7 @@ const Friend = ({
           invalidText={
             errors.friends && errors.friends[indexNumber]?.firstName?.message
           }
-          md={12}
+          md={6}
         />
 
         <TextInput
@@ -411,13 +422,13 @@ const Friend = ({
           invalidText={
             errors.friends && errors.friends[indexNumber]?.lastName?.message
           }
-          md={12}
+          md={6}
         />
         <Grid item xs={12}>
           <Button
             fullWidth
-            color="error"
-            startIcon={<Delete />}
+            color="danger"
+            startDecorator={<Delete />}
             onClick={() => removeFriend(indexNumber)}>
             Remove Friend
           </Button>

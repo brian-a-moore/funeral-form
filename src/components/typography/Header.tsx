@@ -1,5 +1,6 @@
 import { AddCircle } from '@mui/icons-material';
-import { Grid, IconButton } from '@mui/material';
+import IconButton from '@mui/joy/IconButton';
+import { Grid } from '@mui/material';
 import styled from 'styled-components';
 
 type Props = {
@@ -18,7 +19,7 @@ export default function Header({ title, disabled = false, addFn }: Props) {
         {title}
       </Title>
       {addFn && (
-        <IconButton size="small" onClick={addFn} disabled={disabled}>
+        <IconButton size="sm" onClick={addFn} disabled={disabled}>
           <AddCircle />
         </IconButton>
       )}

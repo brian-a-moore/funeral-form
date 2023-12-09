@@ -1,5 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Alert, Grid } from '@mui/material';
+import Alert from '@mui/joy/Alert';
+import { Grid } from '@mui/material';
 import { Path, SubmitHandler, useForm } from 'react-hook-form';
 import { IncidentLocation } from '../../config/enums';
 import { incidentLocationMap, stateMap } from '../../config/maps';
@@ -55,7 +56,7 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
       <Card>
         <Header title="Bio" />
         <Grid item xs={12}>
-          <Alert severity="info">
+          <Alert variant="soft" color="primary">
             Okay, now we need to gather some information about your loved one.
           </Alert>
         </Grid>
@@ -102,12 +103,13 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
       <Card>
         <Grid container spacing="1rem">
           <Header title="Additional Details" />
-          <SelectInput
+          <SelectInput<FormBio>
             name="placeOfIncident"
             label="Place of Incident"
             options={incidentLocationMap}
             invalidText={errors.placeOfIncident?.message}
             control={control}
+            setValue={setValue}
             md={6}
           />
           <TextInput
@@ -133,11 +135,12 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             control={control}
             invalidText={errors.cityOfBirth?.message}
           />
-          <SelectInput
+          <SelectInput<FormBio>
             name="stateOfBirth"
             label="State of Birth"
             options={stateMap}
             control={control}
+            setValue={setValue}
             invalidText={errors.stateOfBirth?.message}
           />
         </Grid>
@@ -155,11 +158,12 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             control={control}
             invalidText={errors.cityOfDeath?.message}
           />
-          <SelectInput
+          <SelectInput<FormBio>
             name="stateOfDeath"
             label="State of Death"
             options={stateMap}
             control={control}
+            setValue={setValue}
             invalidText={errors.stateOfDeath?.message}
           />
         </Grid>

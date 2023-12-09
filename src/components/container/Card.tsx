@@ -1,4 +1,5 @@
-import { Grid, Paper } from '@mui/material';
+import _Card from '@mui/joy/Card';
+import { Grid } from '@mui/material';
 import { ReactNode } from 'react';
 
 type Props = {
@@ -8,11 +9,11 @@ type Props = {
 export default function Card({ children }: Props) {
   return (
     <Grid item xs={12}>
-      <Paper elevation={3} style={{ padding: '1rem' }}>
+      <_Card>
         <Grid container style={{ rowGap: '1rem' }}>
           {children}
         </Grid>
-      </Paper>
+      </_Card>
     </Grid>
   );
 }

@@ -1,5 +1,6 @@
-import { Button, Grid } from '@mui/material';
-import styled from 'styled-components';
+import { styled } from '@mui/joy';
+import Button from '@mui/joy/Button';
+import { Grid } from '@mui/material';
 import { FORM_STEPS } from '../../config/constants';
 
 type Props = {
@@ -25,11 +26,7 @@ export default function Navigation({
           type="button">
           Previous
         </Button>
-        <Button
-          disabled={disabled}
-          onClick={next}
-          variant="contained"
-          type="button">
+        <Button disabled={disabled} onClick={next} type="button">
           {activeStep === FORM_STEPS.length - 1 ? 'Review' : 'Next'}
         </Button>
       </Nav>
@@ -37,8 +34,8 @@ export default function Navigation({
   );
 }
 
-const Nav = styled.nav`
-  display: flex;
-  justify-content: flex-end;
-  column-gap: 1rem;
-`;
+const Nav = styled('nav')({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  columnGap: '1rem',
+});
