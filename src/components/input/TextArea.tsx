@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText } from '@mui/joy';
+import { FormControl, FormHelperText, FormLabel } from '@mui/joy';
 import Textarea from '@mui/joy/Textarea';
 import { Grid } from '@mui/material';
 import { HTMLInputTypeAttribute } from 'react';
@@ -28,6 +28,7 @@ export default function TextArea<F extends FieldValues>({
 }: Props<F>) {
   return (
     <Grid item xs={xs} md={md}>
+      <FormLabel style={{ marginBottom: '0.2rem' }}>{label}</FormLabel>
       <Controller
         disabled={disabled}
         name={name}

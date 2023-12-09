@@ -18,7 +18,15 @@ export default function CheckboxInput<F extends FieldValues>({
   control,
 }: Props<F>) {
   return (
-    <Grid item xs={xs} md={md}>
+    <Grid
+      item
+      xs={xs}
+      md={md}
+      style={{
+        display: 'flex',
+        alignItems: 'flex-end',
+        marginBottom: '0.5rem',
+      }}>
       <Controller
         name={name}
         control={control}

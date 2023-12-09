@@ -29,7 +29,7 @@ export const bioResolver = Joi.object({
   lastName: STRING('Last Name'),
   nickname: STRING_OPTIONAL('Nickname'),
   placeOfIncident: INCIDENT_LOCATION,
-  other: STRING_OPTIONAL('Other Location'),
+  other: STRING_OPTIONAL('Other'),
   dateOfBirth: DATE,
   cityOfBirth: STRING_OPTIONAL('City of Birth'),
   stateOfBirth: STATE_OPTIONAL,

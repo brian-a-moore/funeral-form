@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { stateMap, timeMap } from '../../config/maps';
 import { serviceResolver } from '../../config/resolvers';
 import { FormService, Forms, MasterForm } from '../../config/types';
-import { convertDate } from '../../helpers/date';
 import { Card, Form } from '../container';
 import { SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
@@ -15,15 +14,6 @@ type Props = {
   defaultValues: FormService;
   prev: () => void;
   next: (key: keyof MasterForm, data: Forms) => void;
-};
-
-const transformDefaultValues = (defaultValues: FormService): FormService => {
-  return {
-    ...defaultValues,
-    serviceLocationDateOfService: convertDate(
-      defaultValues.serviceLocationDateOfService,
-    ),
-  };
 };
 
 export default function Service({
@@ -38,7 +28,7 @@ export default function Service({
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormService>({
-    defaultValues: transformDefaultValues(defaultValues),
+    defaultValues,
     resolver: joiResolver(serviceResolver),
   });
 
