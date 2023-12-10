@@ -42,18 +42,18 @@ export default function App() {
     switch (activeStep) {
       case 0:
         return (
-          <Bio
+          <Info
             activeStep={activeStep}
-            defaultValues={masterForm.bio}
+            defaultValues={masterForm.info}
             prev={_prevStep}
             next={_nextStep}
           />
         );
       case 1:
         return (
-          <Info
+          <Bio
             activeStep={activeStep}
-            defaultValues={masterForm.info}
+            defaultValues={masterForm.bio}
             prev={_prevStep}
             next={_nextStep}
           />
