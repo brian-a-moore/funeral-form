@@ -31,7 +31,7 @@ export type Friend = {
 };
 
 export type FormBio = {
-  image: File | null;
+  images: File[] | null;
   firstName: string;
   middleName: string;
   lastName: string;

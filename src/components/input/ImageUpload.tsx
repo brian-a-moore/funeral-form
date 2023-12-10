@@ -1,105 +1,142 @@
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Button, Grid, styled } from '@mui/material';
+import { Close, CloudUpload } from '@mui/icons-material';
+import { Button, Grid, IconButton, styled } from '@mui/material';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Path } from 'react-hook-form';
 
 type Props<F> = {
   name: Path<F>;
-  defaultValue: File | null;
-  updateImage: (name: Path<F>, file: File | null) => void;
+  defaultValue: File[] | null;
+  updateImages: (name: Path<F>, file: File[] | null) => void;
 };
 
 export default function ImageUpload<F>({
   name,
   defaultValue,
-  updateImage,
+  updateImages,
 }: Props<F>) {
-  const [selectedImage, setSelectedImage] = useState<File | null>(
-    defaultValue ?? null,
-  );
-  const [previewURL, setPreviewURL] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [images, setImages] = useState<File[] | null>(defaultValue ?? null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (defaultValue) setSelectedImage(defaultValue);
+    if (defaultValue) setImages(defaultValue);
   }, [defaultValue]);
 
   useEffect(() => {
-    if (selectedImage) {
-      updateImage(name, selectedImage);
+    if (images) {
+      updateImages(name, images);
     }
-  }, [name, selectedImage, updateImage]);
+  }, [name, images, updateImages]);
 
-  const _handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
+  const _handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || !event.target.files.length) return;
+    let fileToLarge = false;
 
-    if (file) {
-      if (file.size > 1024 * 1024) {
-        alert('Image can only be 1MB or smaller');
-        return;
-      } else if (
-        !['image/jpeg', 'image/png', 'image/gif'].includes(file.type)
-      ) {
-        alert('Image can only be a jpeg, png or gif');
-        return;
-      } else {
-        setSelectedImage(file);
-
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setPreviewURL(reader.result as string);
-        };
-        reader.readAsDataURL(file);
+    if (event.target.files.length > 12) {
+      alert('You can only upload twelve images');
+      if (imageInputRef.current) {
+        imageInputRef.current.value = '';
       }
+      return;
     }
+
+    Array.from(event.target.files).map(file => {
+      if (file.size > 1024 * 1024 * 5) {
+        fileToLarge = true;
+      }
+    });
+
+    if (fileToLarge) {
+      alert('Images can be no larger than 5MB each.');
+      if (imageInputRef.current) {
+        imageInputRef.current.value = '';
+      }
+      return;
+    }
+
+    setImages(Array.from(event.target.files));
   };
 
-  const _removeImage = () => {
-    setSelectedImage(null);
-    setPreviewURL(null);
+  const _removeImage = (index: number) => {
+    setImages(prevImages => {
+      if (!prevImages) return prevImages;
+      const filteredImages = [
+        ...prevImages.slice(0, index),
+        ...prevImages.slice(index + 1),
+      ];
 
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+      if (filteredImages.length === 0) return null;
+      else return filteredImages;
+    });
   };
 
   return (
-    <Grid item xs={12} md={4}>
-      <Container>
-        {previewURL ? (
-          <>
-            <img
-              src={previewURL}
-              alt="Preview"
+    <Grid item xs={12} md={12}>
+      <section
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.3)',
+          padding: '1rem',
+          borderRadius: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Grid container spacing="1rem">
+          {images?.map((image, index) => (
+            <Grid
+              key={index}
+              item
+              xs={6}
+              sm={4}
+              md={3}
+              style={{ position: 'relative' }}>
+              <IconButton
+                size="small"
+                style={{
+                  backgroundColor: '#333',
+                  position: 'absolute',
+                  top: '1.5rem',
+                  right: '0.5rem',
+                  zIndex: '2',
+                }}
+                onClick={() => _removeImage(index)}>
+                <Close />
+              </IconButton>
+              <PreviewImage src={URL.createObjectURL(image)} />
+            </Grid>
+          ))}
+          {images === null ? (
+            <div
               style={{
-                maxWidth: '100%',
-                maxHeight: '156px',
-                objectFit: 'contain',
-              }}
-            />
-            <Button variant="outlined" onClick={_removeImage}>
-              Remove
-            </Button>
-          </>
-        ) : (
-          <Button
-            component="label"
-            variant="contained"
-            startIcon={<CloudUploadIcon />}>
-            Upload Image
-            <VisuallyHiddenInput type="file" onChange={_handleImageChange} />
-          </Button>
-        )}
-      </Container>
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingTop: '1rem',
+              }}>
+              <Button
+                component="label"
+                variant="contained"
+                startIcon={<CloudUpload />}>
+                Upload Images
+                <VisuallyHiddenInput
+                  type="file"
+                  multiple
+                  accept="image/png, image/jpg, image/jpeg, image/gif"
+                  ref={imageInputRef}
+                  onChange={_handleImagesChange}
+                />
+              </Button>
+            </div>
+          ) : null}
+        </Grid>
+      </section>
     </Grid>
   );
 }
 
-const Container = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  rowGap: '1rem',
-  alignItems: 'center',
+const PreviewImage = styled('img')({
+  width: '100%',
+  objectFit: 'contain',
 });
 
 const VisuallyHiddenInput = styled('input')({

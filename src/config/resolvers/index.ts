@@ -23,7 +23,11 @@ import {
 } from './items';
 
 export const bioResolver = Joi.object({
-  image: Joi.alternatives().try(FILE, Joi.allow(null)).required(),
+  images: Joi.array()
+    .items(Joi.alternatives().try(FILE, Joi.allow(null)))
+    .min(0)
+    .max(12)
+    .required(),
   firstName: STRING('First Name'),
   middleName: STRING_OPTIONAL('Middle Name'),
   lastName: STRING('Last Name'),

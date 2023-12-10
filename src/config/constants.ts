@@ -69,7 +69,7 @@ export const DEFAULT_SIBLING: Omit<Sibling, 'id'> = {
 };
 
 export const FORM_BIO: FormBio = {
-  image: null,
+  images: null,
   firstName: '',
   middleName: '',
   lastName: '',

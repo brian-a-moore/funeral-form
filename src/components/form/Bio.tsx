@@ -30,8 +30,8 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
     resolver: joiResolver(bioResolver),
   });
 
-  const _updateImage = (name: Path<FormBio>, file: File | null) => {
-    setValue(name, file);
+  const _updateImages = (name: Path<FormBio>, images: File[] | null) => {
+    setValue(name, images);
   };
 
   const onSubmit: SubmitHandler<FormBio> = data => {
@@ -39,7 +39,7 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
   };
 
   const isOtherDisabled = watch('placeOfIncident') !== IncidentLocation.OTHER;
-  const currentImage = getValues('image');
+  const currentImages = getValues('images');
 
   return (
     <Form>
@@ -50,42 +50,42 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             Okay, now we need to gather some information about your loved one.
           </Alert>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={12}>
           <ImageUpload<FormBio>
-            name="image"
-            defaultValue={currentImage ?? null}
-            updateImage={_updateImage}
+            name="images"
+            defaultValue={currentImages ?? null}
+            updateImages={_updateImages}
           />
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
           <Grid container spacing="1rem">
             <TextInput
               name="firstName"
               label="First Name"
               invalidText={errors.firstName?.message}
               control={control}
-              md={12}
+              md={6}
             />
             <TextInput
               name="middleName"
               label="Middle Name"
               invalidText={errors.middleName?.message}
               control={control}
-              md={12}
+              md={6}
             />
             <TextInput
               name="lastName"
               label="Last Name"
               invalidText={errors.lastName?.message}
               control={control}
-              md={12}
+              md={6}
             />
             <TextInput
               name="nickname"
               label="Nickname"
               invalidText={errors.nickname?.message}
               control={control}
-              md={12}
+              md={6}
             />
           </Grid>
         </Grid>
