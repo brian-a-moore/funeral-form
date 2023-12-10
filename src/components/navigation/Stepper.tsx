@@ -13,7 +13,6 @@ export default function Stepper({ activeStep }: Props) {
     <Grid item xs={12}>
       <_Stepper
         activeStep={activeStep}
-        style={{ padding: '1rem' }}
         orientation={(width as number) < 590 ? 'vertical' : 'horizontal'}>
         {FORM_STEPS.map((label, index) => (
           <Step key={index}>
