@@ -41,8 +41,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
   const isOtherDisabled = watch('placeOfIncident') !== IncidentLocation.OTHER;
   const currentImages = getValues('images');
 
-  console.log({ defaultValues });
-
   return (
     <Form>
       <Card>

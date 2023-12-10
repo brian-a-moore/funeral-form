@@ -5,7 +5,7 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Bio,
   Education,
@@ -29,8 +29,11 @@ export default function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [masterForm, setMasterForm] = useState<MasterForm>(MASTER_FORM);
 
+  useEffect(() => {
+    console.log(masterForm);
+  }, [masterForm]);
+
   const _nextStep = (key: keyof MasterForm, data: Forms) => {
-    console.log({ key, data });
     setMasterForm(prevState => ({ ...prevState, [key]: data }));
     setActiveStep(currentStep =>
       currentStep < FORM_STEPS.length - 1 ? currentStep + 1 : currentStep,
