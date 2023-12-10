@@ -25,7 +25,7 @@ export default function Navigation({
           Previous
         </Button>
         <Button
-          variant="outlined"
+          variant="contained"
           disabled={disabled}
           onClick={next}
           type="button">

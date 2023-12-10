@@ -38,10 +38,10 @@ export default function SelectInput<F extends FieldValues>({
           control={control}
           rules={{ required }}
           render={({ field }) => (
-            <Select labelId={name} {...field}>
-              {Array.from(options.entries()).map(([id, label]) => (
+            <Select labelId={name} id={name} {...field}>
+              {Array.from(options.entries()).map(([id, value]) => (
                 <MenuItem key={id} value={id}>
-                  {label}
+                  {value}
                 </MenuItem>
               ))}
             </Select>

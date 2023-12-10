@@ -1,4 +1,10 @@
-import { Container, Grid } from '@mui/material';
+import {
+  Container,
+  CssBaseline,
+  Grid,
+  ThemeProvider,
+  createTheme,
+} from '@mui/material';
 import { useState } from 'react';
 import {
   Bio,
@@ -13,7 +19,13 @@ import { FORM_STEPS, MASTER_FORM } from './config/constants';
 import { Forms, MasterForm } from './config/types';
 import './index.css';
 
-function App() {
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+export default function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [masterForm, setMasterForm] = useState<MasterForm>(MASTER_FORM);
 
@@ -88,13 +100,14 @@ function App() {
   };
 
   return (
-    <Container>
-      <Stepper activeStep={activeStep} />
-      <Grid item xs={12}>
-        {_showForm()}
-      </Grid>
-    </Container>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Container>
+        <Stepper activeStep={activeStep} />
+        <Grid item xs={12}>
+          {_showForm()}
+        </Grid>
+      </Container>
+    </ThemeProvider>
   );
 }
-
-export default App;
