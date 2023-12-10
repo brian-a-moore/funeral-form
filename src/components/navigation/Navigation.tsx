@@ -18,12 +18,17 @@ export default function Navigation({
     <Grid item xs={12}>
       <Nav>
         <Button
+          variant="outlined"
           onClick={prev}
           disabled={activeStep === 0 || disabled}
           type="button">
           Previous
         </Button>
-        <Button disabled={disabled} onClick={next} type="button">
+        <Button
+          variant="outlined"
+          disabled={disabled}
+          onClick={next}
+          type="button">
           {activeStep === FORM_STEPS.length - 1 ? 'Review' : 'Next'}
         </Button>
       </Nav>
