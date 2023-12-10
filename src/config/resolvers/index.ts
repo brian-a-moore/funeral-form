@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { MilitaryBranch } from '../enums';
+import { IncidentLocation, MilitaryBranch } from '../enums';
 import {
   DATE,
   FILE,
@@ -34,7 +34,11 @@ export const bioResolver = Joi.object({
   lastName: STRING('Last Name'),
   nickname: STRING_OPTIONAL('Nickname'),
   placeOfIncident: INCIDENT_LOCATION,
-  other: STRING_OPTIONAL('Other'),
+  other: Joi.when('placeOfIncident', {
+    is: Joi.string().valid(IncidentLocation.OTHER),
+    then: STRING('Other'),
+    otherwise: STRING_OPTIONAL('Other'),
+  }),
   dateOfBirth: DATE,
   cityOfBirth: STRING_OPTIONAL('City of Birth'),
   stateOfBirth: STATE_OPTIONAL,

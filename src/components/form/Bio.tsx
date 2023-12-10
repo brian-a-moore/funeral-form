@@ -97,16 +97,17 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             options={incidentLocationMap}
             invalidText={errors.placeOfIncident?.message}
             control={control}
-            md={6}
+            md={isOtherDisabled ? 12 : 6}
           />
-          <TextInput
-            name="other"
-            label="Other"
-            control={control}
-            disabled={isOtherDisabled}
-            invalidText={errors.other?.message}
-            md={6}
-          />
+          {!isOtherDisabled && (
+            <TextInput
+              name="other"
+              label="Other"
+              control={control}
+              invalidText={errors.other?.message}
+              md={6}
+            />
+          )}
         </Grid>
         <Grid container spacing="1rem">
           <TextInput
