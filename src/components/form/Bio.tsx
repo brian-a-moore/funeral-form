@@ -1,5 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Alert, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Path, SubmitHandler, useForm } from 'react-hook-form';
 import { IncidentLocation } from '../../config/enums';
 import { incidentLocationMap, stateMap } from '../../config/maps';
@@ -45,18 +45,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
     <Form>
       <Card>
         <Header title="Bio" />
-        <Grid item xs={12}>
-          <Alert severity="info">
-            Okay, now we need to gather some information about your loved one.
-          </Alert>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <ImageUpload<FormBio>
-            name="images"
-            defaultValue={currentImages ?? null}
-            updateImages={_updateImages}
-          />
-        </Grid>
         <Grid item xs={12} md={12}>
           <Grid container spacing="1rem">
             <TextInput
@@ -88,6 +76,16 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
               md={6}
             />
           </Grid>
+        </Grid>
+      </Card>
+      <Card>
+        <Header title="Images" />
+        <Grid item xs={12} md={12}>
+          <ImageUpload<FormBio>
+            name="images"
+            defaultValue={currentImages ?? null}
+            updateImages={_updateImages}
+          />
         </Grid>
       </Card>
       <Card>

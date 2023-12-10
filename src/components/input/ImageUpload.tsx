@@ -1,5 +1,5 @@
 import { Close, CloudUpload } from '@mui/icons-material';
-import { Button, Grid, IconButton, styled } from '@mui/material';
+import { Alert, Button, Grid, IconButton, styled } from '@mui/material';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Path } from 'react-hook-form';
 
@@ -105,10 +105,14 @@ export default function ImageUpload<F>({
             </Grid>
           ))}
           {images === null ? (
-            <div
+            <Grid
+              item
+              xs={12}
               style={{
                 width: '100%',
                 display: 'flex',
+                flexDirection: 'column',
+                rowGap: '1rem',
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingTop: '1rem',
@@ -126,7 +130,11 @@ export default function ImageUpload<F>({
                   onChange={_handleImagesChange}
                 />
               </Button>
-            </div>
+              <Alert severity="info">
+                You can upload up to twelve images. Each image must be smaller
+                than 5MB
+              </Alert>
+            </Grid>
           ) : null}
         </Grid>
       </section>

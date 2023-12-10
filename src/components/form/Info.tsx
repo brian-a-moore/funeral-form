@@ -1,5 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Alert, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { stateMap } from '../../config/maps';
 import { infoResolver } from '../../config/resolvers';
@@ -35,12 +35,6 @@ export default function Info({ activeStep, defaultValues, prev, next }: Props) {
       <Card>
         <Header title="Your Info" />
         <Grid container spacing="1rem">
-          <Grid item xs={12}>
-            <Alert severity="info">
-              To begin, we will need some information about you and the funeral
-              home responsible for your family's services.
-            </Alert>
-          </Grid>
           <TextInput
             name="firstName"
             label="First Name"
