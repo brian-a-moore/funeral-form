@@ -30,6 +30,7 @@ export default function App() {
   const [masterForm, setMasterForm] = useState<MasterForm>(MASTER_FORM);
 
   const _nextStep = (key: keyof MasterForm, data: Forms) => {
+    console.log({ key, data });
     setMasterForm(prevState => ({ ...prevState, [key]: data }));
     setActiveStep(currentStep =>
       currentStep < FORM_STEPS.length - 1 ? currentStep + 1 : currentStep,

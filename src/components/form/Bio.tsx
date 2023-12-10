@@ -41,6 +41,8 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
   const isOtherDisabled = watch('placeOfIncident') !== IncidentLocation.OTHER;
   const currentImages = getValues('images');
 
+  console.log({ defaultValues });
+
   return (
     <Form>
       <Card>
@@ -112,8 +114,8 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
         <Grid container spacing="1rem">
           <TextInput
             name="dateOfBirth"
-            label="Date of Birth"
             type="date"
+            label="Date of Birth"
             control={control}
             invalidText={errors.dateOfBirth?.message}
           />
@@ -134,8 +136,8 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
         <Grid container spacing="1rem">
           <TextInput
             name="dateOfDeath"
-            label="Date of Death"
             type="date"
+            label="Date of Death"
             control={control}
             invalidText={errors.dateOfDeath?.message}
           />

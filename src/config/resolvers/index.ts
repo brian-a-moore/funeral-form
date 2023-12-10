@@ -109,7 +109,7 @@ export const serviceResolver = Joi.object({
   serviceLocationCity: STRING('City'),
   serviceLocationState: STATE,
   serviceLocationMinisterName: STRING("Minister's Name"),
-  serviceLocationDateOfService: DATE('Date of Service'),
+  serviceLocationDateOfService: DATE,
   serviceLocationTimeOfService: TIME,
   viewingLocationName: STRING('Church/Funeral Home'),
   viewingLocationCity: STRING('City'),

@@ -6,12 +6,9 @@ import {
   State,
 } from '../enums';
 
-const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-
 export const BOOL = Joi.bool().required();
 
-export const DATE = (label: string) =>
-  Joi.string().regex(dateRegex).message(`${label} is required`).required();
+export const DATE = Joi.string().required();
 
 export const EDUCATION_LEVEL = (label: string) =>
   Joi.string()
