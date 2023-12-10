@@ -208,7 +208,6 @@ const Institution = ({
             errors.institutions &&
             errors.institutions[indexNumber]?.name?.message
           }
-          md={12}
         />
 
         <TextInput
@@ -219,7 +218,6 @@ const Institution = ({
             errors.institutions &&
             errors.institutions[indexNumber]?.city?.message
           }
-          md={12}
         />
         <SelectInput
           name={`institutions.${indexNumber}.state`}
@@ -231,7 +229,6 @@ const Institution = ({
             errors.institutions[indexNumber]?.state?.message
           }
           xs={6}
-          md={6}
         />
         <TextInput
           name={`institutions.${indexNumber}.major`}
@@ -242,7 +239,6 @@ const Institution = ({
             errors.institutions[indexNumber]?.major?.message
           }
           xs={6}
-          md={6}
         />
         <SelectInput
           name={`institutions.${indexNumber}.degree`}
@@ -254,7 +250,6 @@ const Institution = ({
             errors.institutions[indexNumber]?.degree?.message
           }
           xs={6}
-          md={6}
         />
         <TextInput
           type="number"
@@ -266,7 +261,6 @@ const Institution = ({
             errors.institutions[indexNumber]?.graduationYear?.message
           }
           xs={6}
-          md={6}
         />
         <Grid item xs={12}>
           <Button
@@ -296,44 +290,43 @@ const Organization = ({
 }) => {
   return (
     <Card key={organization.id}>
-      <TextInput
-        name={`organizations.${indexNumber}.name`}
-        label="Organization Name"
-        control={control}
-        invalidText={
-          errors.organizations &&
-          errors.organizations[indexNumber]?.name?.message
-        }
-        md={12}
-      />
-      <TextInput
-        name={`organizations.${indexNumber}.position`}
-        label="Position"
-        control={control}
-        invalidText={
-          errors.organizations &&
-          errors.organizations[indexNumber]?.position?.message
-        }
-        md={12}
-      />
-      <TextInput
-        type="number"
-        name={`organizations.${indexNumber}.numOfYears`}
-        label="Years Active"
-        control={control}
-        invalidText={
-          errors.organizations &&
-          errors.organizations[indexNumber]?.numOfYears?.message
-        }
-        md={12}
-      />
-      <Grid item xs={12}>
-        <Button
-          startIcon={<Delete />}
-          color="error"
-          onClick={() => removeOrganization(indexNumber)}>
-          Remove Organization
-        </Button>
+      <Grid container spacing="1rem">
+        <TextInput
+          name={`organizations.${indexNumber}.name`}
+          label="Organization Name"
+          control={control}
+          invalidText={
+            errors.organizations &&
+            errors.organizations[indexNumber]?.name?.message
+          }
+        />
+        <TextInput
+          name={`organizations.${indexNumber}.position`}
+          label="Position"
+          control={control}
+          invalidText={
+            errors.organizations &&
+            errors.organizations[indexNumber]?.position?.message
+          }
+        />
+        <TextInput
+          type="number"
+          name={`organizations.${indexNumber}.numOfYears`}
+          label="Years Active"
+          control={control}
+          invalidText={
+            errors.organizations &&
+            errors.organizations[indexNumber]?.numOfYears?.message
+          }
+        />
+        <Grid item xs={12}>
+          <Button
+            startIcon={<Delete />}
+            color="error"
+            onClick={() => removeOrganization(indexNumber)}>
+            Remove Organization
+          </Button>
+        </Grid>
       </Grid>
     </Card>
   );
