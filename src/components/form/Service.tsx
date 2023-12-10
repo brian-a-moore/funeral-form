@@ -25,7 +25,6 @@ export default function Service({
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormService>({
     defaultValues,
@@ -58,7 +57,6 @@ export default function Service({
             label="State"
             options={stateMap}
             control={control}
-            setValue={setValue}
             invalidText={errors.serviceLocationState?.message}
           />
           <TextInput
@@ -78,7 +76,6 @@ export default function Service({
             name="serviceLocationTimeOfService"
             label="Time of Service"
             control={control}
-            setValue={setValue}
             options={timeMap}
             invalidText={errors.serviceLocationTimeOfService?.message}
           />
@@ -103,7 +100,6 @@ export default function Service({
             name="viewingLocationState"
             label="State"
             control={control}
-            setValue={setValue}
             options={stateMap}
             invalidText={errors.viewingLocationState?.message}
           />
@@ -111,7 +107,6 @@ export default function Service({
             name="viewingLocationStartTime"
             label="Start Time"
             control={control}
-            setValue={setValue}
             options={timeMap}
             invalidText={errors.viewingLocationStartTime?.message}
           />
@@ -119,7 +114,6 @@ export default function Service({
             name="viewingLocationEndTime"
             label="End Time"
             control={control}
-            setValue={setValue}
             options={timeMap}
             invalidText={errors.viewingLocationEndTime?.message}
           />
@@ -144,7 +138,6 @@ export default function Service({
             name="repassLocationState"
             label="State"
             control={control}
-            setValue={setValue}
             options={stateMap}
             invalidText={errors.repassLocationState?.message}
           />

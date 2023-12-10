@@ -1,12 +1,10 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Delete } from '@mui/icons-material';
-import { Button } from '@mui/joy';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import {
   Control,
   FieldErrors,
   SubmitHandler,
-  UseFormSetValue,
   useFieldArray,
   useForm,
 } from 'react-hook-form';
@@ -21,7 +19,7 @@ import {
 } from '../../config/types';
 import { generateId } from '../../helpers/generate';
 import { Card, Form } from '../container';
-import { CheckboxInput, SelectInput, TextArea, TextInput } from '../input';
+import { CheckboxInput, SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
 import { EmptyList, Header } from '../typography';
 
@@ -41,7 +39,6 @@ export default function Employment({
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormEmployment>({
     defaultValues,
@@ -86,7 +83,6 @@ export default function Employment({
                 employer={employer}
                 removeEmployer={_removeEmployer}
                 control={control}
-                setValue={setValue}
                 errors={errors}
               />
             ))
@@ -98,19 +94,23 @@ export default function Employment({
       <Card>
         <Grid container spacing="1rem">
           <Header title="Final Thoughts" />
-          <TextArea
+          <TextInput
             name="hobbies"
             label="Hobbies"
             control={control}
             invalidText={errors.hobbies?.message}
             md={6}
+            multiline
+            maxRows={10}
           />
-          <TextArea
+          <TextInput
             name="additionalInfo"
             label="Additional Information"
             control={control}
             invalidText={errors.additionalInfo?.message}
             md={6}
+            multiline
+            maxRows={10}
           />
         </Grid>
       </Card>
@@ -126,14 +126,12 @@ export default function Employment({
 
 const Employer = ({
   control,
-  setValue,
   indexNumber,
   employer,
   removeEmployer,
   errors,
 }: {
   control: Control<FormEmployment, unknown>;
-  setValue: UseFormSetValue<FormEmployment>;
   indexNumber: number;
   employer: EmployerType;
   removeEmployer: (index: number) => void;
@@ -165,7 +163,6 @@ const Employer = ({
           label="State"
           options={stateMap}
           control={control}
-          setValue={setValue}
           invalidText={
             errors.employers && errors.employers[indexNumber]?.state?.message
           }
@@ -190,9 +187,8 @@ const Employer = ({
         />
         <Grid item xs={12}>
           <Button
-            fullWidth
-            color="danger"
-            startDecorator={<Delete />}
+            startIcon={<Delete />}
+            color="error"
             onClick={() => removeEmployer(indexNumber)}>
             Remove Employer
           </Button>

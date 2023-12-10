@@ -1,5 +1,4 @@
-import { styled } from '@mui/joy';
-import { Grid } from '@mui/material';
+import { Grid, styled } from '@mui/material';
 import { ReactNode } from 'react';
 
 type Props = {

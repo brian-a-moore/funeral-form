@@ -1,6 +1,5 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Button } from '@mui/joy';
-import { Grid, styled } from '@mui/material';
+import { Button, Grid, styled } from '@mui/material';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Path } from 'react-hook-form';
 
@@ -65,7 +64,7 @@ export default function ImageUpload<F>({
   };
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} md={4}>
       <Container>
         {previewURL ? (
           <>
@@ -83,7 +82,10 @@ export default function ImageUpload<F>({
             </Button>
           </>
         ) : (
-          <Button component="label" startDecorator={<CloudUploadIcon />}>
+          <Button
+            component="label"
+            variant="contained"
+            startIcon={<CloudUploadIcon />}>
             Upload Image
             <VisuallyHiddenInput type="file" onChange={_handleImageChange} />
           </Button>
@@ -93,7 +95,7 @@ export default function ImageUpload<F>({
   );
 }
 
-const Container = styled('section')({
+const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   rowGap: '1rem',

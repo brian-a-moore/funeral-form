@@ -1,12 +1,10 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Delete } from '@mui/icons-material';
-import { Button } from '@mui/joy';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import {
   Control,
   FieldErrors,
   SubmitHandler,
-  UseFormSetValue,
   useFieldArray,
   useForm,
 } from 'react-hook-form';
@@ -49,7 +47,6 @@ export default function Education({
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormEducation>({
     defaultValues,
@@ -111,7 +108,6 @@ export default function Education({
                 institution={institution}
                 removeInstitution={_removeInstitution}
                 control={control}
-                setValue={setValue}
                 errors={errors}
               />
             ))
@@ -154,7 +150,6 @@ export default function Education({
             options={militaryBranchMap}
             md={3}
             control={control}
-            setValue={setValue}
             invalidText={errors.militaryService?.branch?.message}
           />
           <TextInput
@@ -194,14 +189,12 @@ const Institution = ({
   institution,
   removeInstitution,
   control,
-  setValue,
   errors,
 }: {
   indexNumber: number;
   institution: InstitutionType;
   removeInstitution: (index: number) => void;
   control: Control<FormEducation, unknown>;
-  setValue: UseFormSetValue<FormEducation>;
   errors: FieldErrors<FormEducation>;
 }) => {
   return (
@@ -233,7 +226,6 @@ const Institution = ({
           label="State"
           options={stateMap}
           control={control}
-          setValue={setValue}
           invalidText={
             errors.institutions &&
             errors.institutions[indexNumber]?.state?.message
@@ -257,7 +249,6 @@ const Institution = ({
           label="Degree"
           options={educationLevelMap}
           control={control}
-          setValue={setValue}
           invalidText={
             errors.institutions &&
             errors.institutions[indexNumber]?.degree?.message
@@ -279,9 +270,8 @@ const Institution = ({
         />
         <Grid item xs={12}>
           <Button
-            fullWidth
-            color="danger"
-            startDecorator={<Delete />}
+            startIcon={<Delete />}
+            color="error"
             onClick={() => removeInstitution(indexNumber)}>
             Remove Institution
           </Button>
@@ -339,9 +329,8 @@ const Organization = ({
       />
       <Grid item xs={12}>
         <Button
-          fullWidth
-          color="danger"
-          startDecorator={<Delete />}
+          startIcon={<Delete />}
+          color="error"
           onClick={() => removeOrganization(indexNumber)}>
           Remove Organization
         </Button>

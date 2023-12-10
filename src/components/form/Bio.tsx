@@ -1,6 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import Alert from '@mui/joy/Alert';
-import { Grid } from '@mui/material';
+import { Alert, Grid } from '@mui/material';
 import { Path, SubmitHandler, useForm } from 'react-hook-form';
 import { IncidentLocation } from '../../config/enums';
 import { incidentLocationMap, stateMap } from '../../config/maps';
@@ -31,8 +30,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
     resolver: joiResolver(bioResolver),
   });
 
-  console.log({ errors, values: getValues(), defaultValues });
-
   const _updateImage = (name: Path<FormBio>, file: File | null) => {
     setValue(name, file);
   };
@@ -49,7 +46,7 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
       <Card>
         <Header title="Bio" />
         <Grid item xs={12}>
-          <Alert variant="soft" color="primary">
+          <Alert severity="info">
             Okay, now we need to gather some information about your loved one.
           </Alert>
         </Grid>
@@ -102,7 +99,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             options={incidentLocationMap}
             invalidText={errors.placeOfIncident?.message}
             control={control}
-            setValue={setValue}
             md={6}
           />
           <TextInput
@@ -133,7 +129,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             label="State of Birth"
             options={stateMap}
             control={control}
-            setValue={setValue}
             invalidText={errors.stateOfBirth?.message}
           />
         </Grid>
@@ -156,7 +151,6 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
             label="State of Death"
             options={stateMap}
             control={control}
-            setValue={setValue}
             invalidText={errors.stateOfDeath?.message}
           />
         </Grid>

@@ -1,6 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import Alert from '@mui/joy/Alert';
-import { Grid } from '@mui/material';
+import { Alert, Grid } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { stateMap } from '../../config/maps';
 import { infoResolver } from '../../config/resolvers';
@@ -21,7 +20,6 @@ export default function Info({ activeStep, defaultValues, prev, next }: Props) {
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormInfo>({
     defaultValues,
@@ -38,7 +36,7 @@ export default function Info({ activeStep, defaultValues, prev, next }: Props) {
         <Header title="Your Info" />
         <Grid container spacing="1rem">
           <Grid item xs={12}>
-            <Alert variant="soft" color="primary">
+            <Alert severity="info">
               To begin, we will need some information about you and the funeral
               home responsible for your family's services.
             </Alert>
@@ -76,7 +74,6 @@ export default function Info({ activeStep, defaultValues, prev, next }: Props) {
           <SelectInput<FormInfo>
             name="state"
             label="State"
-            setValue={setValue}
             options={stateMap}
             control={control}
             invalidText={errors.state?.message}

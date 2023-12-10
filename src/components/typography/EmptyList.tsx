@@ -1,6 +1,7 @@
 type Props = {
   text: string;
 };
+
 export default function EmptyList({ text }: Props) {
   return (
     <span

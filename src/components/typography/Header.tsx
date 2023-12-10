@@ -1,7 +1,5 @@
 import { AddCircle } from '@mui/icons-material';
-import IconButton from '@mui/joy/IconButton';
-import { Grid } from '@mui/material';
-import styled from 'styled-components';
+import { Grid, IconButton, styled } from '@mui/material';
 
 type Props = {
   title: string;
@@ -19,7 +17,7 @@ export default function Header({ title, disabled = false, addFn }: Props) {
         {title}
       </Title>
       {addFn && (
-        <IconButton size="sm" onClick={addFn} disabled={disabled}>
+        <IconButton size="small" onClick={addFn} disabled={disabled}>
           <AddCircle />
         </IconButton>
       )}
@@ -27,8 +25,8 @@ export default function Header({ title, disabled = false, addFn }: Props) {
   );
 }
 
-const Title = styled.h1`
-  display: inline;
-  font-weight: 600;
-  color: #1e88e5;
-`;
+const Title = styled('h1')({
+  display: 'inline',
+  fontWeight: 600,
+  color: '#1e88e5',
+});

@@ -1,6 +1,4 @@
-import { styled } from '@mui/joy';
-import Button from '@mui/joy/Button';
-import { Grid } from '@mui/material';
+import { Button, Grid, styled } from '@mui/material';
 import { FORM_STEPS } from '../../config/constants';
 
 type Props = {
@@ -21,7 +19,6 @@ export default function Navigation({
       <Nav>
         <Button
           onClick={prev}
-          variant="outlined"
           disabled={activeStep === 0 || disabled}
           type="button">
           Previous

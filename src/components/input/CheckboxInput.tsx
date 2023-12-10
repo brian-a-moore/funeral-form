@@ -1,5 +1,10 @@
-import Checkbox from '@mui/joy/Checkbox';
-import { Grid } from '@mui/material';
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+} from '@mui/material';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 type Props<F extends FieldValues> = {
@@ -18,22 +23,27 @@ export default function CheckboxInput<F extends FieldValues>({
   control,
 }: Props<F>) {
   return (
-    <Grid
-      item
-      xs={xs}
-      md={md}
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        marginBottom: '0.5rem',
-      }}>
-      <Controller
-        name={name}
-        control={control}
-        render={({ field }) => (
-          <Checkbox label={label} {...field} checked={field.value} />
-        )}
-      />
+    <Grid item xs={xs} md={md}>
+      <FormControl
+        fullWidth
+        size="small"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Controller
+                name={name}
+                control={control}
+                render={({ field }) => <Checkbox {...field} />}
+              />
+            }
+            label={label}
+          />
+        </FormGroup>
+      </FormControl>
     </Grid>
   );
 }

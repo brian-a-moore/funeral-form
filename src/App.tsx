@@ -1,7 +1,5 @@
-import { CssVarsProvider } from '@mui/joy';
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useState } from 'react';
-import { Container } from './components/container';
 import {
   Bio,
   Education,
@@ -18,8 +16,6 @@ import './index.css';
 function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [masterForm, setMasterForm] = useState<MasterForm>(MASTER_FORM);
-
-  console.log({ masterForm });
 
   const _nextStep = (key: keyof MasterForm, data: Forms) => {
     setMasterForm(prevState => ({ ...prevState, [key]: data }));
@@ -93,12 +89,10 @@ function App() {
 
   return (
     <Container>
-      <CssVarsProvider defaultMode="dark">
-        <Stepper activeStep={activeStep} />
-        <Grid item xs={12}>
-          {_showForm()}
-        </Grid>
-      </CssVarsProvider>
+      <Stepper activeStep={activeStep} />
+      <Grid item xs={12}>
+        {_showForm()}
+      </Grid>
     </Container>
   );
 }
