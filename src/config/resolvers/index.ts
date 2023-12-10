@@ -24,6 +24,7 @@ import {
 
 export const bioResolver = Joi.object({
   images: Joi.array()
+    .allow(null)
     .items(Joi.alternatives().try(FILE, Joi.allow(null)))
     .min(0)
     .max(12)
