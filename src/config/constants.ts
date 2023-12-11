@@ -75,7 +75,7 @@ export const DEFAULT_SIBLING: Omit<Sibling, 'id'> = {
   isDeceased: false,
 };
 
-export const ENDPOINT = '';
+export const ENDPOINT = process.env.REACT_APP_FORM_SUBMISSION_ENDPOINT;
 
 export const FORM_BIO: FormBio = {
   images: null,
