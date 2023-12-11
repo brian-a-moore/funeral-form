@@ -1,9 +1,15 @@
-import { FormLabel, Grid } from '@mui/material';
-import { incidentLocationMap, stateMap } from '../../config/maps';
+import { Divider, FormLabel, Grid } from '@mui/material';
+import {
+  educationLevelMap,
+  incidentLocationMap,
+  militaryBranchMap,
+  stateMap,
+  timeMap,
+} from '../../config/maps';
 import { MasterForm } from '../../config/types';
 import { Card } from '../container';
 import { Navigation } from '../navigation';
-import { Header } from '../typography';
+import { Header, SubHeader } from '../typography';
 
 type ReviewProps = {
   activeStep: number;
@@ -19,7 +25,7 @@ export default function Review({
   next,
 }: ReviewProps) {
   return (
-    <Grid container spacing="1rem">
+    <Grid container spacing="1rem" style={{ marginTop: '1rem' }}>
       <Card>
         <Header title="Info" />
         <Grid item xs={12} md={4}>
@@ -49,22 +55,23 @@ export default function Review({
       </Card>
       <Card>
         <Header title="Bio" />
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <FormLabel>First Name</FormLabel>
           <p>{masterForm.bio.firstName}</p>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <FormLabel>Middle Name</FormLabel>
           <p>{masterForm.bio.middleName}</p>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <FormLabel>Last Name</FormLabel>
           <p>{masterForm.bio.lastName}</p>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <FormLabel>Nickname</FormLabel>
           <p>{masterForm.bio.nickname}</p>
         </Grid>
+        <SubHeader title="Additional Details" />
         <Grid item xs={12} md={4}>
           <FormLabel>Place of Incident</FormLabel>
           <p>{incidentLocationMap.get(masterForm.bio.placeOfIncident)}</p>
@@ -75,7 +82,7 @@ export default function Review({
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>Date of Birth</FormLabel>
-          <p>{new Date(masterForm.bio.birth.date).toLocaleString()}</p>
+          <p>{new Date(masterForm.bio.birth.date).toDateString()}</p>
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>City of Birth</FormLabel>
@@ -87,7 +94,7 @@ export default function Review({
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>Date of Death</FormLabel>
-          <p>{new Date(masterForm.bio.death.date).toLocaleString()}</p>
+          <p>{new Date(masterForm.bio.death.date).toDateString()}</p>
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>City of Death</FormLabel>
@@ -97,6 +104,7 @@ export default function Review({
           <FormLabel>State of Death</FormLabel>
           <p>{stateMap.get(masterForm.bio.death.state)}</p>
         </Grid>
+        <SubHeader title="Parents" />
         <Grid item xs={12} md={4}>
           <FormLabel>Father's First Name</FormLabel>
           <p>{masterForm.bio.parents.father.firstName}</p>
@@ -132,19 +140,292 @@ export default function Review({
       </Card>
       <Card>
         <Header title="Education" />
-        {JSON.stringify(masterForm.education)}
+        <SubHeader title="Institutions" />
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        {masterForm.education.institutions.map(institution => (
+          <Grid container spacing="1rem" key={institution.id}>
+            <Grid item xs={12} md={6}>
+              <FormLabel>Name</FormLabel>
+              <p>{institution.name}</p>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <FormLabel>City</FormLabel>
+              <p>{institution.city}</p>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <FormLabel>State</FormLabel>
+              <p>{stateMap.get(institution.state)}</p>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormLabel>Major</FormLabel>
+              <p>{institution.major}</p>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <FormLabel>Degree</FormLabel>
+              <p>{educationLevelMap.get(institution.degree)}</p>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <FormLabel>Graduation Year</FormLabel>
+              <p>{institution.name}</p>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
+        ))}
+        <SubHeader title="Charitable Organizations" />
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        {masterForm.education.organizations.map(organization => (
+          <Grid container spacing="1rem" key={organization.id}>
+            <Grid item xs={12} md={4}>
+              <FormLabel>Name</FormLabel>
+              <p>{organization.name}</p>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <FormLabel>Position</FormLabel>
+              <p>{organization.position}</p>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <FormLabel>Years Active</FormLabel>
+              <p>{organization.numOfYears}</p>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
+        ))}
+        <SubHeader title="Military Service" />
+        <Grid item xs={12} md={3}>
+          <FormLabel>Branch</FormLabel>
+          <p>
+            {militaryBranchMap.get(masterForm.education.militaryService.branch)}
+          </p>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <FormLabel>Position</FormLabel>
+          <p>{masterForm.education.militaryService.position}</p>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <FormLabel>Years Served</FormLabel>
+          <p>{masterForm.education.militaryService.numOfYears}</p>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <FormLabel>Retired</FormLabel>
+          <p>{masterForm.education.militaryService.isRetired ? 'Yes' : 'No'}</p>
+        </Grid>
       </Card>
       <Card>
         <Header title="Family" />
-        {JSON.stringify(masterForm.family)}
+        <SubHeader title="Spouse" />
+        <Grid item xs={12} md={4}>
+          <FormLabel>First Name</FormLabel>
+          <p>{masterForm.family.spouse.firstName}</p>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <FormLabel>Last Name</FormLabel>
+          <p>{masterForm.family.spouse.lastName}</p>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <FormLabel>Years Together</FormLabel>
+          <p>{masterForm.family.spouse.numOfYears}</p>
+        </Grid>
+        <SubHeader title="Children" />
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        {masterForm.family.children.map(child => (
+          <Grid container spacing="rem" key={child.id}>
+            <Grid item xs={12} md={6}>
+              <FormLabel>First Name</FormLabel>
+              <p>{child.firstName}</p>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormLabel>Last Name</FormLabel>
+              <p>{child.lastName}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>Spouse Name</FormLabel>
+              <p>{child.spouseName}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>City</FormLabel>
+              <p>{child.city}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>State</FormLabel>
+              <p>{stateMap.get(child.state)}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>Child</FormLabel>
+              <p>{child.isDeceased ? 'Has Passed' : 'Is Living'}</p>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
+        ))}
+        <SubHeader title="Siblings" />
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        {masterForm.family.siblings.map(sibling => (
+          <Grid container spacing="rem" key={sibling.id}>
+            <Grid item xs={12} md={6}>
+              <FormLabel>First Name</FormLabel>
+              <p>{sibling.firstName}</p>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormLabel>Last Name</FormLabel>
+              <p>{sibling.lastName}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>Spouse Name</FormLabel>
+              <p>{sibling.spouseName}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>City</FormLabel>
+              <p>{sibling.city}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>State</FormLabel>
+              <p>{stateMap.get(sibling.state)}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>Sibling</FormLabel>
+              <p>{sibling.isDeceased ? 'Has Passed' : 'Is Living'}</p>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
+        ))}
+        <SubHeader title="Close Friends" />
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        {masterForm.family.friends.map(friend => (
+          <Grid container spacing="rem" key={friend.id}>
+            <Grid item xs={12} md={6}>
+              <FormLabel>First Name</FormLabel>
+              <p>{friend.firstName}</p>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormLabel>Last Name</FormLabel>
+              <p>{friend.lastName}</p>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
+        ))}
       </Card>
       <Card>
         <Header title="Employment" />
-        {JSON.stringify(masterForm.employment)}
+        <SubHeader title="Employers" />
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        {masterForm.employment.employers.map(employer => (
+          <Grid container spacing="1rem" key={employer.id}>
+            <Grid item xs={12} md={3}>
+              <FormLabel>Name</FormLabel>
+              <p>{employer.name}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>City</FormLabel>
+              <p>{employer.city}</p>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <FormLabel>State</FormLabel>
+              <p>{stateMap.get(employer.state)}</p>
+            </Grid>
+            <Grid item xs={12} md={1.5}>
+              <FormLabel>Years Worked</FormLabel>
+              <p>{employer.numOfYears}</p>
+            </Grid>
+            <Grid item xs={12} md={1.5}>
+              <FormLabel>Retired</FormLabel>
+              <p>{employer.isRetired ? 'Yes' : 'No'}</p>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
+        ))}
+        <SubHeader title="Final Thoughts" />
+        <Grid item xs={12} md={6}>
+          <FormLabel>Hobbies</FormLabel>
+          <p>{masterForm.employment.hobbies}</p>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <FormLabel>Additional Info</FormLabel>
+          <p>{masterForm.employment.additionalInfo}</p>
+        </Grid>
       </Card>
       <Card>
         <Header title="Service" />
-        {JSON.stringify(masterForm.service)}
+        <Grid item xs={12} md={4}>
+          <FormLabel>Church/Funeral Home</FormLabel>
+          <p>{masterForm.service.service.name}</p>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <FormLabel>City</FormLabel>
+          <p>{masterForm.service.service.city}</p>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <FormLabel>State</FormLabel>
+          <p>{stateMap.get(masterForm.service.service.state)}</p>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <FormLabel>Minister's Name</FormLabel>
+          <p>{masterForm.service.service.ministerName}</p>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <FormLabel>Date of Service</FormLabel>
+          <p>{new Date(masterForm.service.service.date).toDateString()}</p>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <FormLabel>Time of Service</FormLabel>
+          <p>{timeMap.get(masterForm.service.service.time)}</p>
+        </Grid>
+        <SubHeader title="Viewing" />
+        <Grid item xs={12} md={4}>
+          <FormLabel>Church/Funeral Home</FormLabel>
+          <p>{masterForm.service.viewing.name}</p>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <FormLabel>City</FormLabel>
+          <p>{masterForm.service.viewing.city}</p>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <FormLabel>State</FormLabel>
+          <p>{stateMap.get(masterForm.service.viewing.state)}</p>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <FormLabel>Start Time</FormLabel>
+          <p>{timeMap.get(masterForm.service.viewing.startTime)}</p>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <FormLabel>End Time</FormLabel>
+          <p>{timeMap.get(masterForm.service.viewing.endTime)}</p>
+        </Grid>
+        <SubHeader title="Repass" />
+        <Grid item xs={12} md={4}>
+          <FormLabel>Repass Location Name</FormLabel>
+          <p>{masterForm.service.repass.name}</p>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <FormLabel>City</FormLabel>
+          <p>{masterForm.service.repass.city}</p>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <FormLabel>State</FormLabel>
+          <p>{stateMap.get(masterForm.service.repass.state)}</p>
+        </Grid>
       </Card>
       <Navigation
         activeStep={activeStep}

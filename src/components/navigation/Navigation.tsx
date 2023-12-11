@@ -29,9 +29,9 @@ export default function Navigation({
           disabled={disabled}
           onClick={next}
           type="button">
-          {activeStep === FORM_STEPS.length - 1
+          {activeStep === FORM_STEPS.length - 2
             ? 'Review'
-            : activeStep === FORM_STEPS.length
+            : activeStep === FORM_STEPS.length - 1
               ? 'Submit'
               : 'Next'}
         </Button>

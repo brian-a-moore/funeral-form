@@ -100,7 +100,7 @@ export type FormInfo = {
 };
 
 export type FormService = {
-  serviceLocation: {
+  service: {
     name: string;
     city: string;
     state: State;
@@ -108,14 +108,14 @@ export type FormService = {
     date: string;
     time: string;
   };
-  viewingLocation: {
+  viewing: {
     name: string;
     city: string;
     state: State;
     startTime: string;
     endTime: string;
   };
-  repassLocation: {
+  repass: {
     name: string;
     city: string;
     state: State;

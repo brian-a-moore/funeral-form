@@ -39,18 +39,28 @@ export const bioResolver = Joi.object({
     then: STRING('Other'),
     otherwise: STRING_OPTIONAL('Other'),
   }),
-  dateOfBirth: DATE,
-  cityOfBirth: STRING_OPTIONAL('City of Birth'),
-  stateOfBirth: STATE_OPTIONAL,
-  dateOfDeath: DATE,
-  cityOfDeath: STRING_OPTIONAL('City of Death'),
-  stateOfDeath: STATE_OPTIONAL,
-  fatherFirstName: STRING_OPTIONAL("Father's First Name"),
-  fatherLastName: STRING_OPTIONAL("Fathers's Last Name"),
-  fatherIsDeceased: Joi.boolean(),
-  motherFirstName: STRING_OPTIONAL("Mother's First Name"),
-  motherLastName: STRING_OPTIONAL("Mother's Last Name"),
-  motherIsDeceased: Joi.boolean(),
+  birth: Joi.object({
+    date: DATE,
+    city: STRING_OPTIONAL('City of Birth'),
+    state: STATE_OPTIONAL,
+  }).options({ stripUnknown: true }),
+  death: Joi.object({
+    date: DATE,
+    city: STRING_OPTIONAL('City of Death'),
+    state: STATE_OPTIONAL,
+  }).options({ stripUnknown: true }),
+  parents: Joi.object({
+    father: Joi.object({
+      firstName: STRING_OPTIONAL("Father's First Name"),
+      lastName: STRING_OPTIONAL("Fathers's Last Name"),
+      isDeceased: Joi.boolean(),
+    }).options({ stripUnknown: true }),
+    mother: Joi.object({
+      firstName: STRING_OPTIONAL("Mother's First Name"),
+      lastName: STRING_OPTIONAL("Mother's Last Name"),
+      isDeceased: Joi.boolean(),
+    }).options({ stripUnknown: true }),
+  }).options({ stripUnknown: true }),
 }).options({ stripUnknown: true });
 
 export const educationResolver = Joi.object({
@@ -105,20 +115,26 @@ export const infoResolver = Joi.object({
 }).options({ stripUnknown: true });
 
 export const serviceResolver = Joi.object({
-  serviceLocationName: STRING('Church/Funeral Home'),
-  serviceLocationCity: STRING('City'),
-  serviceLocationState: STATE,
-  serviceLocationMinisterName: STRING("Minister's Name"),
-  serviceLocationDateOfService: DATE,
-  serviceLocationTimeOfService: TIME,
-  viewingLocationName: STRING('Church/Funeral Home'),
-  viewingLocationCity: STRING('City'),
-  viewingLocationState: STATE,
-  viewingLocationStartTime: TIME,
-  viewingLocationEndTime: TIME,
-  repassLocationName: STRING('Church/Funeral Home'),
-  repassLocationCity: STRING('City'),
-  repassLocationState: STATE,
+  service: Joi.object({
+    name: STRING('Church/Funeral Home'),
+    city: STRING('City'),
+    state: STATE,
+    ministerName: STRING("Minister's Name"),
+    date: DATE,
+    time: TIME,
+  }).options({ stripUnknown: true }),
+  viewing: Joi.object({
+    name: STRING('Church/Funeral Home'),
+    city: STRING('City'),
+    state: STATE,
+    startTime: TIME,
+    endTime: TIME,
+  }).options({ stripUnknown: true }),
+  repass: Joi.object({
+    name: STRING('Church/Funeral Home'),
+    city: STRING('City'),
+    state: STATE,
+  }).options({ stripUnknown: true }),
 });
 
 export const masterForm = Joi.object({

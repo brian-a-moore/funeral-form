@@ -139,7 +139,7 @@ export const FORM_INFO: FormInfo = {
 };
 
 export const FORM_SERVICE: FormService = {
-  serviceLocation: {
+  service: {
     name: '',
     city: '',
     state: State.NONE,
@@ -147,14 +147,14 @@ export const FORM_SERVICE: FormService = {
     date: DEFAULT_DATE,
     time: '08:00',
   },
-  viewingLocation: {
+  viewing: {
     name: '',
     city: '',
     state: State.NONE,
     startTime: '09:00',
     endTime: '17:00',
   },
-  repassLocation: {
+  repass: {
     name: '',
     city: '',
     state: State.NONE,
@@ -182,7 +182,7 @@ export const MASTER_FORM: MasterForm = {
 
 export const SAMPLE_FORM: MasterForm = {
   bio: {
-    images: [],
+    images: null,
     firstName: 'John',
     middleName: 'C.',
     lastName: 'Smith',
@@ -346,22 +346,22 @@ export const SAMPLE_FORM: MasterForm = {
     state: State.MASSACHUSETTS,
   },
   service: {
-    serviceLocation: {
+    service: {
       name: "Warm Horizon's of Atlanta",
       city: 'Atlanta',
       state: State.GEORGIA,
       ministerName: 'Paul Willis',
-      date: '2023-10-09',
+      date: '2023-12-09',
       time: '11:00',
     },
-    viewingLocation: {
+    viewing: {
       name: "Warm Horizon's of Atlanta",
       city: 'Atlanta',
       state: State.GEORGIA,
       startTime: '09:00',
       endTime: '10:30',
     },
-    repassLocation: {
+    repass: {
       name: "Warm Horizon's of Atlanta",
       city: 'Atlanta',
       state: State.GEORGIA,

@@ -171,7 +171,7 @@ const Employer = ({
         <TextInput
           type="number"
           name={`employers.${indexNumber}.numOfYears`}
-          label="Years worked"
+          label="Years Worked"
           control={control}
           invalidText={
             errors.employers &&
