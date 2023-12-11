@@ -85,9 +85,9 @@ export default function ImageUpload<F>({
             <Grid
               key={index}
               item
-              xs={6}
-              sm={4}
-              md={3}
+              xs={4}
+              sm={3}
+              md={2}
               style={{ position: 'relative' }}>
               <IconButton
                 size="small"

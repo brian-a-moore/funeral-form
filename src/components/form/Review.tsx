@@ -1,4 +1,4 @@
-import { Divider, FormLabel, Grid } from '@mui/material';
+import { Divider, FormLabel, Grid, styled } from '@mui/material';
 import {
   educationLevelMap,
   incidentLocationMap,
@@ -9,7 +9,7 @@ import {
 import { MasterForm } from '../../config/types';
 import { Card } from '../container';
 import { Navigation } from '../navigation';
-import { Header, SubHeader } from '../typography';
+import { EmptyList, Header, SubHeader } from '../typography';
 
 type ReviewProps = {
   activeStep: number;
@@ -71,6 +71,24 @@ export default function Review({
           <FormLabel>Nickname</FormLabel>
           <p>{masterForm.bio.nickname}</p>
         </Grid>
+        <SubHeader title="Images" />
+        {
+          <Grid container spacing="1rem">
+            {masterForm.bio.images && masterForm.bio.images.length
+              ? masterForm.bio.images.map((image, index) => (
+                  <Grid
+                    key={index}
+                    item
+                    xs={4}
+                    sm={3}
+                    md={2}
+                    style={{ position: 'relative' }}>
+                    <PreviewImage src={URL.createObjectURL(image)} />
+                  </Grid>
+                ))
+              : null}
+          </Grid>
+        }
         <SubHeader title="Additional Details" />
         <Grid item xs={12} md={4}>
           <FormLabel>Place of Incident</FormLabel>
@@ -144,60 +162,68 @@ export default function Review({
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        {masterForm.education.institutions.map(institution => (
-          <Grid container spacing="1rem" key={institution.id}>
-            <Grid item xs={12} md={6}>
-              <FormLabel>Name</FormLabel>
-              <p>{institution.name}</p>
+        {masterForm.education.institutions.length ? (
+          masterForm.education.institutions.map(institution => (
+            <Grid container spacing="1rem" key={institution.id}>
+              <Grid item xs={12} md={6}>
+                <FormLabel>Name</FormLabel>
+                <p>{institution.name}</p>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormLabel>City</FormLabel>
+                <p>{institution.city}</p>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormLabel>State</FormLabel>
+                <p>{stateMap.get(institution.state)}</p>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormLabel>Major</FormLabel>
+                <p>{institution.major}</p>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormLabel>Degree</FormLabel>
+                <p>{educationLevelMap.get(institution.degree)}</p>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormLabel>Graduation Year</FormLabel>
+                <p>{institution.name}</p>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={2}>
-              <FormLabel>City</FormLabel>
-              <p>{institution.city}</p>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <FormLabel>State</FormLabel>
-              <p>{stateMap.get(institution.state)}</p>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormLabel>Major</FormLabel>
-              <p>{institution.major}</p>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <FormLabel>Degree</FormLabel>
-              <p>{educationLevelMap.get(institution.degree)}</p>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <FormLabel>Graduation Year</FormLabel>
-              <p>{institution.name}</p>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-          </Grid>
-        ))}
+          ))
+        ) : (
+          <EmptyList text="No Institutions Added" />
+        )}
         <SubHeader title="Charitable Organizations" />
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        {masterForm.education.organizations.map(organization => (
-          <Grid container spacing="1rem" key={organization.id}>
-            <Grid item xs={12} md={4}>
-              <FormLabel>Name</FormLabel>
-              <p>{organization.name}</p>
+        {masterForm.education.organizations.length ? (
+          masterForm.education.organizations.map(organization => (
+            <Grid container spacing="1rem" key={organization.id}>
+              <Grid item xs={12} md={4}>
+                <FormLabel>Name</FormLabel>
+                <p>{organization.name}</p>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormLabel>Position</FormLabel>
+                <p>{organization.position}</p>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormLabel>Years Active</FormLabel>
+                <p>{organization.numOfYears}</p>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={2}>
-              <FormLabel>Position</FormLabel>
-              <p>{organization.position}</p>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <FormLabel>Years Active</FormLabel>
-              <p>{organization.numOfYears}</p>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-          </Grid>
-        ))}
+          ))
+        ) : (
+          <EmptyList text="No Organizations Added" />
+        )}
         <SubHeader title="Military Service" />
         <Grid item xs={12} md={3}>
           <FormLabel>Branch</FormLabel>
@@ -237,91 +263,103 @@ export default function Review({
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        {masterForm.family.children.map(child => (
-          <Grid container spacing="rem" key={child.id}>
-            <Grid item xs={12} md={6}>
-              <FormLabel>First Name</FormLabel>
-              <p>{child.firstName}</p>
+        {masterForm.family.children.length ? (
+          masterForm.family.children.map(child => (
+            <Grid container spacing="rem" key={child.id}>
+              <Grid item xs={12} md={6}>
+                <FormLabel>First Name</FormLabel>
+                <p>{child.firstName}</p>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormLabel>Last Name</FormLabel>
+                <p>{child.lastName}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>Spouse Name</FormLabel>
+                <p>{child.spouseName}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>City</FormLabel>
+                <p>{child.city}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>State</FormLabel>
+                <p>{stateMap.get(child.state)}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>Child</FormLabel>
+                <p>{child.isDeceased ? 'Has Passed' : 'Is Living'}</p>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <FormLabel>Last Name</FormLabel>
-              <p>{child.lastName}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>Spouse Name</FormLabel>
-              <p>{child.spouseName}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>City</FormLabel>
-              <p>{child.city}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>State</FormLabel>
-              <p>{stateMap.get(child.state)}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>Child</FormLabel>
-              <p>{child.isDeceased ? 'Has Passed' : 'Is Living'}</p>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-          </Grid>
-        ))}
+          ))
+        ) : (
+          <EmptyList text="No Children Added" />
+        )}
         <SubHeader title="Siblings" />
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        {masterForm.family.siblings.map(sibling => (
-          <Grid container spacing="rem" key={sibling.id}>
-            <Grid item xs={12} md={6}>
-              <FormLabel>First Name</FormLabel>
-              <p>{sibling.firstName}</p>
+        {masterForm.family.siblings.length ? (
+          masterForm.family.siblings.map(sibling => (
+            <Grid container spacing="rem" key={sibling.id}>
+              <Grid item xs={12} md={6}>
+                <FormLabel>First Name</FormLabel>
+                <p>{sibling.firstName}</p>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormLabel>Last Name</FormLabel>
+                <p>{sibling.lastName}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>Spouse Name</FormLabel>
+                <p>{sibling.spouseName}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>City</FormLabel>
+                <p>{sibling.city}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>State</FormLabel>
+                <p>{stateMap.get(sibling.state)}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>Sibling</FormLabel>
+                <p>{sibling.isDeceased ? 'Has Passed' : 'Is Living'}</p>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <FormLabel>Last Name</FormLabel>
-              <p>{sibling.lastName}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>Spouse Name</FormLabel>
-              <p>{sibling.spouseName}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>City</FormLabel>
-              <p>{sibling.city}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>State</FormLabel>
-              <p>{stateMap.get(sibling.state)}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>Sibling</FormLabel>
-              <p>{sibling.isDeceased ? 'Has Passed' : 'Is Living'}</p>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-          </Grid>
-        ))}
+          ))
+        ) : (
+          <EmptyList text="No Siblings Added" />
+        )}
         <SubHeader title="Close Friends" />
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        {masterForm.family.friends.map(friend => (
-          <Grid container spacing="rem" key={friend.id}>
-            <Grid item xs={12} md={6}>
-              <FormLabel>First Name</FormLabel>
-              <p>{friend.firstName}</p>
+        {masterForm.family.friends.length ? (
+          masterForm.family.friends.map(friend => (
+            <Grid container spacing="rem" key={friend.id}>
+              <Grid item xs={12} md={6}>
+                <FormLabel>First Name</FormLabel>
+                <p>{friend.firstName}</p>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormLabel>Last Name</FormLabel>
+                <p>{friend.lastName}</p>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <FormLabel>Last Name</FormLabel>
-              <p>{friend.lastName}</p>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-          </Grid>
-        ))}
+          ))
+        ) : (
+          <EmptyList text="No Friends Added" />
+        )}
       </Card>
       <Card>
         <Header title="Employment" />
@@ -329,33 +367,37 @@ export default function Review({
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        {masterForm.employment.employers.map(employer => (
-          <Grid container spacing="1rem" key={employer.id}>
-            <Grid item xs={12} md={3}>
-              <FormLabel>Name</FormLabel>
-              <p>{employer.name}</p>
+        {masterForm.employment.employers.length ? (
+          masterForm.employment.employers.map(employer => (
+            <Grid container spacing="1rem" key={employer.id}>
+              <Grid item xs={12} md={3}>
+                <FormLabel>Name</FormLabel>
+                <p>{employer.name}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>City</FormLabel>
+                <p>{employer.city}</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <FormLabel>State</FormLabel>
+                <p>{stateMap.get(employer.state)}</p>
+              </Grid>
+              <Grid item xs={12} md={1.5}>
+                <FormLabel>Years Worked</FormLabel>
+                <p>{employer.numOfYears}</p>
+              </Grid>
+              <Grid item xs={12} md={1.5}>
+                <FormLabel>Retired</FormLabel>
+                <p>{employer.isRetired ? 'Yes' : 'No'}</p>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>City</FormLabel>
-              <p>{employer.city}</p>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormLabel>State</FormLabel>
-              <p>{stateMap.get(employer.state)}</p>
-            </Grid>
-            <Grid item xs={12} md={1.5}>
-              <FormLabel>Years Worked</FormLabel>
-              <p>{employer.numOfYears}</p>
-            </Grid>
-            <Grid item xs={12} md={1.5}>
-              <FormLabel>Retired</FormLabel>
-              <p>{employer.isRetired ? 'Yes' : 'No'}</p>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-          </Grid>
-        ))}
+          ))
+        ) : (
+          <EmptyList text="No Employers Added" />
+        )}
         <SubHeader title="Final Thoughts" />
         <Grid item xs={12} md={6}>
           <FormLabel>Hobbies</FormLabel>
@@ -436,3 +478,7 @@ export default function Review({
     </Grid>
   );
 }
+const PreviewImage = styled('img')({
+  width: '100%',
+  objectFit: 'contain',
+});
