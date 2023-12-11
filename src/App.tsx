@@ -17,7 +17,7 @@ import {
 } from './components/form';
 import { Stepper } from './components/navigation';
 import {
-  ENDPOINT_FOR_FORMDATA,
+  ENDPOINT,
   EXTENSIVE_FORM,
   FORM_STEPS,
   MASTER_FORM,
@@ -53,7 +53,12 @@ export default function App() {
       );
     }
 
-    fetch(ENDPOINT_FOR_FORMDATA, {
+    const formFields = { ...masterForm };
+    formFields.bio.images = null;
+
+    formData.append('fields', JSON.stringify(formFields));
+
+    fetch(ENDPOINT, {
       method: 'POST',
       body: formData,
     })
@@ -64,24 +69,8 @@ export default function App() {
         return response.json();
       })
       .then(() => {
-        const dataToSubmit = { ...masterForm };
-        dataToSubmit.bio.images = null;
-
-        fetch(ENDPOINT_FOR_FORMDATA, {
-          method: 'POST',
-          body: JSON.stringify(dataToSubmit),
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Success:', data);
-            setActiveStep(0);
-            setMasterForm(MASTER_FORM);
-          });
+        setActiveStep(0);
+        setMasterForm(MASTER_FORM);
       })
       .catch(error => {
         console.error('Error:', error);
