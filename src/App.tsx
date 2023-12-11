@@ -5,7 +5,7 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Bio,
   Education,
@@ -16,7 +16,7 @@ import {
   Service,
 } from './components/form';
 import { Stepper } from './components/navigation';
-import { FORM_STEPS, MASTER_FORM } from './config/constants';
+import { FORM_STEPS, SAMPLE_FORM } from './config/constants';
 import { Forms, MasterForm } from './config/types';
 import './index.css';
 
@@ -28,11 +28,7 @@ const darkTheme = createTheme({
 
 export default function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [masterForm, setMasterForm] = useState<MasterForm>(MASTER_FORM);
-
-  useEffect(() => {
-    console.log(masterForm);
-  }, [masterForm]);
+  const [masterForm, setMasterForm] = useState<MasterForm>(SAMPLE_FORM);
 
   const _nextStep = (key: keyof MasterForm, data: Forms) => {
     setMasterForm(prevState => ({ ...prevState, [key]: data }));
@@ -105,7 +101,7 @@ export default function App() {
             activeStep={activeStep}
             masterForm={masterForm}
             prev={_prevStep}
-            submit={() => console.log({ masterForm })}
+            next={() => console.log({ masterForm })}
           />
         );
       default:
@@ -117,7 +113,7 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Container>
-        {activeStep < 6 ? <Stepper activeStep={activeStep} /> : null}
+        <Stepper activeStep={activeStep} />
         <Grid item xs={12}>
           {_showForm()}
         </Grid>

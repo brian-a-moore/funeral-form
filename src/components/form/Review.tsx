@@ -9,16 +9,15 @@ type ReviewProps = {
   activeStep: number;
   masterForm: MasterForm;
   prev: () => void;
-  submit: () => void;
+  next: () => void;
 };
 
 export default function Review({
   activeStep,
   masterForm,
   prev,
-  submit,
+  next,
 }: ReviewProps) {
-  console.log({ masterForm });
   return (
     <Grid container spacing="1rem">
       <Card>
@@ -150,7 +149,7 @@ export default function Review({
       <Navigation
         activeStep={activeStep}
         prev={prev}
-        next={submit}
+        next={next}
         disabled={false}
       />
     </Grid>

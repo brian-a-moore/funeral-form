@@ -1,3 +1,4 @@
+import { generateId } from '../helpers/generate';
 import {
   EducationLevel,
   IncidentLocation,
@@ -167,6 +168,7 @@ export const FORM_STEPS = [
   'Family',
   'Employment',
   'Service',
+  'Review',
 ];
 
 export const MASTER_FORM: MasterForm = {
@@ -176,4 +178,193 @@ export const MASTER_FORM: MasterForm = {
   family: FORM_FAMILY,
   info: FORM_INFO,
   service: FORM_SERVICE,
+};
+
+export const SAMPLE_FORM: MasterForm = {
+  bio: {
+    images: [],
+    firstName: 'John',
+    middleName: 'C.',
+    lastName: 'Smith',
+    nickname: 'JC',
+    placeOfIncident: IncidentLocation.HOME,
+    other: '',
+    birth: {
+      date: '1960-10-05',
+      city: 'Los Angeles',
+      state: State.CALIFORNIA,
+    },
+    death: {
+      date: '2023-12-05',
+      city: 'Brooklyn',
+      state: State.NEW_YORK,
+    },
+    parents: {
+      father: {
+        firstName: 'Richard',
+        lastName: 'Smith',
+        isDeceased: true,
+      },
+      mother: {
+        firstName: 'Cindy',
+        lastName: 'Smith',
+        isDeceased: false,
+      },
+    },
+  },
+  education: {
+    institutions: [
+      {
+        id: generateId(),
+        name: 'John M. Morehead',
+        city: 'Eden',
+        state: State.NORTH_CAROLINA,
+        major: 'Computer Science',
+        degree: EducationLevel.HIGH_SCHOOL,
+        graduationYear: 1973,
+      },
+      {
+        id: generateId(),
+        name: 'University of North Carolina at Pembroke',
+        city: 'Pembroke',
+        state: State.NORTH_CAROLINA,
+        major: 'Computer Science',
+        degree: EducationLevel.BACHELORS,
+        graduationYear: 1979,
+      },
+    ],
+    organizations: [
+      {
+        id: generateId(),
+        name: 'Humane Society',
+        position: 'Director',
+        numOfYears: 14,
+      },
+      {
+        id: generateId(),
+        name: 'Red Cross',
+        position: 'Manager',
+        numOfYears: 3,
+      },
+    ],
+    militaryService: {
+      branch: MilitaryBranch.NAVY,
+      position: 'Admiral',
+      numOfYears: 12,
+      isRetired: true,
+    },
+  },
+  employment: {
+    employers: [
+      {
+        id: generateId(),
+        name: 'United States Government',
+        city: 'Alexandria',
+        state: State.VIRGINIA,
+        numOfYears: 12,
+        isRetired: true,
+      },
+      {
+        id: generateId(),
+        name: 'Federal Bureau of Investigations',
+        city: 'Langley',
+        state: State.VIRGINIA,
+        numOfYears: 9,
+        isRetired: false,
+      },
+    ],
+    hobbies:
+      'Kayaking, Hiking, River Dancing, Collecting Bottle Caps, Basketball, Knitting',
+    additionalInfo:
+      'He loved his family and did not want anyone to cry over him. He said, "Have fun, and eat good! Love you all!"',
+  },
+  family: {
+    spouse: {
+      firstName: 'Ginger',
+      lastName: 'Ale',
+      numOfYears: 52,
+    },
+    children: [
+      {
+        id: generateId(),
+        firstName: 'Spencer',
+        lastName: 'Smith',
+        spouseName: 'Virginia',
+        city: 'Boston',
+        state: State.MASSACHUSETTS,
+        isDeceased: false,
+      },
+      {
+        id: generateId(),
+        firstName: 'Frieda',
+        lastName: 'Smith',
+        spouseName: 'Deric',
+        city: 'Chicago',
+        state: State.ILLINOIS,
+        isDeceased: true,
+      },
+    ],
+    siblings: [
+      {
+        id: generateId(),
+        firstName: 'Daniela',
+        lastName: 'Tuttle',
+        spouseName: 'Frank',
+        city: 'Denver',
+        state: State.COLORADO,
+        isDeceased: false,
+      },
+      {
+        id: generateId(),
+        firstName: 'Emil',
+        lastName: 'Smith',
+        spouseName: 'Victoria',
+        city: 'Phoenix',
+        state: State.ARIZONA,
+        isDeceased: true,
+      },
+    ],
+    friends: [
+      {
+        id: generateId(),
+        firstName: 'Lucas',
+        lastName: 'Wright',
+      },
+      {
+        id: generateId(),
+        firstName: 'Andrew',
+        lastName: 'Tanner',
+      },
+    ],
+  },
+  info: {
+    firstName: 'Spencer',
+    lastName: 'Smith',
+    email: 'spencer.smith@gmail.com',
+    funeralHomeName: "Warm Horizon's of Atlanta",
+    city: 'Boston',
+    state: State.MASSACHUSETTS,
+  },
+  service: {
+    serviceLocation: {
+      name: "Warm Horizon's of Atlanta",
+      city: 'Atlanta',
+      state: State.GEORGIA,
+      ministerName: 'Paul Willis',
+      date: '2023-10-09',
+      time: '11:00',
+    },
+    viewingLocation: {
+      name: "Warm Horizon's of Atlanta",
+      city: 'Atlanta',
+      state: State.GEORGIA,
+      startTime: '09:00',
+      endTime: '10:30',
+    },
+    repassLocation: {
+      name: "Warm Horizon's of Atlanta",
+      city: 'Atlanta',
+      state: State.GEORGIA,
+    },
+  },
 };
