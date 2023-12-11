@@ -1,4 +1,5 @@
 import { Divider, FormLabel, Grid, styled } from '@mui/material';
+import { DATE_OPTIONS } from '../../config/constants';
 import {
   educationLevelMap,
   incidentLocationMap,
@@ -72,21 +73,26 @@ export default function Review({
           <p>{masterForm.bio.nickname}</p>
         </Grid>
         <SubHeader title="Images" />
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
         {
           <Grid container spacing="1rem">
-            {masterForm.bio.images && masterForm.bio.images.length
-              ? masterForm.bio.images.map((image, index) => (
-                  <Grid
-                    key={index}
-                    item
-                    xs={4}
-                    sm={3}
-                    md={2}
-                    style={{ position: 'relative' }}>
-                    <PreviewImage src={URL.createObjectURL(image)} />
-                  </Grid>
-                ))
-              : null}
+            {masterForm.bio.images && masterForm.bio.images.length ? (
+              masterForm.bio.images.map((image, index) => (
+                <Grid
+                  key={index}
+                  item
+                  xs={4}
+                  sm={3}
+                  md={2}
+                  style={{ position: 'relative' }}>
+                  <PreviewImage src={URL.createObjectURL(image)} />
+                </Grid>
+              ))
+            ) : (
+              <EmptyList text="No Images Added" />
+            )}
           </Grid>
         }
         <SubHeader title="Additional Details" />
@@ -100,7 +106,12 @@ export default function Review({
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>Date of Birth</FormLabel>
-          <p>{new Date(masterForm.bio.birth.date).toDateString()}</p>
+          <p>
+            {new Date(masterForm.bio.birth.date).toLocaleDateString(
+              'en-US',
+              DATE_OPTIONS,
+            )}
+          </p>
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>City of Birth</FormLabel>
@@ -112,7 +123,12 @@ export default function Review({
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>Date of Death</FormLabel>
-          <p>{new Date(masterForm.bio.death.date).toDateString()}</p>
+          <p>
+            {new Date(masterForm.bio.death.date).toLocaleDateString(
+              'en-US',
+              DATE_OPTIONS,
+            )}
+          </p>
         </Grid>
         <Grid item xs={12} md={4}>
           <FormLabel>City of Death</FormLabel>
@@ -428,7 +444,12 @@ export default function Review({
         </Grid>
         <Grid item xs={12} md={3}>
           <FormLabel>Date of Service</FormLabel>
-          <p>{new Date(masterForm.service.service.date).toDateString()}</p>
+          <p>
+            {new Date(masterForm.service.service.date).toLocaleDateString(
+              'en-US',
+              DATE_OPTIONS,
+            )}
+          </p>
         </Grid>
         <Grid item xs={12} md={3}>
           <FormLabel>Time of Service</FormLabel>

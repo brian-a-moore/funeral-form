@@ -16,7 +16,7 @@ import {
   Service,
 } from './components/form';
 import { Stepper } from './components/navigation';
-import { FORM_STEPS, SAMPLE_FORM } from './config/constants';
+import { EXTENSIVE_FORM, FORM_STEPS } from './config/constants';
 import { Forms, MasterForm } from './config/types';
 import './index.css';
 
@@ -28,7 +28,7 @@ const darkTheme = createTheme({
 
 export default function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [masterForm, setMasterForm] = useState<MasterForm>(SAMPLE_FORM);
+  const [masterForm, setMasterForm] = useState<MasterForm>(EXTENSIVE_FORM);
 
   const _nextStep = (key: keyof MasterForm, data: Forms) => {
     setMasterForm(prevState => ({ ...prevState, [key]: data }));

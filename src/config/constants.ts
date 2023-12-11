@@ -21,6 +21,12 @@ import {
   Sibling,
 } from './types';
 
+export const DATE_OPTIONS: Intl.DateTimeFormatOptions = {
+  month: 'numeric',
+  day: 'numeric',
+  year: 'numeric',
+};
+
 const DEFAULT_DATE = new Date().toISOString().split('T')[0];
 
 export const DEFAULT_CHILD: Omit<Child, 'id'> = {
@@ -180,7 +186,7 @@ export const MASTER_FORM: MasterForm = {
   service: FORM_SERVICE,
 };
 
-export const SAMPLE_FORM: MasterForm = {
+export const EXTENSIVE_FORM: MasterForm = {
   bio: {
     images: null,
     firstName: 'John',
@@ -336,6 +342,95 @@ export const SAMPLE_FORM: MasterForm = {
         lastName: 'Tanner',
       },
     ],
+  },
+  info: {
+    firstName: 'Spencer',
+    lastName: 'Smith',
+    email: 'spencer.smith@gmail.com',
+    funeralHomeName: "Warm Horizon's of Atlanta",
+    city: 'Boston',
+    state: State.MASSACHUSETTS,
+  },
+  service: {
+    service: {
+      name: "Warm Horizon's of Atlanta",
+      city: 'Atlanta',
+      state: State.GEORGIA,
+      ministerName: 'Paul Willis',
+      date: '2023-12-09',
+      time: '11:00',
+    },
+    viewing: {
+      name: "Warm Horizon's of Atlanta",
+      city: 'Atlanta',
+      state: State.GEORGIA,
+      startTime: '09:00',
+      endTime: '10:30',
+    },
+    repass: {
+      name: "Warm Horizon's of Atlanta",
+      city: 'Atlanta',
+      state: State.GEORGIA,
+    },
+  },
+};
+
+export const MINIMAL_FORM: MasterForm = {
+  bio: {
+    images: null,
+    firstName: 'John',
+    middleName: '',
+    lastName: 'Smith',
+    nickname: '',
+    placeOfIncident: IncidentLocation.HOME,
+    other: '',
+    birth: {
+      date: '1960-10-05',
+      city: '',
+      state: State.NONE,
+    },
+    death: {
+      date: '2023-12-05',
+      city: '',
+      state: State.NONE,
+    },
+    parents: {
+      father: {
+        firstName: '',
+        lastName: '',
+        isDeceased: false,
+      },
+      mother: {
+        firstName: '',
+        lastName: '',
+        isDeceased: false,
+      },
+    },
+  },
+  education: {
+    institutions: [],
+    organizations: [],
+    militaryService: {
+      branch: MilitaryBranch.NONE,
+      position: '',
+      numOfYears: 0,
+      isRetired: false,
+    },
+  },
+  employment: {
+    employers: [],
+    hobbies: '',
+    additionalInfo: '',
+  },
+  family: {
+    spouse: {
+      firstName: '',
+      lastName: '',
+      numOfYears: 0,
+    },
+    children: [],
+    siblings: [],
+    friends: [],
   },
   info: {
     firstName: 'Spencer',
