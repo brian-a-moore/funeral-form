@@ -16,7 +16,12 @@ import {
   Service,
 } from './components/form';
 import { Stepper } from './components/navigation';
-import { EXTENSIVE_FORM, FORM_STEPS } from './config/constants';
+import {
+  ENDPOINT_FOR_FORMDATA,
+  EXTENSIVE_FORM,
+  FORM_STEPS,
+  MASTER_FORM,
+} from './config/constants';
 import { Forms, MasterForm } from './config/types';
 import './index.css';
 
@@ -38,6 +43,50 @@ export default function App() {
   };
   const _prevStep = () =>
     setActiveStep(currentStep => (currentStep === 0 ? 0 : currentStep - 1));
+
+  const _finalSubmit = () => {
+    const formData = new FormData();
+
+    if (masterForm.bio.images) {
+      masterForm.bio.images.map((image, index) =>
+        formData.append(`image_${index}`, image),
+      );
+    }
+
+    fetch(ENDPOINT_FOR_FORMDATA, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        const dataToSubmit = { ...masterForm };
+        dataToSubmit.bio.images = null;
+
+        fetch(ENDPOINT_FOR_FORMDATA, {
+          method: 'POST',
+          body: JSON.stringify(dataToSubmit),
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Success:', data);
+            setActiveStep(0);
+            setMasterForm(MASTER_FORM);
+          });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   const _showForm = () => {
     switch (activeStep) {
@@ -101,7 +150,7 @@ export default function App() {
             activeStep={activeStep}
             masterForm={masterForm}
             prev={_prevStep}
-            next={() => console.log({ masterForm })}
+            next={_finalSubmit}
           />
         );
       default:
