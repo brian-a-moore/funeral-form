@@ -41,43 +41,43 @@ export default function Service({
         <Header title="Service Location" />
         <Grid container spacing="1rem">
           <TextInput
-            name="serviceLocationName"
+            name="serviceLocation.name"
             label="Church/Funeral Home"
             control={control}
-            invalidText={errors.serviceLocationName?.message}
+            invalidText={errors.serviceLocation?.name?.message}
           />
           <TextInput
-            name="serviceLocationCity"
+            name="serviceLocation.city"
             label="City"
             control={control}
-            invalidText={errors.serviceLocationCity?.message}
+            invalidText={errors.serviceLocation?.city?.message}
           />
           <SelectInput<FormService>
-            name="serviceLocationState"
+            name="serviceLocation.state"
             label="State"
             options={stateMap}
             control={control}
-            invalidText={errors.serviceLocationState?.message}
+            invalidText={errors.serviceLocation?.state?.message}
           />
           <TextInput
-            name="serviceLocationMinisterName"
+            name="serviceLocation.ministerName"
             label="Minister's Name"
             control={control}
-            invalidText={errors.serviceLocationMinisterName?.message}
+            invalidText={errors.serviceLocation?.ministerName?.message}
           />
           <TextInput
             type="date"
-            name="serviceLocationDateOfService"
+            name="serviceLocation.date"
             label="Date of Service"
             control={control}
-            invalidText={errors.serviceLocationDateOfService?.message}
+            invalidText={errors.serviceLocation?.date?.message}
           />
           <SelectInput<FormService>
-            name="serviceLocationTimeOfService"
+            name="serviceLocation.time"
             label="Time of Service"
             control={control}
             options={timeMap}
-            invalidText={errors.serviceLocationTimeOfService?.message}
+            invalidText={errors.serviceLocation?.time?.message}
           />
         </Grid>
       </Card>
@@ -85,37 +85,37 @@ export default function Service({
         <Header title="Viewing" />
         <Grid container spacing="1rem">
           <TextInput
-            name="viewingLocationName"
+            name="viewingLocation.name"
             label="Church/Funeral Home"
             control={control}
-            invalidText={errors.viewingLocationName?.message}
+            invalidText={errors.viewingLocation?.name?.message}
           />
           <TextInput
-            name="viewingLocationCity"
+            name="viewingLocation.city"
             label="City"
             control={control}
-            invalidText={errors.viewingLocationCity?.message}
+            invalidText={errors.viewingLocation?.city?.message}
           />
           <SelectInput<FormService>
-            name="viewingLocationState"
+            name="viewingLocation.state"
             label="State"
             control={control}
             options={stateMap}
-            invalidText={errors.viewingLocationState?.message}
+            invalidText={errors.viewingLocation?.state?.message}
           />
           <SelectInput<FormService>
-            name="viewingLocationStartTime"
+            name="viewingLocation.startTime"
             label="Start Time"
             control={control}
             options={timeMap}
-            invalidText={errors.viewingLocationStartTime?.message}
+            invalidText={errors.viewingLocation?.startTime?.message}
           />
           <SelectInput<FormService>
-            name="viewingLocationEndTime"
+            name="viewingLocation.endTime"
             label="End Time"
             control={control}
             options={timeMap}
-            invalidText={errors.viewingLocationEndTime?.message}
+            invalidText={errors.viewingLocation?.endTime?.message}
           />
         </Grid>
       </Card>
@@ -123,23 +123,23 @@ export default function Service({
         <Header title="Repass" />
         <Grid container spacing="1rem">
           <TextInput
-            name="repassLocationName"
+            name="repassLocation.name"
             label="Church/Funeral Home"
             control={control}
-            invalidText={errors.repassLocationName?.message}
+            invalidText={errors.repassLocation?.name?.message}
           />
           <TextInput
-            name="repassLocationCity"
+            name="repassLocation.city"
             label="City"
             control={control}
-            invalidText={errors.repassLocationCity?.message}
+            invalidText={errors.repassLocation?.city?.message}
           />
           <SelectInput<FormService>
-            name="repassLocationState"
+            name="repassLocation.state"
             label="State"
             control={control}
             options={stateMap}
-            invalidText={errors.repassLocationState?.message}
+            invalidText={errors.repassLocation?.state?.message}
           />
         </Grid>
       </Card>

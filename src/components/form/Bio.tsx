@@ -111,46 +111,46 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
         </Grid>
         <Grid container spacing="1rem">
           <TextInput
-            name="dateOfBirth"
+            name="birth.date"
             type="date"
             label="Date of Birth"
             control={control}
-            invalidText={errors.dateOfBirth?.message}
+            invalidText={errors.birth?.date?.message}
           />
           <TextInput
-            name="cityOfBirth"
+            name="birth.city"
             label="City of Birth"
             control={control}
-            invalidText={errors.cityOfBirth?.message}
+            invalidText={errors.birth?.city?.message}
           />
           <SelectInput<FormBio>
-            name="stateOfBirth"
+            name="birth.state"
             label="State of Birth"
             options={stateMap}
             control={control}
-            invalidText={errors.stateOfBirth?.message}
+            invalidText={errors.birth?.state?.message}
           />
         </Grid>
         <Grid container spacing="1rem">
           <TextInput
-            name="dateOfDeath"
+            name="death.date"
             type="date"
             label="Date of Death"
             control={control}
-            invalidText={errors.dateOfDeath?.message}
+            invalidText={errors.death?.date?.message}
           />
           <TextInput
-            name="cityOfDeath"
+            name="death.city"
             label="City of Death"
             control={control}
-            invalidText={errors.cityOfDeath?.message}
+            invalidText={errors.death?.city?.message}
           />
           <SelectInput<FormBio>
-            name="stateOfDeath"
+            name="death.state"
             label="State of Death"
             options={stateMap}
             control={control}
-            invalidText={errors.stateOfDeath?.message}
+            invalidText={errors.death?.state?.message}
           />
         </Grid>
       </Card>
@@ -158,20 +158,20 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
         <Grid container spacing="1rem">
           <Header title="Parents" />
           <TextInput
-            name="fatherFirstName"
+            name="parents.father.firstName"
             label="Father's First Name"
             control={control}
-            invalidText={errors.fatherFirstName?.message}
+            invalidText={errors.parents?.father?.firstName?.message}
           />
           <TextInput
-            name="fatherLastName"
+            name="parents.father.lastName"
             label="Father's Last Name"
             control={control}
-            invalidText={errors.fatherLastName?.message}
+            invalidText={errors.parents?.father?.lastName?.message}
             xs={8}
           />
           <CheckboxInput
-            name="fatherIsDeceased"
+            name="parents.father.isDeceased"
             label="Deceased"
             xs={4}
             control={control}
@@ -179,20 +179,20 @@ export default function Bio({ activeStep, defaultValues, prev, next }: Props) {
         </Grid>
         <Grid container spacing="1rem">
           <TextInput
-            name="motherFirstName"
+            name="parents.mother.firstName"
             label="Mother's First Name"
             control={control}
-            invalidText={errors.motherFirstName?.message}
+            invalidText={errors.parents?.mother?.firstName?.message}
           />
           <TextInput
-            name="motherLastName"
+            name="parents.mother.lastName"
             label="Mother's Last Name"
             control={control}
-            invalidText={errors.motherLastName?.message}
+            invalidText={errors.parents?.mother?.lastName?.message}
             xs={8}
           />
           <CheckboxInput
-            name="motherIsDeceased"
+            name="parents.mother.isDeceased"
             label="Deceased"
             xs={4}
             control={control}

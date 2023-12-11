@@ -3,14 +3,14 @@ import { FORM_STEPS } from '../../config/constants';
 
 type Props = {
   activeStep: number;
-  disabled: boolean;
+  disabled?: boolean;
   prev: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   next: any; // TODO: Figure this out later
 };
 export default function Navigation({
   activeStep,
-  disabled,
+  disabled = false,
   prev,
   next,
 }: Props) {
@@ -29,7 +29,11 @@ export default function Navigation({
           disabled={disabled}
           onClick={next}
           type="button">
-          {activeStep === FORM_STEPS.length - 1 ? 'Review' : 'Next'}
+          {activeStep === FORM_STEPS.length - 1
+            ? 'Review'
+            : activeStep === FORM_STEPS.length
+              ? 'Submit'
+              : 'Next'}
         </Button>
       </Nav>
     </Grid>

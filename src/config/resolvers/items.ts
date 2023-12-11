@@ -57,7 +57,7 @@ export const siblingItem = Joi.object({
   firstName: STRING('First Name'),
   lastName: STRING('Last Name'),
   spouseName: STRING_OPTIONAL('Spouse Name'),
-  city: STRING('City'),
+  city: STRING_OPTIONAL('City'),
   state: STATE_OPTIONAL,
   isDeceased: BOOL,
 }).options({ stripUnknown: true });

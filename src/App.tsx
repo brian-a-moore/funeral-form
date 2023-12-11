@@ -12,6 +12,7 @@ import {
   Employment,
   Family,
   Info,
+  Review,
   Service,
 } from './components/form';
 import { Stepper } from './components/navigation';
@@ -36,7 +37,7 @@ export default function App() {
   const _nextStep = (key: keyof MasterForm, data: Forms) => {
     setMasterForm(prevState => ({ ...prevState, [key]: data }));
     setActiveStep(currentStep =>
-      currentStep < FORM_STEPS.length - 1 ? currentStep + 1 : currentStep,
+      currentStep < FORM_STEPS.length ? currentStep + 1 : currentStep,
     );
   };
   const _prevStep = () =>
@@ -98,6 +99,15 @@ export default function App() {
             next={_nextStep}
           />
         );
+      case 6:
+        return (
+          <Review
+            activeStep={activeStep}
+            masterForm={masterForm}
+            prev={_prevStep}
+            submit={() => console.log({ masterForm })}
+          />
+        );
       default:
         throw new Error(`Could not find form for active step: ${activeStep}`);
     }
@@ -107,7 +117,7 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Container>
-        <Stepper activeStep={activeStep} />
+        {activeStep < 6 ? <Stepper activeStep={activeStep} /> : null}
         <Grid item xs={12}>
           {_showForm()}
         </Grid>

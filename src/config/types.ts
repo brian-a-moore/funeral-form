@@ -38,18 +38,28 @@ export type FormBio = {
   nickname: string;
   placeOfIncident: IncidentLocation;
   other: string;
-  dateOfBirth: string;
-  cityOfBirth: string;
-  stateOfBirth: State;
-  dateOfDeath: string;
-  cityOfDeath: string;
-  stateOfDeath: State;
-  fatherFirstName: string;
-  fatherLastName: string;
-  fatherIsDeceased: boolean;
-  motherFirstName: string;
-  motherLastName: string;
-  motherIsDeceased: boolean;
+  birth: {
+    date: string;
+    city: string;
+    state: State;
+  };
+  death: {
+    date: string;
+    city: string;
+    state: State;
+  };
+  parents: {
+    father: {
+      firstName: string;
+      lastName: string;
+      isDeceased: boolean;
+    };
+    mother: {
+      firstName: string;
+      lastName: string;
+      isDeceased: boolean;
+    };
+  };
 };
 
 export type FormEducation = {
@@ -90,20 +100,26 @@ export type FormInfo = {
 };
 
 export type FormService = {
-  serviceLocationName: string;
-  serviceLocationCity: string;
-  serviceLocationState: State;
-  serviceLocationMinisterName: string;
-  serviceLocationDateOfService: string;
-  serviceLocationTimeOfService: string;
-  viewingLocationName: string;
-  viewingLocationCity: string;
-  viewingLocationState: State;
-  viewingLocationStartTime: string;
-  viewingLocationEndTime: string;
-  repassLocationName: string;
-  repassLocationCity: string;
-  repassLocationState: State;
+  serviceLocation: {
+    name: string;
+    city: string;
+    state: State;
+    ministerName: string;
+    date: string;
+    time: string;
+  };
+  viewingLocation: {
+    name: string;
+    city: string;
+    state: State;
+    startTime: string;
+    endTime: string;
+  };
+  repassLocation: {
+    name: string;
+    city: string;
+    state: State;
+  };
 };
 
 export type Institution = {

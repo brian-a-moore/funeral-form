@@ -76,18 +76,28 @@ export const FORM_BIO: FormBio = {
   nickname: '',
   placeOfIncident: IncidentLocation.NONE,
   other: '',
-  dateOfBirth: DEFAULT_DATE,
-  cityOfBirth: '',
-  stateOfBirth: State.NONE,
-  dateOfDeath: DEFAULT_DATE,
-  cityOfDeath: '',
-  stateOfDeath: State.NONE,
-  fatherFirstName: '',
-  fatherLastName: '',
-  fatherIsDeceased: false,
-  motherFirstName: '',
-  motherLastName: '',
-  motherIsDeceased: false,
+  birth: {
+    date: DEFAULT_DATE,
+    city: '',
+    state: State.NONE,
+  },
+  death: {
+    date: DEFAULT_DATE,
+    city: '',
+    state: State.NONE,
+  },
+  parents: {
+    father: {
+      firstName: '',
+      lastName: '',
+      isDeceased: false,
+    },
+    mother: {
+      firstName: '',
+      lastName: '',
+      isDeceased: false,
+    },
+  },
 };
 
 export const FORM_EDUCATION: FormEducation = {
@@ -128,20 +138,26 @@ export const FORM_INFO: FormInfo = {
 };
 
 export const FORM_SERVICE: FormService = {
-  serviceLocationName: '',
-  serviceLocationCity: '',
-  serviceLocationState: State.NONE,
-  serviceLocationMinisterName: '',
-  serviceLocationDateOfService: DEFAULT_DATE,
-  serviceLocationTimeOfService: '08:00',
-  viewingLocationName: '',
-  viewingLocationCity: '',
-  viewingLocationState: State.NONE,
-  viewingLocationStartTime: '08:00',
-  viewingLocationEndTime: '08:00',
-  repassLocationName: '',
-  repassLocationCity: '',
-  repassLocationState: State.NONE,
+  serviceLocation: {
+    name: '',
+    city: '',
+    state: State.NONE,
+    ministerName: '',
+    date: DEFAULT_DATE,
+    time: '08:00',
+  },
+  viewingLocation: {
+    name: '',
+    city: '',
+    state: State.NONE,
+    startTime: '09:00',
+    endTime: '17:00',
+  },
+  repassLocation: {
+    name: '',
+    city: '',
+    state: State.NONE,
+  },
 };
 
 export const FORM_STEPS = [
