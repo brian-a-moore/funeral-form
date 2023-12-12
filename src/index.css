@@ -11,8 +11,9 @@ html {
 body {
   background-color: #343d55 !important;
   background-image: url('./assets/bg-shape-1.svg');
-  background-size: cover;
+  background-position: top 0% left 150px;
   background-repeat: no-repeat;
+  background-size: auto;
   padding: 1rem 0;
 }
 
