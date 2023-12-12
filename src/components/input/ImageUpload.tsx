@@ -73,9 +73,10 @@ export default function ImageUpload<F>({
     <Grid item xs={12} md={12}>
       <section
         style={{
-          backgroundColor: 'rgba(0,0,0,0.3)',
+          // backgroundColor: 'rgba(0,0,0,0.3)',
+          backgroundColor: '#5D86FE20',
           padding: '1rem',
-          borderRadius: '1rem',
+          borderRadius: '0.25rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -130,10 +131,10 @@ export default function ImageUpload<F>({
                   onChange={_handleImagesChange}
                 />
               </Button>
-              <Alert severity="info">
+              <p style={{ fontSize: '0.75rem'}}>
                 You can upload up to twelve images. Each image must be smaller
                 than 5MB
-              </Alert>
+              </p>
             </Grid>
           ) : null}
         </Grid>
