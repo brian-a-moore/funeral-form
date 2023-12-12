@@ -1,6 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Delete } from '@mui/icons-material';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import {
   Control,
   FieldErrors,
@@ -140,7 +139,7 @@ const Employer = ({
   return (
     <Card key={employer.id}>
       <Grid container spacing="1rem">
-        <SubHeader title={`Employer ${indexNumber + 1}`} />
+        <SubHeader title={`Employer ${indexNumber + 1}`} removeFn={() => removeEmployer(indexNumber)} />
         <TextInput
           name={`employers.${indexNumber}.name`}
           label="Company Name"
@@ -186,14 +185,6 @@ const Employer = ({
           control={control}
           md={4}
         />
-        <Grid item xs={12}>
-          <Button
-            startIcon={<Delete />}
-            color="error"
-            onClick={() => removeEmployer(indexNumber)}>
-            Remove Employer
-          </Button>
-        </Grid>
       </Grid>
     </Card>
   );

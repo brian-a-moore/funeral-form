@@ -1,6 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Delete } from '@mui/icons-material';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import {
   Control,
   FieldErrors,
@@ -200,7 +199,7 @@ const Institution = ({
   return (
     <Card key={institution.id}>
       <Grid container spacing="1rem">
-        <SubHeader title={`Institution ${indexNumber + 1}`} />
+        <SubHeader title={`Institution ${indexNumber + 1}`} removeFn={() => removeInstitution(indexNumber)} />
         <TextInput
           name={`institutions.${indexNumber}.name`}
           label="Institution Name"
@@ -263,14 +262,6 @@ const Institution = ({
           }
           xs={6}
         />
-        <Grid item xs={12}>
-          <Button
-            startIcon={<Delete />}
-            color="error"
-            onClick={() => removeInstitution(indexNumber)}>
-            Remove Institution
-          </Button>
-        </Grid>
       </Grid>
     </Card>
   );
@@ -292,7 +283,7 @@ const Organization = ({
   return (
     <Card key={organization.id}>
       <Grid container spacing="1rem">
-        <SubHeader title={`Organization ${indexNumber + 1}`} />
+        <SubHeader title={`Organization ${indexNumber + 1}`} removeFn={() => removeOrganization(indexNumber)} />
         <TextInput
           name={`organizations.${indexNumber}.name`}
           label="Organization Name"
@@ -321,14 +312,6 @@ const Organization = ({
             errors.organizations[indexNumber]?.numOfYears?.message
           }
         />
-        <Grid item xs={12}>
-          <Button
-            startIcon={<Delete />}
-            color="error"
-            onClick={() => removeOrganization(indexNumber)}>
-            Remove Organization
-          </Button>
-        </Grid>
       </Grid>
     </Card>
   );

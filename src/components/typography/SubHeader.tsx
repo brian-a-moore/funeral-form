@@ -1,16 +1,23 @@
-import { Grid, styled } from '@mui/material';
+import { Delete } from '@mui/icons-material';
+import { Grid, IconButton, styled } from '@mui/material';
 
 type Props = {
   title: string;
+  removeFn?: () => void;
 };
 
-export default function SubHeader({ title }: Props) {
+export default function SubHeader({ title, removeFn }: Props) {
   return (
     <Grid
       item
       xs={12}
       style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Title>{title}</Title>
+      <Title style={removeFn ? { height: '34px', lineHeight: '34px' } : {}}>{title}</Title>
+      {removeFn && (
+        <IconButton size="small" color='error' onClick={removeFn}>
+          <Delete fontSize='small' />
+        </IconButton>
+      )}
     </Grid>
   );
 }

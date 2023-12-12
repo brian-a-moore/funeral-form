@@ -1,6 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Delete } from '@mui/icons-material';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import {
   Control,
   FieldErrors,
@@ -230,7 +229,7 @@ const Child = ({
   return (
     <Card key={child.id}>
       <Grid container spacing="1rem">
-        <SubHeader title={`Child ${indexNumber + 1}`} />
+        <SubHeader title={`Child ${indexNumber + 1}`} removeFn={() => removeChild(indexNumber)} />
         <TextInput
           name={`children.${indexNumber}.firstName`}
           label="First Name"
@@ -283,14 +282,6 @@ const Child = ({
           control={control}
           md={6}
         />
-        <Grid item xs={12}>
-          <Button
-            startIcon={<Delete />}
-            color="error"
-            onClick={() => removeChild(indexNumber)}>
-            Remove Child
-          </Button>
-        </Grid>
       </Grid>
     </Card>
   );
@@ -312,7 +303,7 @@ const Sibling = ({
   return (
     <Card key={sibling.id}>
       <Grid container spacing="1rem">
-        <SubHeader title={`Sibling ${indexNumber + 1}`} />
+        <SubHeader title={`Sibling ${indexNumber + 1}`} removeFn={() => removeSibling(indexNumber)} />
         <TextInput
           name={`siblings.${indexNumber}.firstName`}
           label="First Name"
@@ -365,14 +356,6 @@ const Sibling = ({
           control={control}
           md={6}
         />
-        <Grid item xs={12}>
-          <Button
-            startIcon={<Delete />}
-            color="error"
-            onClick={() => removeSibling(indexNumber)}>
-            Remove Sibling
-          </Button>
-        </Grid>
       </Grid>
     </Card>
   );
@@ -394,7 +377,7 @@ const Friend = ({
   return (
     <Card key={friend.id}>
       <Grid container spacing="1rem">
-        <SubHeader title={`Friend ${indexNumber + 1}`} />
+        <SubHeader title={`Friend ${indexNumber + 1}`} removeFn={() => removeFriend(indexNumber)} />
         <TextInput
           name={`friends.${indexNumber}.firstName`}
           label="First Name"
@@ -414,14 +397,6 @@ const Friend = ({
           }
           md={6}
         />
-        <Grid item xs={12}>
-          <Button
-            startIcon={<Delete />}
-            color="error"
-            onClick={() => removeFriend(indexNumber)}>
-            Remove Friend
-          </Button>
-        </Grid>
       </Grid>
     </Card>
   );

@@ -1,4 +1,4 @@
-import { AddCircle } from '@mui/icons-material';
+import { Add } from '@mui/icons-material';
 import { Grid, IconButton, styled } from '@mui/material';
 
 type Props = {
@@ -18,7 +18,7 @@ export default function Header({ title, disabled = false, addFn }: Props) {
       </Title>
       {addFn && (
         <IconButton size="small" onClick={addFn} disabled={disabled}>
-          <AddCircle />
+          <Add />
         </IconButton>
       )}
     </Grid>
