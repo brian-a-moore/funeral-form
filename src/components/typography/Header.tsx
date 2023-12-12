@@ -28,5 +28,5 @@ export default function Header({ title, disabled = false, addFn }: Props) {
 const Title = styled('h1')({
   display: 'inline',
   fontWeight: 600,
-  color: '#1e88e5',
+  color: '#9FB7FE',
 });

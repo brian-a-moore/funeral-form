@@ -8,7 +8,7 @@ type Props = {
 export default function Card({ children }: Props) {
   return (
     <Grid item xs={12}>
-      <Paper style={{ padding: '1rem' }}>
+      <Paper variant='outlined' style={{ backgroundColor: '#1A1A1C', padding: '1rem' }}>
         <Grid container style={{ rowGap: '1rem' }}>
           {children}
         </Grid>

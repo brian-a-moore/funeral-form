@@ -24,12 +24,7 @@ import {
 } from './config/constants';
 import { Forms, MasterForm } from './config/types';
 import './index.css';
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import { theme } from './theme';
 
 export default function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -148,7 +143,7 @@ export default function App() {
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
         <Stepper activeStep={activeStep} />

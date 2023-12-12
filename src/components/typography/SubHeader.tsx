@@ -18,5 +18,5 @@ export default function SubHeader({ title }: Props) {
 const Title = styled('h2')({
   display: 'inline',
   fontWeight: 600,
-  color: '#90CAF9',
+  color: '#D7E1FF',
 });

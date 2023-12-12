@@ -9,6 +9,10 @@ html {
 }
 
 body {
+  background-color: #343d55 !important;
+  background-image: url('./assets/bg-shape-1.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
   padding: 1rem 0;
 }
 
