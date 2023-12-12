@@ -3,7 +3,6 @@ import {
   CssBaseline,
   Grid,
   ThemeProvider,
-  createTheme,
 } from '@mui/material';
 import { useState } from 'react';
 import {
@@ -145,7 +144,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container>
+      <Container style={{ padding: '6rem 1rem 1rem 1rem' }}>
         <Stepper activeStep={activeStep} />
         <Grid item xs={12}>
           {_showForm()}
