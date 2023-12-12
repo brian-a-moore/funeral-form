@@ -29,7 +29,7 @@ import { generateId } from '../../helpers/generate';
 import { Card, Form } from '../container';
 import { CheckboxInput, SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
-import { EmptyList, Header } from '../typography';
+import { EmptyList, Header, SubHeader } from '../typography';
 
 type Props = {
   activeStep: number;
@@ -200,6 +200,7 @@ const Institution = ({
   return (
     <Card key={institution.id}>
       <Grid container spacing="1rem">
+        <SubHeader title={`Institution ${indexNumber + 1}`} />
         <TextInput
           name={`institutions.${indexNumber}.name`}
           label="Institution Name"
@@ -291,6 +292,7 @@ const Organization = ({
   return (
     <Card key={organization.id}>
       <Grid container spacing="1rem">
+        <SubHeader title={`Organization ${indexNumber + 1}`} />
         <TextInput
           name={`organizations.${indexNumber}.name`}
           label="Organization Name"

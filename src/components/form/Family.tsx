@@ -27,7 +27,7 @@ import { generateId } from '../../helpers/generate';
 import { Card, Form } from '../container';
 import { CheckboxInput, SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
-import { EmptyList, Header } from '../typography';
+import { EmptyList, Header, SubHeader } from '../typography';
 
 type Props = {
   activeStep: number;
@@ -230,6 +230,7 @@ const Child = ({
   return (
     <Card key={child.id}>
       <Grid container spacing="1rem">
+        <SubHeader title={`Child ${indexNumber + 1}`} />
         <TextInput
           name={`children.${indexNumber}.firstName`}
           label="First Name"
@@ -311,6 +312,7 @@ const Sibling = ({
   return (
     <Card key={sibling.id}>
       <Grid container spacing="1rem">
+        <SubHeader title={`Sibling ${indexNumber + 1}`} />
         <TextInput
           name={`siblings.${indexNumber}.firstName`}
           label="First Name"
@@ -392,6 +394,7 @@ const Friend = ({
   return (
     <Card key={friend.id}>
       <Grid container spacing="1rem">
+        <SubHeader title={`Friend ${indexNumber + 1}`} />
         <TextInput
           name={`friends.${indexNumber}.firstName`}
           label="First Name"

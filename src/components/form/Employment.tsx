@@ -21,7 +21,7 @@ import { generateId } from '../../helpers/generate';
 import { Card, Form } from '../container';
 import { CheckboxInput, SelectInput, TextInput } from '../input';
 import { Navigation } from '../navigation';
-import { EmptyList, Header } from '../typography';
+import { EmptyList, Header, SubHeader } from '../typography';
 
 type Props = {
   activeStep: number;
@@ -140,6 +140,7 @@ const Employer = ({
   return (
     <Card key={employer.id}>
       <Grid container spacing="1rem">
+        <SubHeader title={`Employer ${indexNumber + 1}`} />
         <TextInput
           name={`employers.${indexNumber}.name`}
           label="Company Name"
