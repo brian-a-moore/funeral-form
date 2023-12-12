@@ -131,10 +131,10 @@ export default function ImageUpload<F>({
                   onChange={_handleImagesChange}
                 />
               </Button>
-              <p style={{ fontSize: '0.75rem'}}>
+              <span style={{ fontSize: '0.75rem'}}>
                 You can upload up to twelve images. Each image must be smaller
                 than 5MB
-              </p>
+              </span>
             </Grid>
           ) : null}
         </Grid>

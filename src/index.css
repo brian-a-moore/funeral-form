@@ -27,3 +27,8 @@ h6 {
   font-size: 1rem;
   font-weight: normal;
 }
+
+p {
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
