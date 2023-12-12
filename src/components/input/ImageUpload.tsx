@@ -73,10 +73,6 @@ export default function ImageUpload<F>({
     <Grid item xs={12} md={12}>
       <section
         style={{
-          // backgroundColor: 'rgba(0,0,0,0.3)',
-          backgroundColor: '#5D86FE20',
-          padding: '1rem',
-          borderRadius: '0.25rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -100,7 +96,7 @@ export default function ImageUpload<F>({
                   zIndex: '2',
                 }}
                 onClick={() => _removeImage(index)}>
-                <Close />
+                <Close fontSize='inherit' />
               </IconButton>
               <PreviewImage src={URL.createObjectURL(image)} />
             </Grid>
